@@ -1,0 +1,64 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Noto+Serif+TC:wght@200..900&family=Permanent+Marker&family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    body {
+        font-family: "Tinos", "Noto Serif TC", serif;
+        color: #000000;
+    }
+
+    p {
+        margin-bottom: 1em;
+    }
+
+    a {
+        text-decoration: none;
+        color: #03213D;
+        font-weight: bold;
+    }
+
+    blockquote {
+        margin: 0;
+        border-left: 2px solid #666666;
+        padding-left: 6px;
+        color: #666666;
+        margin-top: 20px;
+        font-style: italic;
+        font-family: "Tinos", serif;
+    }
+</style>
+
+<p>收件人：{{ user.username }}</p>
+<p>狀態：臨時接納中</p>
+<p>——</p>
+
+<p>
+    您的進入請求已被 <strong>BASE 03 通訊中心</strong> 接收，
+    <br>
+    為確認您的身份與通訊裝置有效，
+    <br>
+    請於 20 分鐘內點擊以下連結完成認證：
+</p>
+
+<p><a href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}">
+        http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    </a></p>
+
+<p>
+    一旦錯過連線窗口，
+    <br>
+    我們將難以再次發送授權通道，
+    <br>
+    請謹慎行動。
+</p>
+
+<p>——</p>
+
+<p>
+    <strong>BASE 03 控管中心</strong>
+    <br>
+    信號代碼：<strong><i>Z3-BRAVO</i></strong>
+</p>
+
+<blockquote>
+    We’ll keep the gate open — but only for a short time. Don’t miss your chance.
+</blockquote>

@@ -1,0 +1,16 @@
+:root {
+    --Primary-Color: #FDF7E7;
+    --RE-Primary-Color: #FDF8E9;
+    --Secondary-Color: #F1C9DA;
+    --Accent-Color: #8D3136;
+    --Sub-Accent-Color: #EBA9CD;
+    --Contrast-Color: #3D5272;
+    --Text-Color: #4C4B6A;
+    --Input-Background: #FDF7E7;
+    --Button-Text-Color: #FDF7E7;
+    --Level-Background: #3D5272;
+    --Level-Text-Color: #FDF7E7;
+    --Section-Text-Color: #8D3136;
+    --Section-Hover-Color: #4C4B6A;
+    --Shadow-Color: rgb(241, 201, 218);
+}

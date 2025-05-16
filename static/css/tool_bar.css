@@ -1,0 +1,435 @@
+#toolBar {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: var(--Primary-Color);
+    z-index: 20;
+}
+
+#title {
+    width: 250px;
+    font-size: 42px;
+    padding-inline: 20px;
+}
+
+#externalLink {
+    width: 270px;
+}
+
+#externalLink a {
+    font-size: 1rem;
+    font-family: "Noto Serif TC", serif;
+    color: var(--Contrast-Color);
+    margin-right: 20px;
+}
+
+#searchField {
+    width: calc(100vw - 1000px);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    background: var(--Contrast-Color);
+    border-radius: 10px;
+    margin-left: 40px;
+    margin-right: 20px;
+}
+
+#searchField input {
+    width: calc(100vw - 1080px);
+    height: 30px;
+    border: none;
+    margin-left: 1px;
+    font-size: 1.03rem;
+    letter-spacing: 1px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
+    background: var(--Input-Background);
+    color: var(--Contrast-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+#searchField button {
+    width: 64px;
+    text-align: center;
+    font-size: 1.03rem;
+    color: var(--Button-Text-Color);
+    font-family: "Noto Serif TC", serif;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#tool {
+    width: 150px;
+    height: 40px;
+    display: flex;
+}
+
+div.message {
+    width: 40px;
+    height: 50px;
+    position: relative;
+    margin-inline: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+#tool>button {
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    outline: none;
+    margin-inline: 5px;
+}
+
+div.message img.toolImg {
+    height: 20px;
+    margin: 0;
+    margin-top: 10px;
+}
+
+div.messageExpand {
+    width: 260px;
+    height: 320px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: -210px;
+    z-index: 10;
+    margin-top: -5px;
+    background: var(--RE-Primary-Color);
+    border-radius: 5px;
+    box-shadow: 0 2px 8px var(--Shadow-Color);
+}
+
+div.message:hover div.messageExpand {
+    display: block;
+}
+
+div.messageExpand div.messageExpandButton {
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-inline: 10px;
+}
+
+div.messageExpandButton p {
+    width: 120px;
+    font-size: 0.8rem;
+}
+
+div.messageExpandButton button {
+    font-size: 0.75rem;
+    font-family: "Noto Serif TC", serif;
+    color: var(--Contrast-Color);
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+}
+
+div.messageContainer {
+    height: 290px;
+    overflow-y: scroll;
+}
+
+div.messageContainer a {
+    color: var(--Text-Color);
+}
+
+div.perMessage {
+    height: 48px;
+    margin-inline: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+div.perMessage img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+div.perMessageDetail {
+    display: flex;
+    flex-direction: column;
+    margin-inline: 5px;
+}
+
+div.perMessageDetail p:nth-of-type(1) {
+    width: 194px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-block: 0;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.perMessageDetail p:nth-of-type(1) span:nth-of-type(2) {
+    font-size: 0.55rem;
+}
+
+div.perMessageDetail p:nth-of-type(2) {
+    max-width: 194px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-block: 0;
+    margin-top: 2px;
+    /*font-weight: bold;*/
+}
+
+div.perNoticeDetail {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+div.perNoticeDetail p:nth-of-type(1) {
+    width: 250px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-block: 0;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.perNoticeDetail p:nth-of-type(1) span:nth-of-type(2) {
+    font-size: 0.55rem;
+}
+
+div.perNoticeDetail p:nth-of-type(2) {
+    max-width: 250px;
+    font-size: 0.65rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-block: 0;
+    margin-top: 2px;
+    /*font-weight: bold;*/
+}
+
+#toggleButton {
+    cursor: pointer;
+}
+
+#loginA {
+    width: 160px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+#loginA a {
+    width: 100px;
+    height: 100%;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+}
+
+#profile {
+    width: 180px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+#profile img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 18px;
+    margin-right: 5px;
+}
+
+#name {
+    color: var(--Text-Color);
+}
+
+#profileExpand {
+    width: 200px;
+    height: 320px;
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 10;
+    background: var(--RE-Primary-Color);
+    border-radius: 5px;
+    box-shadow: 0 2px 8px var(--Shadow-Color);
+}
+
+#profile:hover #profileExpand {
+    display: block;
+}
+
+#playerAccount {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+#playerAccount img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    overflow: hidden;
+    margin-block: 10px;
+    margin-inline: 10px;
+    border-radius: 5px;
+}
+
+#playerAccountText {
+    display: flex;
+    flex-direction: column;
+}
+
+#playerAccountText>p:nth-of-type(1) {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+#playerAccountText>p:nth-of-type(2) {
+    font-size: 0.65rem;
+    margin: 0;
+    margin-left: 3px;
+}
+
+#playerAccountText span {
+    font-size: 0.7rem;
+    font-family: "Bubblegum Sans", sans-serif;
+}
+
+#playerExp {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 0;
+    margin-inline: 20px;
+    margin-top: -15px;
+}
+
+#playerExp>p:nth-of-type(1) {
+    font-size: 0.9rem;
+    font-family: "Bubblegum Sans", sans-serif;
+    margin-top: 20px;
+}
+
+#playerExpDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+#playerExpDetail p {
+    font-size: 0.6rem;
+    font-family: "Bubblegum Sans", sans-serif;
+    margin: 0;
+}
+
+#playerExpBar {
+    width: 130px;
+    height: 1.8px;
+    position: relative;
+    margin: 0;
+    margin-left: 5px;
+}
+
+#playerExpBar div {
+    width: 130px;
+    position: absolute;
+}
+
+#playerExpBar>div:nth-of-type(1) {
+    height: 100%;
+    background: #CCCCCC;
+}
+
+#playerExpBar>div:nth-of-type(2) {
+    height: 100%;
+    background: var(--Contrast-Color);
+}
+
+#playerData {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+#playerData a {
+    text-align: center;
+    color: var(--Text-Color);
+    font-family: "Noto Serif TC", serif;
+}
+
+#playerData a:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.number {
+    font-size: 0.8rem;
+    font-family: "Bubblegum Sans", sans-serif;
+    margin: 0;
+}
+
+p.title {
+    font-size: 0.7rem;
+    margin: 0;
+}
+
+#profileButton {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+#profileButton a {
+    width: 200px;
+    height: 36px;
+    line-height: 36px;
+    font-size: 0.85rem;
+    text-align: center;
+    font-family: "Noto Serif TC", serif;
+    color: var(--Text-Color);
+}
+
+#profileButton a:hover {
+    color: var(--Section-Text-Color);
+}
+
+#profileButton button {
+    width: 200px;
+    height: 36px;
+    font-size: 0.85rem;
+    font-family: "Noto Serif TC", serif;
+    color: var(--Text-Color);
+    background: none;
+    border: none;
+}
+
+#profileButton button:hover {
+    color: var(--Section-Text-Color);
+}

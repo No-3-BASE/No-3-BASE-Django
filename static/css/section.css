@@ -1,0 +1,290 @@
+#sectionImg {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+#sectionImg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+}
+
+#sectionImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+#sectionTitle {
+    position: relative;
+    margin-top: -64px;
+    display: flex;
+}
+
+#sectionTitle img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#sectionTitleDetail {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+#sectionTitleDetail p {
+    margin: 0;
+    margin-left: 10px;
+}
+
+#sectionTitleDetail p:nth-last-of-type(2) {
+    font-size: 1.75rem;
+    font-weight: 900;
+    color: var(--Text-Color);
+}
+
+#sectionTitleDetail p:nth-last-of-type(1) {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--Text-Color);
+}
+
+#sectionTitleDetail div {
+    height: 60px;
+    width: 780px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#sectionTitleDetail div>#sectionStats {
+    width: 580px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+#sectionTitleDetail div button {
+    width: 80px;
+    height: 24px;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    border-radius: 5px;
+}
+
+p.subTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 20px;
+}
+
+#announcementsContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#announcementsContainer button {
+    width: 30px;
+    font-size: larger;
+    color: var(--Text-Color);
+}
+
+#announcements {
+    width: 860px;
+    padding-block: 15px;
+    display: flex;
+    overflow-x: scroll;
+}
+
+div.perAnnouncement {
+    width: 260px;
+    height: 200px;
+    margin-inline: 10px;
+    border-radius: 10px;
+    background: var(--Secondary-Color);
+}
+
+div.announcement {
+    width: 240px;
+    height: 190px;
+    margin-block: 5px;
+    margin-inline: 10px;
+    overflow-y: scroll;
+}
+
+p.announcementTitle {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+p.announcementContent {
+    font-size: 0.7rem;
+    font-weight: 300;
+    line-height: 1.2rem;
+    margin: 0;
+}
+
+#subTitleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#subTitleBar p.subTitle {
+    margin: 0;
+    line-height: 57px;
+    padding: 0;
+}
+
+#searchSections {
+    width: 200px;
+    height: 26px;
+    background: var(--Contrast-Color);
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+}
+
+#searchSections input {
+    width: 136px;
+    height: 20px;
+    border: none;
+    margin-left: 1px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    color: var(--Contrast-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+    background: var(--Input-Background);
+}
+
+#searchSections button {
+    width: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--Button-Text-Color);
+    font-family: "Noto Serif TC", serif;
+}
+
+div.class {
+    display: flex;
+    align-items: center;
+}
+
+div.class p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+div.class button {
+    padding-inline: 10px;
+    color: var(--Text-Color);
+}
+
+#sortArticle {
+    display: flex;
+    justify-content: right;
+}
+
+#sortArticle button {
+    color: var(--Text-Color);
+}
+
+#articles {
+    margin-top: 5px;
+}
+
+div.perArticle {
+    height: 116px;
+    margin-bottom: 16px;
+    padding-inline: 10px;
+    padding-block: 3px;
+    border-radius: 5px;
+    background: var(--Secondary-Color);
+}
+
+div.perArticle p {
+    margin: 0;
+    color: var(--Text-Color);
+}
+
+p.basicInfo {
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+p.basicInfo span {
+    font-size: 0.7rem;
+}
+
+span.infoSeparate {
+    margin-inline: 2px;
+}
+
+span.timeInfo {
+    margin-inline: 5px;
+}
+
+p.basicInfo button {
+    color: var(--Text-Color);
+}
+
+div.menu {
+    position: absolute;
+    margin-left: 810px;
+    background: var(--Primary-Color);
+    display: none;
+    flex-direction: column;
+}
+
+div.menu a {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu a:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleTitle {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+p.articleTitle:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleContent {
+    font-size: 0.75rem;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.articleInfo {
+    text-align: right;
+    padding-top: 5px;
+    font-size: 0.7rem;
+}

@@ -1,0 +1,103 @@
+#content {
+    margin-top: 10px;
+}
+
+#playerCenter {
+    display: flex;
+    justify-content: space-between;
+}
+
+#playerProfile {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+}
+
+#playerDetail {
+    background: var(--Secondary-Color);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-block: 20px;
+}
+
+#playerDetail p {
+    margin: 0;
+    margin-top: 10px;
+}
+
+#playerDetail img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#playerName {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+#playerName span {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--Level-Text-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Level-Background);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+}
+
+#playerDays {
+    font-size: 0.8rem;
+}
+
+#playerDays span {
+    font-size: 0.9rem;
+    font-family: "Bubblegum Sans", sans-serif;
+}
+
+#playerSign {
+    font-size: 0.8rem;
+}
+
+#playerSign+p {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+#playerTool {
+    width: 200px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background: var(--Secondary-Color);
+}
+
+#playerTool a {
+    width: 200px;
+    padding-block: 10px;
+    font-size: 0.9rem;
+    color: var(--Text-Color);
+    text-align: center;
+}
+
+#playerTool a:hover {
+    color: var(--Section-Text-Color);
+}
+
+div.line {
+    background: var(--Text-Color);
+    opacity: 0.3;
+}
+
+#playerContent {
+    width: 650px;
+    height: 100vh;
+    background: var(--Secondary-Color);
+    border-radius: 5px;
+}

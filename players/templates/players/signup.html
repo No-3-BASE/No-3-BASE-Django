@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <title>No 3 BASE 註冊帳號</title>
+</head>
+
+<body class="dark">
+
+    <div id="board">
+        <a id="title" href="index.html">NO 3 BASE</a>
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <label for="account">
+                <p>帳號</p>
+                <input name="account" class="accountTextField" type="text" required>
+            </label>
+            <label for="">
+                <p>信箱</p>
+                <input name="email" class="accountTextField" type="email" required>
+            </label>
+            <label for="password">
+                <p>密碼</p>
+                <input name="password" class="accountTextField" type="password" required>
+            </label>
+            <label for="confirmPassword">
+                <p>確認密碼</p>
+                <input name="confirmPassword" class="accountTextField" type="password" required>
+            </label>
+            <p class="accountAlertText">已經有帳號嗎？<a href="{% url 'login' %}" style="text-decoration: underline;">登入帳號</a>
+            </p>
+            <div id="accountButton">
+                <button class="accountButton" type="submit">註冊</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

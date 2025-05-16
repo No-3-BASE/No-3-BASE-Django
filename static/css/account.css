@@ -1,0 +1,95 @@
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#board {
+    width: 500px;
+    height: 80vh;
+    min-height: 600px;
+    background: var(--Secondary-Color);
+    border-radius: 10px;
+    box-shadow: 0 4 12 rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#title {
+    padding-block: 30px;
+    font-size: 60px;
+}
+
+label {
+    display: block;
+    background: none;
+}
+
+label p {
+    margin: 0;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+input.accountTextField {
+    width: 360px;
+    height: 24px;
+    font-size: 16px;
+    font-family: "Tinos", serif;
+    background: var(--Input-Background);
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 7px;
+    color: var(--Contrast-Color);
+}
+
+input.accountTextField:focus {
+    outline: none;
+}
+
+#loginTool {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#rember {
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+input[type="checkbox"] {
+    height: 0.7rem;
+    margin: 0;
+    accent-color: var(--Contrast-Color);
+}
+
+p.accountAlertText {
+    text-align: right;
+    font-size: 12px;
+    font-weight: lighter;
+}
+
+p.accountAlertText a {
+    color: var(--Text-Color);
+    font-weight: bolder;
+}
+
+#accountButton {
+    width: 382px;
+    display: flex;
+    justify-content: center;
+}
+
+button.accountButton {
+    width: 320px;
+    height: 30px;
+    margin-top: 20px;
+    box-shadow: none;
+    border: none;
+    border-radius: 8px;
+    color: var(--Button-Text-Color);
+    font-family: "Noto Serif TC", serif;
+    background: var(--Contrast-Color);
+}

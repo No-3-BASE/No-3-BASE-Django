@@ -1,0 +1,159 @@
+#advertise {
+    height: 240px;
+    margin-top: 20px;
+    background: white;
+}
+
+p.subTitle {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+#announcementsContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#announcementsContainer button {
+    width: 30px;
+    font-size: larger;
+    color: var(--Text-Color);
+}
+
+#announcements {
+    width: 860px;
+    padding-block: 15px;
+    display: flex;
+    overflow-x: scroll;
+}
+
+div.perAnnouncement {
+    width: 260px;
+    height: 200px;
+    margin-inline: 10px;
+    border-radius: 10px;
+    background: var(--Secondary-Color);
+}
+
+div.announcement {
+    width: 240px;
+    height: 190px;
+    margin-block: 5px;
+    margin-inline: 10px;
+    overflow-y: scroll;
+}
+
+p.announcementTitle {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+p.announcementContent {
+    font-size: 0.7rem;
+    font-weight: 300;
+    line-height: 1.2rem;
+    margin: 0;
+}
+
+#popularSections div.allSections {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, auto);
+    background: var(--Secondary-Color);
+    padding-block: 10px;
+    border-radius: 5px;
+    margin-block: 10px;
+}
+
+div.section {
+    display: flex;
+    align-items: center;
+}
+
+img.sectionImg {
+    width: 40px;
+    height: 40px;
+    margin-inline: 10px;
+    margin-block: 5px;
+    background: bisque;
+}
+
+a.sectionA {
+    color: var(--Section-Text-Color);
+}
+
+a.sectionA:hover {
+    font-weight: 600;
+    color: var(--Section-Hover-Color);
+}
+
+#allSections {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#subTitleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#subTitleBar p.subTitle {
+    margin: 0;
+    line-height: 57px;
+    padding: 0;
+}
+
+#searchSections {
+    width: 200px;
+    height: 26px;
+    background: var(--Contrast-Color);
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+}
+
+#searchSections input {
+    width: 136px;
+    height: 20px;
+    border: none;
+    margin-left: 1px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    color: var(--Contrast-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+    background: var(--Input-Background);
+}
+
+#searchSections button {
+    width: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--Button-Text-Color);
+    font-family: "Noto Serif TC", serif;
+}
+
+div.class {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+div.class p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+div.class button {
+    padding-inline: 10px;
+    color: var(--Text-Color);
+}
+
+#allSections div.allSections {
+    clear: both;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
