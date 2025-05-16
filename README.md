@@ -8,16 +8,13 @@
 
 quit() → 離開python
 
-
 輸入 mkdir 資料夾名稱(範例使用web) → 建立資料夾
 
 輸入 cd  資料夾名稱 → 進入資料夾
 
-
 輸入 py -m venv  資料夾名稱2(範例使用myworld) → 建立虛擬環境
 
 輸入  資料夾名稱2\Scripts\activate.bat → 進入虛擬環境
-
 
 (在虛擬環境)
 
@@ -25,13 +22,11 @@ quit() → 離開python
 
 輸入 django-admin --version → 查看 Django 版本
 
-
 ( clone 檔案)
 
 輸入 git clone https://github.com/No-3-BASE/No-3-BASE-Django.git → 從 git 下載
 
 輸入 cd No-3-BASE-Django → 進入資料夾
-
 
 (執行)
 
