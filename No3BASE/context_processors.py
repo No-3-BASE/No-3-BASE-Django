@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 
 def toolbar_context(request):
+    print(f"目前登入狀態 {request.user.is_authenticated}")
     if request.user.is_authenticated:
         return {
             'toolBar': {
                 'isLogin': True,
-                'name': request.user.username
+                'name': request.user.first_name
             }
         }
     return {

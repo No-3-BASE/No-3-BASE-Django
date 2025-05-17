@@ -46,7 +46,7 @@
                 <br>時間戳記：{{ zuluTime }}
             </div>
             <div>
-                <form method="post" action="{% url 'welcome' %}">
+                <form method="post" action="{% url 'player:welcome' %}">
                     {% csrf_token %}
                     簽署人：<input name="name" id="sign" type="text" required>
                     <br>識別碼：{{ account }}

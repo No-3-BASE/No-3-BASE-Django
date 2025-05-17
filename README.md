@@ -32,7 +32,7 @@ quit() → 離開python
 
 輸入 python manage.py runserver → 啟動 server
 
-開啟 http://127.0.0.1:8000/players/signup → 前往註冊畫面
+開啟 http://127.0.0.1:8000/player/signup → 前往註冊畫面
 
 > 帳號和信箱都有綁唯一性、會發送驗證信
 

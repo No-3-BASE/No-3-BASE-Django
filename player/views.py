@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import get_object_or_404
@@ -11,7 +11,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 
-
+#註冊帳號
 def signup_view(request):
     errorMessage = None
 
@@ -28,7 +28,7 @@ def signup_view(request):
         #密碼一致性確認
         if confirm_password != password:
             errorMessage = "密鑰配對錯誤：請輸入密鑰確保同步性"
-            return render(request, 'players/signup.html', {'errorMessage': errorMessage})
+            return render(request, 'player/signup.html', {'errorMessage': errorMessage})
         print("完成密碼確認")
         
         #密碼強度檢查
@@ -37,17 +37,17 @@ def signup_view(request):
         #將錯誤內容指派給變數e
         except ValidationError as e:
             errorMessage = "密鑰驗證失敗：輸入密鑰不符通訊規範"
-            return render(request, 'players/signup.html', {'errorMessage': errorMessage})
+            return render(request, 'player/signup.html', {'errorMessage': errorMessage})
         print("通過密碼認證")
         
         #帳號唯一性確認
         if User.objects.filter(username = account).exists():
             errorMessage = "識別衝突：該識別碼已在通訊系統內登記"
-            return render(request, 'players/signup.html', {'errorMessage': errorMessage})
+            return render(request, 'player/signup.html', {'errorMessage': errorMessage})
         #帳號唯一性確認
         if User.objects.filter(email = email).exists():
             errorMessage = "端口衝突：該通訊端口已綁定其他識別碼"
-            return render(request, 'players/signup.html', {'errorMessage': errorMessage})
+            return render(request, 'player/signup.html', {'errorMessage': errorMessage})
         print("通過唯一性認證")
         
         #建立新帳號
@@ -58,10 +58,30 @@ def signup_view(request):
 
         #暫時記住用戶
         request.session['tempUserId'] = user.id
-        return redirect('welcome')
+        request.session['postConsentRedirect'] = '/player/login'
+        return redirect('player:welcome')
     
-    return render(request, 'players/signup.html')
+    return render(request, 'player/signup.html')
 
+#帳號驗證
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = get_object_or_404(User, pk = uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        print("成功啟用帳號")
+        return redirect('player:login')
+    
+    else:
+        #要換html
+        return render(request, 'signup.html')
+
+#同意書並簽名
 def consent_form_view(request):
     #獲取用戶
     userId = request.session.get('tempUserId')
@@ -77,7 +97,7 @@ def consent_form_view(request):
         #寄送驗證信
         currentSite = get_current_site(request)
         mailSubject = '📡 Welcome to No.3 BASE – The Last Safe Zone'
-        message = render_to_string('players/signupEmail.html', {
+        message = render_to_string('player/signupEmail.html', {
             'user': user,
             'domain': currentSite,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
@@ -95,16 +115,19 @@ def consent_form_view(request):
         user.save()
         print(name)
 
-        return redirect('login')
+        nextUrl = request.session.pop('postConsentRedirect', '/player/login')
+        return redirect(nextUrl)
+        #return redirect('player:login')
     
     #設定協調時間
     zuluTime = user.date_joined.strftime("ZULU TIME %Y.%m.%d | %H:%M")
 
-    return render(request, 'players/consent_form.html', {
+    return render(request, 'player/consent_form.html', {
         'account': user.username,
         'zuluTime': zuluTime
     })
 
+#登入帳號
 def login_view(request):
     errorMessage = None
 
@@ -124,7 +147,7 @@ def login_view(request):
         except User.DoesNotExist:
             errorMessage = "識別失敗：查無此通訊帳號"
             print("查無帳號")
-            return render(request, 'players/login.html', {'errorMessage': errorMessage})
+            return render(request, 'player/login.html', {'errorMessage': errorMessage})
         
         #帳號存在進行登入
         user = authenticate(request, username = account, password = password)
@@ -140,25 +163,25 @@ def login_view(request):
             else:
                 request.session.set_expiry(60*60*24*180)
                 print("記住帳號")
+            
+            #如果沒有完成暱稱設定（視為未同意規則）
+            if not user.first_name:
+                #暫時記住用戶
+                request.session['tempUserId'] = user.id
+                request.session['postConsentRedirect'] = request.GET.get('next') or '/'
+                return redirect('player:welcome')
+
+            nextUrl = request.GET.get('next') or '/'
+            return redirect(nextUrl)
+        
         else:
             #密碼錯誤登入失敗
             errorMessage = "驗證失敗：請確認您的通訊密鑰"
 
-    return render(request, 'players/login.html', {'errorMessage': errorMessage})
+    return render(request, 'player/login.html', {'errorMessage': errorMessage})
 
-def activate(request, uidb64, token):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = get_object_or_404(User, pk = uid)
-    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
-        user = None
-
-    if user is not None and default_token_generator.check_token(user, token):
-        user.is_active = True
-        user.save()
-        print("成功啟用帳號")
-        return redirect('login')
-    
-    else:
-        #要換html
-        return render(request, 'signup.html')
+#登出帳號
+def logout_view(request):
+    logout(request)
+    nextUrl = request.GET.get('next') or '/'
+    return redirect(nextUrl)

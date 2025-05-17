@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script src="{% static 'js/scroll_control.js' %}"></script>
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <title>No 3 BASE</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        <div id="advertise">
+            <img src="" alt="">
+        </div>
+        <div id="sectionAnnouncement">
+            <p class="subTitle" style="padding: 0;">論壇公告</p>
+            <div id="announcementsContainer">
+                <button type="button" id="scrollLeftBtn">‹</button>
+                <div id="announcements" class="hide-scrollbar">
+                    <div class="perAnnouncement">
+                        <div class="announcement hide-scrollbar">
+                            <p class="announcementTitle">公告標題</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Accusamus
+                                quasi pariatur alias perferendis provident, quae recusandae, esse ipsa ipsam, non vitae
+                                tempora
+                                culpa nemo? Ducimus, nesciunt? Dolor harum unde nulla!中文字</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Assumenda
+                                voluptatem molestiae est corrupti saepe necessitatibus adipisci, quibusdam reiciendis
+                                veniam
+                                eum
+                                tenetur corporis praesentium consequatur obcaecati laboriosam. Labore minus molestiae
+                                ipsa.
+                            </p>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="perAnnouncement">
+                        <div class="announcement hide-scrollbar">
+                            <p class="announcementTitle">公告標題</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Accusamus
+                                quasi pariatur alias perferendis provident, quae recusandae, esse ipsa ipsam, non vitae
+                                tempora
+                                culpa nemo? Ducimus, nesciunt? Dolor harum unde nulla!中文字</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Assumenda
+                                voluptatem molestiae est corrupti saepe necessitatibus adipisci, quibusdam reiciendis
+                                veniam
+                                eum
+                                tenetur corporis praesentium consequatur obcaecati laboriosam. Labore minus molestiae
+                                ipsa.
+                            </p>
+                        </div>
+                    </div>
+                    -->
+                </div>
+                <button type="button" id="scrollRightBtn">›</button>
+            </div>
+        </div>
+        <div id="popularSections">
+            <p class="subTitle">熱門板塊</p>
+            <div id="popular" class="allSections"></div>
+            <script>
+                const allPopularSections = document.getElementById("popular")
+
+                for (let i = 1; i <= 12; i++) {
+                    const section = document.createElement("div")
+                    section.className = "section"
+
+                    const img = document.createElement("img")
+                    img.className = "sectionImg"
+
+                    const a = document.createElement("a")
+                    a.innerText = "遊戲名稱"
+                    a.className = "sectionA"
+                    a.href = "section.html"
+
+                    section.appendChild(img)
+                    section.append(a)
+                    allPopularSections.appendChild(section)
+                }
+            </script>
+        </div>
+        <div id="allSections">
+            <div id="subTitleBar">
+                <p class="subTitle">板塊列表</p>
+                <div id="searchSections">
+                    <input id="searchSectionsField" type="text" placeholder="搜尋板塊">
+                    <button id="searchSectionButton" type="button">搜尋</button>
+                </div>
+            </div>
+            <div class="class">
+                <p>遊戲平台</p>
+                <button type="button">電腦遊戲</button>
+            </div>
+            <div id="all" class="allSections"></div>
+            <script>
+                const allSections = document.getElementById("all")
+
+                for (let i = 1; i <= 13; i++) {
+                    const section = document.createElement("div")
+                    section.className = "section"
+
+                    const img = document.createElement("img")
+                    img.className = "sectionImg"
+
+                    const a = document.createElement("a")
+                    a.innerText = "遊戲名稱"
+                    a.className = "sectionA"
+                    a.href = ""
+
+                    section.appendChild(img)
+                    section.append(a)
+                    allSections.appendChild(section)
+                }
+            </script>
+        </div>
+    </div>
+</body>
+
+</html>

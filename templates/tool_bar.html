@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{% static 'css/tool_bar.css' %}">
 
 <div id="toolBar">
-    <a id="title" href="index.html">NO 3 BASE</a>
+    <a id="title" href="{% url 'board:home' %}">NO 3 BASE</a>
     <div id="externalLink">
         <a href="">論壇規則</a>
         <a href="">外部連結</a>
@@ -87,7 +87,7 @@
             <img id="themeImg" class="toolImg">
         </button>
     </div>
-    {% if toolbar.isLogin %}
+    {% if toolBar.isLogin %}
     <div id="profile">
         <img src="assets/images/photo_r.jpg" alt="">
         <a href="" id="name">{{ toolBar.name }}</a>
@@ -129,13 +129,17 @@
                 <a href="">我的草稿</a>
                 <a href="">我的收藏</a>
 
-                <button type="button">登出</button>
+                <form method="post" action="{% url 'player:logout' %}?next={{ request.path }}">
+                    {% csrf_token %}
+                    <button type="submit">登出</button>
+                </form>
+
             </div>
         </div>
     </div>
     {% else %}
     <div id="loginA">
-        <a href="login.html">登入</a>
+        <a href="{% url 'player:login' %}?next={{ request.path }}">登入</a>
     </div>
     {% endif %}
 </div>
