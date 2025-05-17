@@ -19,25 +19,28 @@
         <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             <label for="account">
-                <p>帳號</p>
+                <p>識別碼 (帳號)</p>
                 <input name="account" class="accountTextField" type="text" required>
             </label>
             <label for="">
-                <p>信箱</p>
+                <p>通訊端口 (信箱)</p>
                 <input name="email" class="accountTextField" type="email" required>
             </label>
             <label for="password">
-                <p>密碼</p>
+                <p>密鑰
+                    <span style="font-size: 12px; margin-left: 5px;">不可過於常見或與帳號相似，至少8字元並且不可全為數字</span>
+                </p>
                 <input name="password" class="accountTextField" type="password" required>
             </label>
             <label for="confirmPassword">
-                <p>確認密碼</p>
+                <p>確認密鑰</p>
                 <input name="confirmPassword" class="accountTextField" type="password" required>
             </label>
             <p class="accountAlertText">已經有帳號嗎？<a href="{% url 'login' %}" style="text-decoration: underline;">登入帳號</a>
             </p>
+            <p id="alert">{% if errorMessage %}{{ errorMessage }}{% else %}　{% endif %}</p>
             <div id="accountButton">
-                <button class="accountButton" type="submit">註冊</button>
+                <button class="accountButton" type="submit">申請</button>
             </div>
         </form>
     </div>

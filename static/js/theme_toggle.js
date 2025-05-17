@@ -1,8 +1,5 @@
 const STATIC_URL = "/static/"
 
-const darkcss = STATIC_URL + "css/global_dark.css"
-const lightcss = STATIC_URL + "css/global_light.css"
-
 const icons = {
     light: {
         theme: STATIC_URL + "assets/images/Tool_3D5272/moon.png",
@@ -30,17 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
         html.setAttribute("data-theme", prefersLight ? "light" : "dark")
     }
 
-    console.log("themeLink href 設定為:", html.documentElement)
-})
-//下面是toolbar圖標和切換
-/*
-document.addEventListener("toolBarLoaded", function () {
-    const themeLink = document.getElementById("themeStyleSheet")
     const themeButtonIcon = document.getElementById("themeImg")
     const messageImg = document.getElementById("messageImg")
     const noticeImg = document.getElementById("noticeImg")
 
-    if (themeLink.href.includes("light")) {
+    if (html.getAttribute("data-theme") === "light") {
         themeButtonIcon.src = icons.light.theme
         themeButtonIcon.style.height = icons.light.height
         messageImg.src = icons.light.message
@@ -52,33 +43,25 @@ document.addEventListener("toolBarLoaded", function () {
         messageImg.src = icons.dark.message
         noticeImg.src = icons.dark.notice
     }
-
 })
 
 function toggleTheme() {
-    const themeLink = document.getElementById("themeStyleSheet")
+    const html = document.documentElement
     const themeButtonIcon = document.getElementById("themeImg")
     const messageImg = document.getElementById("messageImg")
     const noticeImg = document.getElementById("noticeImg")
 
-    if (themeLink.href.includes("light")) {
-        themeLink.href = darkcss
-        localStorage.setItem("theme", darkcss)
-        themeButtonIcon.src = icons.dark.theme
-        themeButtonIcon.style.height = icons.dark.height
-        messageImg.src = icons.dark.message
-        noticeImg.src = icons.dark.notice
-    }
-    else {
-        themeLink.href = lightcss
-        localStorage.setItem("theme", lightcss)
-        themeButtonIcon.src = icons.light.theme
-        themeButtonIcon.style.height = icons.light.height
-        messageImg.src = icons.light.message
-        noticeImg.src = icons.light.notice
-    }
+    const currentTheme = html.getAttribute("data-theme")
+    const newTheme = currentTheme === "light" ? "dark" : "light"
 
+    localStorage.setItem("No3BASE-theme", newTheme)
+    html.setAttribute("data-theme", newTheme)
 
-    console.log("themeLink href 設定為:", themeLink.href)
+    const themeSet = icons[newTheme]
+    themeButtonIcon.src = themeSet.theme
+    themeButtonIcon.style.height = themeSet.height
+    messageImg.src = themeSet.message
+    noticeImg.src = themeSet.notice
+
+    console.log("主題已切換為:", newTheme)
 }
-*/

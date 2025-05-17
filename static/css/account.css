@@ -34,7 +34,7 @@ label p {
 }
 
 input.accountTextField {
-    width: 360px;
+    width: 370px;
     height: 24px;
     font-size: 16px;
     font-family: "Tinos", serif;
@@ -76,6 +76,12 @@ p.accountAlertText a {
     font-weight: bolder;
 }
 
+#alert {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
 #accountButton {
     width: 382px;
     display: flex;
@@ -85,10 +91,9 @@ p.accountAlertText a {
 button.accountButton {
     width: 320px;
     height: 30px;
-    margin-top: 20px;
     box-shadow: none;
     border: none;
-    border-radius: 8px;
+    border-radius: 7px;
     color: var(--Button-Text-Color);
     font-family: "Noto Serif TC", serif;
     background: var(--Contrast-Color);

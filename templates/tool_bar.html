@@ -1,0 +1,141 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/tool_bar.css' %}">
+
+<div id="toolBar">
+    <a id="title" href="index.html">NO 3 BASE</a>
+    <div id="externalLink">
+        <a href="">論壇規則</a>
+        <a href="">外部連結</a>
+        <a href="">外部連結</a>
+    </div>
+    <div id="searchField">
+        <form action="">
+            <input type="text">
+        </form>
+        <button type="button">搜尋</button>
+    </div>
+    <div id="tool">
+        <div class="message">
+            <a href=""><img id="messageImg" class="toolImg"></a>
+            <div id="messageExpand" class="messageExpand">
+                <div class="messageExpandButton">
+                    <p>訊息</p>
+                    <button type="button">全部已讀</button>
+                    <button type="button">全部刪除</button>
+                </div>
+                <div class="messageContainer hide-scrollbar">
+                    <div class="line"></div>
+                    <a href="">
+                        <div class="perMessage">
+                            <img src="assets/images/photo_r.jpg" alt="">
+                            <div class="perMessageDetail">
+                                <p><span>神秘論壇用戶名稱</span><span>2025-05-09 23:59</span></p>
+                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                    </a>
+                    <!--
+                    <a href="">
+                        <div class="perMessage">
+                            <img src="assets/images/photo_r.jpg" alt="">
+                            <div class="perMessageDetail">
+                                <p><span>神秘論壇用戶名稱</span><span>2025-05-09 23:59</span></p>
+                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                    </a>
+                    -->
+                </div>
+            </div>
+        </div>
+        <div class="message" href="">
+            <a href=""><img id="noticeImg" class="toolImg"></a>
+            <div id="noticeExpand" class="messageExpand">
+                <div class="messageExpandButton">
+                    <p>通知</p>
+                    <button type="button">全部已讀</button>
+                    <button type="button">全部刪除</button>
+                </div>
+                <div class="messageContainer hide-scrollbar">
+                    <div class="line"></div>
+                    <a href="">
+                        <div class="perNotice">
+                            <div class="perNoticeDetail">
+                                <p>一名神秘論壇用戶回覆了你的文章</p>
+                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="line"></div>
+                    <!--
+                    <a href="">
+                        <div class="perNotice">
+                            <div class="perNoticeDetail">
+                                <p>一名神秘論壇用戶回覆了你的文章</p>
+                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="line"></div>
+                    -->
+                </div>
+            </div>
+        </div>
+        <button id="toggleButton" type="button" onclick="toggleTheme()">
+            <img id="themeImg" class="toolImg">
+        </button>
+    </div>
+    {% if toolbar.isLogin %}
+    <div id="profile">
+        <img src="assets/images/photo_r.jpg" alt="">
+        <a href="" id="name">{{ toolBar.name }}</a>
+        <div id="profileExpand">
+            <div id="playerAccount">
+                <img src="assets/images/photo_r.jpg" alt="">
+                <div id="playerAccountText">
+                    <p>{{ toolBar.name }}</p>
+                    <p>進入基地 <span>180</span> 天</p>
+                </div>
+            </div>
+            <div id="playerExp">
+                <p>Lv 5</p>
+                <div id="playerExpDetail">
+                    <p>1523/84569</p>
+                    <div id="playerExpBar">
+                        <div></div>
+                        <div style="width: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="playerData">
+                <a href="">
+                    <p class="number">45</p>
+                    <p class="title">粉絲</p>
+                </a>
+                <a href="">
+                    <p class="number">45</p>
+                    <p class="title">關注</p>
+                </a>
+                <a href="">
+                    <p class="number">45</p>
+                    <p class="title">文章</p>
+                </a>
+            </div>
+            <div id="profileButton">
+                <a href="player_center.html">用戶中心</a>
+                <a href="">個人主頁</a>
+                <a href="">我的草稿</a>
+                <a href="">我的收藏</a>
+
+                <button type="button">登出</button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div id="loginA">
+        <a href="login.html">登入</a>
+    </div>
+    {% endif %}
+</div>

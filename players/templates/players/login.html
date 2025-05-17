@@ -19,11 +19,11 @@
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <label for="account">
-                <p>帳號</p>
+                <p>識別碼 (帳號)</p>
                 <input name="account" class="accountTextField" type="text" required>
             </label>
             <label for="password">
-                <p>密碼</p>
+                <p>密鑰</p>
                 <input name="password" class="accountTextField" type="password" required>
             </label>
             <div id="loginTool">
@@ -32,9 +32,10 @@
                     記住我
                 </label>
                 <p class="accountAlertText">還沒有帳號嗎？<a href="{% url 'signup' %}"
-                        style="text-decoration: underline;">註冊帳號</a>
+                        style="text-decoration: underline;">申請帳號</a>
                 </p>
             </div>
+            <p id="alert">{% if errorMessage %}{{ errorMessage }}{% else %}　{% endif %}</p>
             <div id="accountButton">
                 <button class="accountButton" type="submit">登入</button>
             </div>
