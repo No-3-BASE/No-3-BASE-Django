@@ -85,6 +85,7 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
 #調整過的密碼限制
 AUTH_PASSWORD_VALIDATORS = []
 '''[    {
@@ -126,6 +127,7 @@ STATICFILES_DIRS = [
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
+#驗證信相關
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -135,3 +137,6 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'no3base.notify@gmail.com'
 EMAIL_HOST_PASSWORD = 'bwgwwoletcxlloen'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+#自訂用戶模型
+AUTH_USER_MODEL = 'player.CustomUser'

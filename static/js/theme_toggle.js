@@ -11,7 +11,7 @@ const icons = {
         theme: STATIC_URL + "assets/images/Tool_B56387/sun.png",
         message: STATIC_URL + "assets/images/Tool_B56387/message.png",
         notice: STATIC_URL + "assets/images/Tool_B56387/notice.png",
-        height: "24px",
+        height: "22px",
     }
 }
 

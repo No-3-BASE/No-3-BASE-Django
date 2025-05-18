@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
@@ -10,6 +10,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
+import uuid
+
+User = get_user_model()
 
 #註冊帳號
 def signup_view(request):
@@ -57,7 +60,7 @@ def signup_view(request):
         print("成功建立帳號")
 
         #暫時記住用戶
-        request.session['tempUserId'] = user.id
+        request.session['tempUserId'] = str(user.id)
         request.session['postConsentRedirect'] = '/player/login'
         return redirect('player:welcome')
     
@@ -167,7 +170,7 @@ def login_view(request):
             #如果沒有完成暱稱設定（視為未同意規則）
             if not user.first_name:
                 #暫時記住用戶
-                request.session['tempUserId'] = user.id
+                request.session['tempUserId'] = str(user.id)
                 request.session['postConsentRedirect'] = request.GET.get('next') or '/'
                 return redirect('player:welcome')
 
