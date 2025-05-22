@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'board',
+    'section',
     'player',
 ]
 
@@ -140,3 +141,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 #自訂用戶模型
 AUTH_USER_MODEL = 'player.CustomUser'
+
+#上傳圖片相關
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

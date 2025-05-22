@@ -75,9 +75,11 @@ div.section {
 img.sectionImg {
     width: 40px;
     height: 40px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
     margin-inline: 10px;
     margin-block: 5px;
-    background: bisque;
 }
 
 a.sectionA {

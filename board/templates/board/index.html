@@ -68,11 +68,18 @@
         </div>
         <div id="popularSections">
             <p class="subTitle">熱門板塊</p>
-            <div id="popular" class="allSections"></div>
+            <div id="popular" class="allSections">
+                {% for section in hot_sections %}
+                <div class="section">
+                    <img class="sectionImg" src="{{ section.icon.url }}" alt="">
+                    <a class="sectionA" href="{% url 'section:section' section.id %}">{{ section.name }}</a>
+                </div>
+                {% endfor %}
+            </div>
             <script>
                 const allPopularSections = document.getElementById("popular")
 
-                for (let i = 1; i <= 12; i++) {
+                for (let i = 1; i <= 11; i++) {
                     const section = document.createElement("div")
                     section.className = "section"
 

@@ -8,7 +8,6 @@ def toolbar_context(request):
         now = datetime.now(timezone.utc)
         signupDays = (now - user.date_joined).days + 1
 
-
         return {
             'toolBar': {
                 'isLogin': True,
@@ -16,6 +15,7 @@ def toolbar_context(request):
                 'signupDays': signupDays
             }
         }
+    
     return {
         'toolBar': {
             'isLogin': False,

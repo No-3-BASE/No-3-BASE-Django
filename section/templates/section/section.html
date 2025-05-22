@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/section.css' %}">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/scroll_control.js' %}"></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <title>No 3 BASE—{{ detail.name }}</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="sectionImg">
+        <img src="{{ detail.background.url }}" alt="sectionBackground">
+    </div>
+    <div id="content">
+        <div id="sectionTitle">
+            <img src="{{ detail.icon.url }}" alt="sectionIcon">
+            <div id="sectionTitleDetail">
+                <p>{{ detail.name }}</p>
+                <p>{{ detail.slogan }}</p>
+                <div>
+                    <p id="sectionStats">
+                        累積熱度　{{ detail.total_hot }}　｜　累積文章　{{ detail.total_posts }}　｜　昨日熱度　{{ detail.yesterday_hot }}　｜　昨日文章　{{ detail.yesterday_posts }}
+                    </p>
+                    <button type="button">發表文章</button>
+                    <button type="button">收藏板塊</button>
+                </div>
+            </div>
+        </div>
+        <div id="sectionAnnouncement">
+            <p class="subTitle">板塊公告</p>
+            <div id="announcementsContainer">
+                <button type="button" id="scrollLeftBtn">‹</button>
+                <div id="announcements" class="hide-scrollbar">
+                    <div class="perAnnouncement">
+                        <div class="announcement hide-scrollbar">
+                            <p class="announcementTitle">公告標題</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Accusamus
+                                quasi pariatur alias perferendis provident, quae recusandae, esse ipsa ipsam, non vitae
+                                tempora
+                                culpa nemo? Ducimus, nesciunt? Dolor harum unde nulla!中文字</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Assumenda
+                                voluptatem molestiae est corrupti saepe necessitatibus adipisci, quibusdam reiciendis
+                                veniam
+                                eum
+                                tenetur corporis praesentium consequatur obcaecati laboriosam. Labore minus molestiae
+                                ipsa.
+                            </p>
+                        </div>
+                    </div>
+                    <!--
+                    <div class="perAnnouncement">
+                        <div class="announcement hide-scrollbar">
+                            <p class="announcementTitle">公告標題</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Accusamus
+                                quasi pariatur alias perferendis provident, quae recusandae, esse ipsa ipsam, non vitae
+                                tempora
+                                culpa nemo? Ducimus, nesciunt? Dolor harum unde nulla!中文字</p>
+                            <p class="announcementContent">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Assumenda
+                                voluptatem molestiae est corrupti saepe necessitatibus adipisci, quibusdam reiciendis
+                                veniam
+                                eum
+                                tenetur corporis praesentium consequatur obcaecati laboriosam. Labore minus molestiae
+                                ipsa.
+                            </p>
+                        </div>
+                    </div>
+                    -->
+                </div>
+                <button type="button" id="scrollRightBtn">›</button>
+            </div>
+        </div>
+        <div id="subTitleBar">
+            <p class="subTitle">板塊文章</p>
+            <div id="searchSections">
+                <input id="searchSectionsField" type="text" placeholder="搜尋板塊文章">
+                <button id="searchSectionButton" type="button">搜尋</button>
+            </div>
+        </div>
+        <div class="class">
+            <p>文章類別</p>
+            <button type="button">遊戲攻略</button>
+        </div>
+        <div id="sortArticle">
+            <button type="button">≡按時間</button>
+        </div>
+        <div id="articles">
+            <div class="perArticle">
+                <p class="basicInfo">
+                    發布者
+                    <span>
+                        <span class="sectionInfo">發布板塊</span>
+                        <span class="infoSeparate">·</span>
+                        <span class="classInfo">發布類別</span>
+                        <span class="timeInfo">發布時間：2025-05-19 21:32</span>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
+                        <div id="menu1" class="menu">
+                            <a>編輯</a>
+                            <a>檢舉</a>
+                        </div>
+                    </span>
+                </p>
+                <a href="index.html">
+                    <p class="articleTitle">這是文章標題</p>
+                    <p class="articleContent">這是內容<br>這是內容<br>這是內容<br>Lorem ipsum, dolor sit amet consectetur
+                        adipisicing
+                        elit. Illo, corrupti quae cumque et unde quod ratione quas amet reiciendis doloremque laudantium
+                        a incidunt, eveniet eum voluptatem, natus culpa dignissimos pariatur.</p>
+                </a>
+                <p class="articleInfo">獲讚　63　｜　留言　758　｜　熱度　263</p>
+            </div>
+            <!--
+            <div class="perArticle">
+                <p class="basicInfo">
+                    發布者
+                    <span>
+                        <span class="sectionInfo">發布板塊</span>
+                        <span class="infoSeparate">·</span>
+                        <span class="classInfo">發布類別</span>
+                        <span class="timeInfo">發布時間：2025-05-19 21:32</span>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
+                        <div id="menu1" class="menu">
+                            <a>編輯</a>
+                            <a>檢舉</a>
+                        </div>
+                    </span>
+                </p>
+                <a href="index.html">
+                    <p class="articleTitle">這是文章標題</p>
+                    <p class="articleContent">這是內容<br>這是內容<br>這是內容<br>Lorem ipsum, dolor sit amet consectetur
+                        adipisicing
+                        elit. Illo, corrupti quae cumque et unde quod ratione quas amet reiciendis doloremque laudantium
+                        a incidunt, eveniet eum voluptatem, natus culpa dignissimos pariatur.</p>
+                </a>
+                <p class="articleInfo">獲讚　63　｜　留言　758　｜　熱度　263</p>
+            </div>
+            -->
+        </div>
+    </div>
+</body>
+
+</html>
