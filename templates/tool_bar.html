@@ -89,13 +89,29 @@
     </div>
     {% if toolBar.isLogin %}
     <div id="profile">
-        <img src="assets/images/photo_r.jpg" alt="">
-        <a href="" id="name">{{ toolBar.name }}</a>
+        {% if toolBar.profile.photo %}
+        <img src="{{ toolBar.profile.photo.url }}" alt="User Photo">
+        {% else %}
+        <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+        {% endif %}
+        {% if toolBar.name %}
+        <a href="{% url 'profileCenter:playerProfile' %}" id="name">{{ toolBar.name }}</a>
+        {% else %}
+        <a href="{% url 'profileCenter:playerProfile' %}" id="name">神秘的論壇用戶</a>
+        {% endif %}
         <div id="profileExpand">
             <div id="playerAccount">
-                <img src="assets/images/photo_r.jpg" alt="">
+                {% if toolBar.profile.photo %}
+                <img src="{{ toolBar.profile.photo.url }}" alt="User Photo">
+                {% else %}
+                <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                {% endif %}
                 <div id="playerAccountText">
+                    {% if toolBar.name %}
                     <p>{{ toolBar.name }}</p>
+                    {% else %}
+                    <p>神秘的論壇用戶</p>
+                    {% endif %}
                     <p>進入基地 <span>{{ toolBar.signupDays }}</span> 天</p>
                 </div>
             </div>

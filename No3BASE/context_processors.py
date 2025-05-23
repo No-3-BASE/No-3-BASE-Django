@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from player.models import Profile
 from datetime import datetime, timezone
 
 def toolbar_context(request):
@@ -8,11 +8,19 @@ def toolbar_context(request):
         now = datetime.now(timezone.utc)
         signupDays = (now - user.date_joined).days + 1
 
+        profile = None
+
+        try:
+            profile = user.profile
+        except Profile.DoesNotExist:
+            profile = None
+
         return {
             'toolBar': {
                 'isLogin': True,
                 'name': user.first_name,
-                'signupDays': signupDays
+                'signupDays': signupDays,
+                'profile': profile
             }
         }
     
@@ -20,6 +28,7 @@ def toolbar_context(request):
         'toolBar': {
             'isLogin': False,
             'name': "訪客",
-            'signupDays': 0
+            'signupDays': 0,
+            'profile': None,
         }
     }
