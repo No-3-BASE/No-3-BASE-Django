@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'board',
     'section',
     'player',
+    'profile_center',
 ]
 
 MIDDLEWARE = [

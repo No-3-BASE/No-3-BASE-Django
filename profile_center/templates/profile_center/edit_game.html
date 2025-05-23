@@ -1,0 +1,62 @@
+{% extends 'profile_center/profile_center.html' %}
+{% load static %}
+
+{% block title %}資料節點—編輯遊戲{% endblock %}
+
+{% block content %}
+<div id="playerCenter">
+    <div id="playerProfile">
+        <div id="playerDetail">
+            <img src="assets/images/photo_r.jpg" alt="">
+            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
+            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            <p id="playerSign">個性簽名</p>
+            <p>
+                山高路遠ABCDE
+                <br>
+                山高路遠ABCDE
+            </p>
+            <div id="playerTool">
+                <div class="line"></div>
+                <a class="active" href="">基本資料</a>
+                <div class="line"></div>
+                <a href="">每日任務</a>
+                <div class="line"></div>
+                <a href="">我的文章</a>
+                <div class="line"></div>
+                <a href="">我的草稿</a>
+                <div class="line"></div>
+                <a href="">我的收藏</a>
+                <div class="line"></div>
+                <a href="">粉絲關注</a>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div id="playerContent">
+        <div class="innerContent">
+            <div class="contentTitle">
+                <p class="detailTitle">編輯遊戲</p>
+                <button class="editBtn">儲存</button>
+            </div>
+            <div id="selectFields">
+                <div class="field-container">
+                    <div class="editField">
+                        <select class="select-input" name="board[]">
+                            <option value="" selected disabled hidden>請選擇板塊或輸入名稱</option>
+                            <option value="rpg">RPG 遊戲</option>
+                            <option value="action">動作遊戲</option>
+                            <option value="puzzle">解謎遊戲</option>
+                            <option value="horror">恐怖遊戲</option>
+                        </select>
+                        <input name="uid[]" class="gameUID" type="text" placeholder="請輸入遊戲UID">
+                    </div>
+                    <button class="removeBtn">✕</button>
+                </div>
+            </div>
+            <button id="addBtn" class="editBtn">新增</button>
+            <button id="saveBtnDown" class="editBtn">儲存</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

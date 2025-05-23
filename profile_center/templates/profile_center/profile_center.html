@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile_center.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <script src="{% static 'js/share_board.js' %}"></script>
+    <script src="{% static 'js/upload_player_photo.js' %}"></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <script src="{% static 'js/game_detail.js' %}"></script>
+    <script src="{% static 'js/upload_game_detail.js' %}"></script>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        {% block content %}{% endblock %}
+        <!--<div id="playerCenter">
+            <div id="playerProfile">
+                <div id="playerDetail">
+                    <img src="assets/images/photo_r.jpg" alt="">
+                    <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
+                    <p id="playerDays">進入基地　<span>180</span>　天</p>
+                    <p id="playerSign">個性簽名</p>
+                    <p>
+                        山高路遠ABCDE
+                        <br>
+                        山高路遠ABCDE
+                    </p>
+                    <div id="playerTool">
+                        <div class="line"></div>
+                        <a href="">基本資料</a>
+                        <div class="line"></div>
+                        <a href="">每日任務</a>
+                        <div class="line"></div>
+                        <a href="">我的文章</a>
+                        <div class="line"></div>
+                        <a href="">我的草稿</a>
+                        <div class="line"></div>
+                        <a href="">我的收藏</a>
+                        <div class="line"></div>
+                        <a href="">粉絲關注</a>
+                        <div class="line"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="playerContent">
+                <div class="innerContent">-->
+        <!-- 基本資料 -->
+        <!--<div class="contentTitle">
+                        <p class="detailTitle">基本資料</p>
+                        <button class="editBtn">編輯</button>
+                    </div>
+                    <img id="profilePhoto" src="assets/images/photo_r2.png" alt="">
+                    <p class="contentDetail">暱稱　論壇用戶未知名稱</p>
+                    <p class="contentDetail">帳號　sdfsdfs</p>
+                    <p class="contentDetail">信箱　abv@gmail.com（隱藏）</p>
+                    <p class="contentDetail">生日　2025-05-31</p>
+                    <p class="contentDetail">註冊日期　2025-06-11</p>
+                    <p class="contentDetail">個性簽名</p>
+                    <p class="contentDetail">
+                        山高路遠ABCDE
+                        <br>
+                        山高路遠ABCDE
+                    </p>
+                    <div class="contentTitle">
+                        <p class="detailTitle">遊戲資料</p>
+                        <div>
+                            <button id="shareBtn" class="editBtn">分享</button>
+                            <div id="shareBoard">
+                                <p class="shareTitle">分享遊戲資料卡</p>
+                                <div id="shareLinks">
+                                    <a class="community" href="">
+                                        <img class="communityImg" src="assets/images/Facebook.png" alt="">
+                                    </a>
+                                    <a class="community" href="">
+                                        <img class="communityImg" src="assets/images/X.png" alt="">
+                                    </a>
+                                    <a class="copyLink" href="">copy</a>
+                                </div>
+                            </div>
+                            <button class="editBtn">編輯</button>
+                        </div>
+                    </div>
+                    <p class="contentDetail">尚未建立任何遊戲記錄</p>-->
+        <!--<table>
+                        <tr>
+                            <td>
+                                <p class="contentDetail">遊戲</p>
+                            </td>
+                            <td>
+                                <p class="contentDetail">UID</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="gameDetail">遊戲</p>
+                            </td>
+                            <td>
+                                <p class="gameDetail">UID</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="gameDetail">遊戲</p>
+                            </td>
+                            <td>
+                                <p class="gameDetail">UID</p>
+                            </td>
+                        </tr>
+                    </table>-->
+        <!--</div>
+    </div>
+    </div>-->
+    </div>
+</body>
+
+</html>

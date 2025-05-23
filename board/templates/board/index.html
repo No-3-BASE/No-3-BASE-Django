@@ -76,26 +76,6 @@
                 </div>
                 {% endfor %}
             </div>
-            <script>
-                const allPopularSections = document.getElementById("popular")
-
-                for (let i = 1; i <= 11; i++) {
-                    const section = document.createElement("div")
-                    section.className = "section"
-
-                    const img = document.createElement("img")
-                    img.className = "sectionImg"
-
-                    const a = document.createElement("a")
-                    a.innerText = "遊戲名稱"
-                    a.className = "sectionA"
-                    a.href = "section.html"
-
-                    section.appendChild(img)
-                    section.append(a)
-                    allPopularSections.appendChild(section)
-                }
-            </script>
         </div>
         <div id="allSections">
             <div id="subTitleBar">
@@ -109,7 +89,14 @@
                 <p>遊戲平台</p>
                 <button type="button">電腦遊戲</button>
             </div>
-            <div id="all" class="allSections"></div>
+            <div id="all" class="allSections">
+                {% for section in all_sections %}
+                <div class="section">
+                    <img class="sectionImg" src="{{ section.icon.url }}" alt="">
+                    <a class="sectionA" href="{% url 'section:section' section.id %}">{{ section.name }}</a>
+                </div>
+                {% endfor %}
+            </div>
             <script>
                 const allSections = document.getElementById("all")
 

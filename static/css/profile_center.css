@@ -1,0 +1,594 @@
+#content {
+    margin-top: 10px;
+}
+
+#playerCenter {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+
+#playerProfile {
+    width: 240px;
+    display: flex;
+    flex-direction: column;
+}
+
+#playerDetail {
+    background: var(--Secondary-Color);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-block: 20px;
+}
+
+#playerDetail p {
+    margin: 0;
+    margin-top: 10px;
+}
+
+#playerDetail img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+#playerName {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+#playerName span {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--Level-Text-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Level-Background);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+}
+
+#playerDays {
+    font-size: 0.8rem;
+}
+
+#playerDays span {
+    font-size: 0.9rem;
+    font-family: "Bubblegum Sans", sans-serif;
+}
+
+#playerSign {
+    font-size: 0.8rem;
+}
+
+#playerSign+p {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+#playerTool {
+    width: 200px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    background: var(--Secondary-Color);
+}
+
+#playerTool a {
+    width: 200px;
+    padding-block: 10px;
+    font-size: 0.9rem;
+    color: var(--Text-Color);
+    text-align: center;
+}
+
+#playerTool a.active {
+    color: var(--Section-Text-Color);
+}
+
+#playerTool a:hover {
+    color: var(--Section-Text-Color);
+}
+
+div.line {
+    background: var(--Text-Color);
+    opacity: 0.3;
+}
+
+#playerContent {
+    width: 650px;
+    padding-bottom: 60px;
+    background: var(--Secondary-Color);
+    border-radius: 5px;
+    font-family: "Tinos", "Noto Serif TC", serif;
+    letter-spacing: 1px;
+}
+
+div.innerContent {
+    margin-inline: 16px;
+}
+
+div.contentTitle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block: 16px;
+}
+
+p.detailTitle {
+    font-size: 1rem;
+    margin: 0;
+}
+
+button.editBtn {
+    font-size: 0.75rem;
+    padding-inline: 16px;
+    border-radius: 3px;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    cursor: pointer;
+}
+
+p.shareTitle {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+#profilePhoto {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+p.contentDetail {
+    font-size: 0.9rem;
+    margin: 0;
+    margin-block: 3px;
+}
+
+#shareBtn {
+    position: relative;
+}
+
+#shareBoard {
+    display: none;
+    position: absolute;
+    margin-left: -150px;
+    padding: 10px;
+    width: 200px;
+    height: 60px;
+    border-radius: 7px;
+    background: var(--Primary-Color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#shareLinks {
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin-top: 10px;
+}
+
+a.community {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+img.communityImg {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+a.copyLink {
+    height: 24px;
+    line-height: 24px;
+    padding-inline: 3px;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    border-radius: 5px;
+    font-family: "Bubblegum Sans", sans-serif;
+}
+
+td {
+    min-width: 160px;
+}
+
+p.gameDetail {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+#uploadPhoto {
+    position: relative;
+    width: 160px;
+    height: 160px;
+    /*overflow: hidden;*/
+    border-radius: 5px;
+}
+
+div.overlay {
+    width: 160px;
+    height: 160px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--Primary-Color);
+    opacity: 0.5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#uploadPhoto:hover div.overlay {
+    display: flex;
+}
+
+#uploadBtn {
+    width: 160px;
+    height: 160px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 160px;
+    cursor: pointer;
+}
+
+input.editProfile {
+    width: 160px;
+    padding: 0;
+    margin-left: 10px;
+    border: none;
+    border-bottom: 1px solid var(--Contrast-Color);
+    color: var(--Text-Color);
+    background: none;
+    font-family: "Tinos", "Noto Serif TC", serif;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+
+select.privateProfile {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 8px;
+    padding-right: 30px;
+    padding-block: 2px;
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 5px;
+    background: var(--Secondary-Color);
+    color: var(--Contrast-Color);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg viewBox='0 0 10 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px 12px;
+}
+
+select.privateProfile:focus {
+    outline: none;
+}
+
+textarea {
+    height: 60px;
+    width: 600px;
+    font-size: 0.9rem;
+    background: none;
+    color: var(--Text-Color);
+    border: none;
+    border-bottom: 1px solid var(--Contrast-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+    letter-spacing: 2px;
+}
+
+div.field-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block: 20px;
+}
+
+div.editField {
+    display: flex;
+    flex-direction: row;
+}
+
+input.gameUID {
+    width: 340px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 3px;
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+select.select-input {
+    width: 200px;
+}
+
+div.ts-control {
+    width: 200px;
+}
+
+button.removeBtn {
+    font-size: 0.7rem;
+    height: 18px;
+    color: var(--Text-Color);
+}
+
+#taskExp {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin: 0;
+    margin-top: -20px;
+}
+
+#taskExp>p:nth-of-type(1) {
+    font-size: 1rem;
+    font-family: "Bubblegum Sans", sans-serif;
+    margin-top: 20px;
+}
+
+#taskExpDetail {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+#taskExpDetail p {
+    font-size: 0.6rem;
+    font-family: "Bubblegum Sans", sans-serif;
+    margin: 0;
+}
+
+#taskExpBar {
+    width: 300px;
+    height: 3px;
+    position: relative;
+    margin: 0;
+    margin-left: 5px;
+}
+
+#taskExpBar div {
+    width: 300px;
+    position: absolute;
+}
+
+#taskExpBar>div:nth-of-type(1) {
+    height: 100%;
+    background: var(--Primary-Color);
+}
+
+#taskExpBar>div:nth-of-type(2) {
+    height: 100%;
+    background: var(--Contrast-Color);
+}
+
+div.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 10px;
+}
+
+p.taskcontentDetail {
+    font-size: 0.9rem;
+    margin: 0;
+    margin-block: 10px;
+}
+
+span.describe {
+    font-size: 0.8rem;
+    margin-left: 20px;
+}
+
+span.reward {
+    display: inline-block;
+    width: 50px;
+    font-size: 0.75rem;
+    margin-left: 20px;
+    font-family: "Bubblegum Sans", sans-serif;
+}
+
+a.taskLink {
+    font-size: 0.65rem;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    padding-inline: 10px;
+    padding-block: 3px;
+    border-radius: 3px;
+}
+
+a.finishTaskLink {
+    pointer-events: none;
+    font-size: 0.65rem;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    padding-inline: 10px;
+    padding-block: 3px;
+    border-radius: 3px;
+    opacity: 0.7;
+}
+
+#sortArticle {
+    font-size: 0.7rem;
+    color: var(--Text-Color);
+}
+
+div.perArticle {
+    height: 90px;
+    margin-bottom: 16px;
+    padding-inline: 10px;
+    padding-block: 3px;
+    border-radius: 5px;
+    background: var(--Primary-Color);
+}
+
+div.perArticle p {
+    margin: 0;
+    color: var(--Text-Color);
+}
+
+p.basicInfo {
+    font-size: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+p.basicInfo span {
+    font-size: 0.6rem;
+}
+
+span.infoSeparate {
+    margin-inline: 2px;
+}
+
+span.timeInfo {
+    margin-inline: 5px;
+}
+
+p.basicInfo button {
+    font-size: 0.7rem;
+    color: var(--Text-Color);
+}
+
+div.menu {
+    position: absolute;
+    margin-left: 520px;
+    background: var(--Secondary-Color);
+    display: none;
+    flex-direction: column;
+}
+
+div.menu a {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu a:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleTitle {
+    font-size: 0.8rem;
+    font-weight: 400;
+}
+
+p.articleTitle:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleContent {
+    font-size: 0.7rem;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.articleInfo {
+    text-align: right;
+    padding-top: 5px;
+    font-size: 0.6rem;
+}
+
+a.editA {
+    font-size: 0.75rem;
+    padding-inline: 16px;
+    border-radius: 3px;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    cursor: pointer;
+}
+
+div.follow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 10px;
+}
+
+a.f {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+img.fPhoto {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+p.fName {
+    margin-left: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--Text-Color);
+}
+
+a.f:hover p {
+    color: var(--Section-Text-Color);
+}
+
+span.level {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--Level-Text-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Level-Background);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+    letter-spacing: 0;
+}
+
+span.enterDays {
+    font-size: 0.65rem;
+    font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
+}
+
+a.f:hover span.enterDays {
+    color: var(--Text-Color);
+}
+
+button.unfollow {
+    height: 18px;
+    width: 60px;
+    font-size: 0.65rem;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    border-radius: 3px;
+}
+
+button.isfollow {
+    height: 18px;
+    width: 60px;
+    font-size: 0.65rem;
+    color: var(--Button-Text-Color);
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 3px;
+}

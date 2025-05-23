@@ -1,0 +1,84 @@
+{% extends 'profile_center/profile_center.html' %}
+{% load static %}
+
+{% block title %}資料節點—每日任務{% endblock %}
+
+{% block content %}
+<div id="playerCenter">
+    <div id="playerProfile">
+        <div id="playerDetail">
+            <img src="assets/images/photo_r.jpg" alt="">
+            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
+            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            <p id="playerSign">個性簽名</p>
+            <p>
+                山高路遠ABCDE
+                <br>
+                山高路遠ABCDE
+            </p>
+            <div id="playerTool">
+                <div class="line"></div>
+                <a href="">基本資料</a>
+                <div class="line"></div>
+                <a class="active" href="">每日任務</a>
+                <div class="line"></div>
+                <a href="">我的文章</a>
+                <div class="line"></div>
+                <a href="">我的草稿</a>
+                <div class="line"></div>
+                <a href="">我的收藏</a>
+                <div class="line"></div>
+                <a href="">粉絲關注</a>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div id="playerContent">
+        <div class="innerContent">
+            <div class="contentTitle">
+                <p class="detailTitle">每日任務</p>
+            </div>
+            <div id="taskExp">
+                <p>Lv. 5</p>
+                <div id="taskExpDetail">
+                    <p>1523/84569</p>
+                    <div id="taskExpBar">
+                        <div></div>
+                        <div style="width: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="task">
+                <p class="taskcontentDetail">通訊檢測<span class="reward">5 point</span><span
+                        class="describe">每日首次登入基地</span></p>
+                <a class="taskLink" href="">前往任務點</a>
+            </div>
+            <div class="line"></div>
+            <div class="task">
+                <p class="taskcontentDetail">系統偵測<span class="reward">10 point</span><span
+                        class="describe">按讚任一文章</span></p>
+                <a class="finishTaskLink" href="#">已完成任務</a>
+            </div>
+            <div class="line"></div>
+            <div class="task">
+                <p class="taskcontentDetail">訊號回傳<span class="reward">15 point</span><span
+                        class="describe">回覆一則文章</span></p>
+                <a class="taskLink" href="">前往任務點</a>
+            </div>
+            <div class="line"></div>
+            <div class="task">
+                <p class="taskcontentDetail">記錄上傳<span class="reward">15 point</span><span
+                        class="describe">建立一篇草稿</span></p>
+                <a class="taskLink" href="">前往任務點</a>
+            </div>
+            <div class="line"></div>
+            <div class="task">
+                <p class="taskcontentDetail">資料同步<span class="reward">25 point</span><span
+                        class="describe">發布一篇文章</span></p>
+                <a class="taskLink" href="">前往任務點</a>
+            </div>
+            <div class="line"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

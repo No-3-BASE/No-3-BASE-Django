@@ -1,0 +1,70 @@
+{% extends 'profile_center/profile_center.html' %}
+{% load static %}
+
+{% block title %}資料節點—我的文章{% endblock %}
+
+{% block content %}
+<div id="playerCenter">
+    <div id="playerProfile">
+        <div id="playerDetail">
+            <img src="assets/images/photo_r.jpg" alt="">
+            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
+            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            <p id="playerSign">個性簽名</p>
+            <p>
+                山高路遠ABCDE
+                <br>
+                山高路遠ABCDE
+            </p>
+            <div id="playerTool">
+                <div class="line"></div>
+                <a href="">基本資料</a>
+                <div class="line"></div>
+                <a href="">每日任務</a>
+                <div class="line"></div>
+                <a class="active" href="">我的文章</a>
+                <div class="line"></div>
+                <a href="">我的草稿</a>
+                <div class="line"></div>
+                <a href="">我的收藏</a>
+                <div class="line"></div>
+                <a href="">粉絲關注</a>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div id="playerContent">
+        <div class="innerContent">
+            <div class="contentTitle">
+                <p class="detailTitle">我的文章</p>
+                <button id="sortArticle" type="button">≡按時間</button>
+            </div>
+            <div class="perArticle">
+                <p class="basicInfo">
+                    發布者
+                    <span>
+                        <span class="sectionInfo">發布板塊</span>
+                        <span class="infoSeparate">·</span>
+                        <span class="classInfo">發布類別</span>
+                        <span class="timeInfo">發布時間：2025-05-19 21:32</span>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
+                        <div id="menu1" class="menu">
+                            <a>編輯</a>
+                            <a>刪除</a>
+                        </div>
+                    </span>
+                </p>
+                <a href="index.html">
+                    <p class="articleTitle">這是文章標題</p>
+                    <p class="articleContent">這是內容<br>這是內容<br>這是內容<br>Lorem ipsum, dolor sit amet consectetur
+                        adipisicing
+                        elit. Illo, corrupti quae cumque et unde quod ratione quas amet reiciendis doloremque
+                        laudantium
+                        a incidunt, eveniet eum voluptatem, natus culpa dignissimos pariatur.</p>
+                </a>
+                <p class="articleInfo">獲讚　63　｜　留言　758　｜　熱度　263</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

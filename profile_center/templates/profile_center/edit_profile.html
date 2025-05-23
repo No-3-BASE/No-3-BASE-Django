@@ -1,0 +1,82 @@
+{% extends 'profile_center/profile_center.html' %}
+{% load static %}
+
+{% block title %}資料節點—編輯遊戲{% endblock %}
+
+{% block content %}
+<div id="playerCenter">
+    <div id="playerProfile">
+        <div id="playerDetail">
+            <img src="assets/images/photo_r.jpg" alt="">
+            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
+            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            <p id="playerSign">個性簽名</p>
+            <p>
+                山高路遠ABCDE
+                <br>
+                山高路遠ABCDE
+            </p>
+            <div id="playerTool">
+                <div class="line"></div>
+                <a class="active" href="">基本資料</a>
+                <div class="line"></div>
+                <a href="">每日任務</a>
+                <div class="line"></div>
+                <a href="">我的文章</a>
+                <div class="line"></div>
+                <a href="">我的草稿</a>
+                <div class="line"></div>
+                <a href="">我的收藏</a>
+                <div class="line"></div>
+                <a href="">粉絲關注</a>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div id="playerContent">
+        <div class="innerContent">
+            <div class="contentTitle">
+                <p class="detailTitle">編輯資料</p>
+                <button class="editBtn">儲存</button>
+            </div>
+            <div id="uploadPhoto">
+                <img id="profilePhoto" src="assets/images/photo_r2.png" alt="">
+                <div class="overlay">
+                    <label id="uploadBtn" for="fileInput">上傳圖片</label>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                </div>
+            </div>
+            <p class="contentDetail">
+                暱稱
+                <label for="name">
+                    <input name="name" class="editProfile" type="text">
+                </label>
+            </p>
+            <p class="contentDetail">帳號　cdsvdsfvg</p>
+            <p class="contentDetail">
+                信箱
+                <select class="privateProfile" name="" id="emailSelect">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+                abv@gmail.com
+            </p>
+            <p class="contentDetail">
+                生日
+                <select class="privateProfile" name="" id="emailSelect">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+                <label for="birthday">
+                    <input name="birthday" class="editProfile" type="date" style="margin-left: 1px;">
+                </label>
+            </p>
+            <p class="contentDetail">註冊日期　2025-06-11</p>
+            <p class="contentDetail">個性簽名（15 / 80）</p>
+            <textarea name="sign" id="sign"></textarea>
+        </div>
+    </div>
+</div>
+{% endblock %}

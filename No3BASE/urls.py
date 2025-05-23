@@ -24,4 +24,5 @@ urlpatterns = [
     path('', include('board.urls')),
     path('section/', include('section.urls')),
     path('player/', include('player.urls')),
+    path('profile_center/', include('profile_center.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
