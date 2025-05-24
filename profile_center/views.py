@@ -1,7 +1,20 @@
 from django.shortcuts import render
+from player.models import Profile
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def player_profile_view(request):
-    return render(request, 'profile_center/player_profile.html')
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    return render(request, 'profile_center/player_profile.html', {
+        'name': user.first_name,
+        'profile': profile
+    })
 
 def edit_profile_view(request):
     return render(request, 'profile_center/edit_profile.html')

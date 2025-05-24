@@ -10,6 +10,8 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
+from .models import Profile
+from datetime import datetime, timezone
 import uuid
 
 User = get_user_model()
@@ -159,7 +161,22 @@ def login_view(request):
         if user is not None:
             #登入成功進行記住綁定
             login(request, user)
+            
+            #每日登入經驗
+            try:
+                profile = user.profile
+                now = datetime.now(timezone.utc).date()
 
+                if profile.loginExpGainDate != now:
+                    profile.exp += 5
+                    profile.loginExpGainDate = now
+
+                profile.recalculate_level()
+                profile.save()
+            except User.DoesNotExist:
+                pass
+
+            #記住帳號設定
             if not rember:
                 request.session.set_expiry(0)
                 print("不記住帳號")
