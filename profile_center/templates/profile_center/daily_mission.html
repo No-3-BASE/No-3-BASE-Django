@@ -7,15 +7,15 @@
 <div id="playerCenter">
     <div id="playerProfile">
         <div id="playerDetail">
-            <img src="assets/images/photo_r.jpg" alt="">
-            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
-            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
+            <p id="playerName">{{ name }}<span>Lv. {{ profile.level }}</span></p>
+            <p id="playerDays">進入基地　<span>{{ profile.signupDays }}</span>　天</p>
             <p id="playerSign">個性簽名</p>
-            <p>
-                山高路遠ABCDE
-                <br>
-                山高路遠ABCDE
-            </p>
+            <p>{{ profile.slogan }}</p>
             <div id="playerTool">
                 <div class="line"></div>
                 <a href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
@@ -39,43 +39,69 @@
                 <p class="detailTitle">每日任務</p>
             </div>
             <div id="taskExp">
-                <p>Lv. 5</p>
+                <p>Lv. {{ toolBar.profile.level }}</p>
                 <div id="taskExpDetail">
-                    <p>1523/84569</p>
+                    <p>
+                        {% if profile.expInLevel == -1 %}
+                        ALL MAX
+                        {% else %}
+                        {{ profile.expInLevel }}/{{ profile.expToNext }}
+                        {% endif %}
+                    </p>
                     <div id="taskExpBar">
                         <div></div>
-                        <div style="width: 75%;"></div>
+                        <div style="width: {{ profile.progressPercent }}%;"></div>
                     </div>
                 </div>
             </div>
             <div class="task">
                 <p class="taskcontentDetail">通訊檢測<span class="reward">5 point</span><span
-                        class="describe">每日首次登入基地</span></p>
-                <a class="taskLink" href="">前往任務點</a>
+                        class="describe">每日首次進入基地</span></p>
+                {% if tasks.loginDone %}
+                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                {% else %}
+                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                {% endif %}
             </div>
             <div class="line"></div>
             <div class="task">
                 <p class="taskcontentDetail">系統偵測<span class="reward">10 point</span><span
                         class="describe">按讚任一文章</span></p>
-                <a class="finishTaskLink" href="#">已完成任務</a>
+                {% if tasks.likeDone %}
+                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                {% else %}
+                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                {% endif %}
             </div>
             <div class="line"></div>
             <div class="task">
                 <p class="taskcontentDetail">訊號回傳<span class="reward">15 point</span><span
                         class="describe">回覆一則文章</span></p>
-                <a class="taskLink" href="">前往任務點</a>
+                {% if tasks.messageDone %}
+                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                {% else %}
+                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                {% endif %}
             </div>
             <div class="line"></div>
             <div class="task">
                 <p class="taskcontentDetail">記錄上傳<span class="reward">15 point</span><span
                         class="describe">建立一篇草稿</span></p>
-                <a class="taskLink" href="">前往任務點</a>
+                {% if tasks.draftDone %}
+                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                {% else %}
+                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                {% endif %}
             </div>
             <div class="line"></div>
             <div class="task">
                 <p class="taskcontentDetail">資料同步<span class="reward">25 point</span><span
                         class="describe">發布一篇文章</span></p>
-                <a class="taskLink" href="">前往任務點</a>
+                {% if tasks.articleDone %}
+                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                {% else %}
+                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                {% endif %}
             </div>
             <div class="line"></div>
         </div>

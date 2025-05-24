@@ -78,7 +78,7 @@
 #sectionTitleDetail div button {
     width: 80px;
     height: 24px;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     border-radius: 5px;
 }
@@ -167,7 +167,7 @@ p.announcementContent {
     border-bottom-left-radius: 6px;
     color: var(--Contrast-Color);
     font-family: "Tinos", "Noto Serif TC", serif;
-    background: var(--Input-Background);
+    background: var(--Text-Secondary-Color);
 }
 
 #searchSections button {
@@ -175,7 +175,7 @@ p.announcementContent {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Noto Serif TC", serif;
 }
 

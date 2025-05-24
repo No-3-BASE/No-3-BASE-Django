@@ -38,7 +38,7 @@ input.accountTextField {
     height: 24px;
     font-size: 16px;
     font-family: "Tinos", serif;
-    background: var(--Input-Background);
+    background: var(--Text-Secondary-Color);
     border: 1px solid var(--Contrast-Color);
     border-radius: 7px;
     color: var(--Contrast-Color);
@@ -94,7 +94,7 @@ button.accountButton {
     box-shadow: none;
     border: none;
     border-radius: 7px;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Noto Serif TC", serif;
     background: var(--Contrast-Color);
 }

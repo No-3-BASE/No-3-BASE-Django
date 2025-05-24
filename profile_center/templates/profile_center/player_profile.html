@@ -7,15 +7,15 @@
 <div id="playerCenter">
     <div id="playerProfile">
         <div id="playerDetail">
-            <img src="assets/images/photo_r.jpg" alt="">
-            <p id="playerName">{{ name }}<span>Lv. 5</span></p>
-            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
+            <p id="playerName">{{ name }}<span>Lv. {{ profile.level }}</span></p>
+            <p id="playerDays">進入基地　<span>{{ profile.signupDays }}</span>　天</p>
             <p id="playerSign">個性簽名</p>
-            <p>
-                山高路遠ABCDE
-                <br>
-                山高路遠ABCDE
-            </p>
+            <p>{{ profile.slogan }}</p>
             <div id="playerTool">
                 <div class="line"></div>
                 <a class="active" href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
@@ -37,23 +37,23 @@
         <div class="innerContent">
             <div class="contentTitle">
                 <p class="detailTitle">基本資料</p>
-                <button class="editBtn">編輯</button>
+                <a class="editA" href="{% url 'profileCenter:editProfile' %}">編輯</a>
             </div>
-            <img id="profilePhoto" src="assets/images/photo_r2.png" alt="">
+            {% if profile.photo %}
+            <img id="profilePhoto" src="{{ profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img id="profilePhoto" src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
             <p class="contentDetail">暱稱　{{ name }}</p>
-            <p class="contentDetail">帳號　sdfsdfs</p>
-            <p class="contentDetail">信箱　abv@gmail.com（隱藏）</p>
+            <p class="contentDetail">帳號　{{ account }}</p>
+            <p class="contentDetail">信箱　{{ email }}（隱藏）</p>
             <p class="contentDetail">生日　2025-05-31</p>
-            <p class="contentDetail">註冊日期　2025-06-11</p>
+            <p class="contentDetail">註冊日期　{{ join }}</p>
             <p class="contentDetail">個性簽名</p>
-            <p class="contentDetail">
-                山高路遠ABCDE
-                <br>
-                山高路遠ABCDE
-            </p>
+            <p class="contentDetail">{{ profile.slogan }}</p>
             <div class="contentTitle">
                 <p class="detailTitle">遊戲資料</p>
-                <div>
+                <div class="buttonGroup">
                     <button id="shareBtn" class="editBtn">分享</button>
                     <div id="shareBoard">
                         <p class="shareTitle">分享遊戲資料卡</p>
@@ -66,13 +66,13 @@
                             <a class="community" href="">
                                 <img class="communityImg" src="{% static 'assets/images/X.png' %}" alt="">
                             </a>
-                            <a class="copyLink" href="">copy</a>
+                            <button class="copyLink">copy</button>
                         </div>
                     </div>
-                    <button class="editBtn">編輯</button>
+                    <a class="editA" href="{% url 'profileCenter:editGame' %}">編輯</a>
                 </div>
             </div>
-            <p class="contentDetail">尚未建立任何遊戲記錄</p>
+            <!--<p class="contentDetail">尚未建立任何遊戲記錄</p>-->
             <table>
                 <tr>
                     <td>

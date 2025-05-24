@@ -116,9 +116,15 @@
                 </div>
             </div>
             <div id="playerExp">
-                <p>Lv {{ toolBar.profile.level }}</p>
+                <p>Lv. {{ toolBar.profile.level }}</p>
                 <div id="playerExpDetail">
-                    <p>{{ toolBar.profile.expInLevel }}/{{ toolBar.profile.expToNext }}</p>
+                    <p>
+                        {% if toolBar.profile.expInLevel == -1 %}
+                        ALL MAX
+                        {% else %}
+                        {{ toolBar.profile.expInLevel }}/{{ toolBar.profile.expToNext }}
+                        {% endif %}
+                    </p>
                     <div id="playerExpBar">
                         <div></div>
                         <div style="width: {{ toolBar.profile.progressPercent }}%;"></div>
@@ -127,11 +133,11 @@
             </div>
             <div id="playerData">
                 <a href="{% url 'profileCenter:myFans' %}">
-                    <p class="number">45</p>
+                    <p class="number">{{ toolBar.profile.followersCount }}</p>
                     <p class="title">粉絲</p>
                 </a>
                 <a href="{% url 'profileCenter:myFollows' %}">
-                    <p class="number">45</p>
+                    <p class="number">{{ toolBar.profile.followingCount }}</p>
                     <p class="title">關注</p>
                 </a>
                 <a href="{% url 'profileCenter:myArticle' %}">

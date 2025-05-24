@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from datetime import datetime, timezone
 from django.db import models
 from django.conf import settings
+from datetime import date
 import uuid
 #用戶
 class CustomUser(AbstractUser):
@@ -14,8 +15,13 @@ class CustomUser(AbstractUser):
 class Profile(models.Model):
     player = models.OneToOneField('player.CustomUser', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to='player_photo', blank=True, null=True)
+    slogan = models.CharField(max_length=200, blank=True, default='在基地深處，訊號永不熄滅，識別者並未在此留下痕跡')
 
     loginExpGainDate = models.DateField(blank=True, null=True)
+    draftExpGainDate = models.DateField(blank=True, null=True)
+    articleExpGainDate = models.DateField(blank=True, null=True)
+    messageExpGainDate = models.DateField(blank=True, null=True)
+    likeExpGainDate = models.DateField(blank=True, null=True)
 
     exp = models.IntegerField(default=0)
     level = models.IntegerField(default=0)
@@ -23,12 +29,23 @@ class Profile(models.Model):
     expToNext = models.IntegerField(default=70)
     progressPercent = models.FloatField(default=0.0)
 
+    #登入天數
     @property
     def signupDays(self):
         if self.player and self.player.date_joined:
             now = datetime.now(timezone.utc)
             return (now - self.player.date_joined).days + 1
         return 0
+    
+    #粉絲數
+    @property
+    def followersCount(self):
+        return Follow.objects.filter(following=self.player).count()
+    
+    #關注數
+    @property
+    def followingCount(self):
+        return Follow.objects.filter(follower=self.player).count()
 
     def __str__(self):
         return self.player.username
@@ -71,6 +88,25 @@ class Profile(models.Model):
     #關注篩選
     def is_following(self, other_user):
         return Follow.objects.filter(follower=self, following=other_user).exists()
+    
+    #單一任務判定
+    def has_done_today(self, field_name):
+        date = getattr(self, field_name)
+        if not date:
+            return False
+        today = datetime.now(timezone.utc).date()
+        return date == today
+    
+    #任務字典
+    def get_daily_tasks_status(self):
+        today = date.today()
+        return {
+            'loginDone': self.loginExpGainDate == today,
+            'articleDone': self.articleExpGainDate == today,
+            'messageDone': self.messageExpGainDate == today,
+            'likeDone': self.likeExpGainDate == today,
+            'draftDone': self.draftExpGainDate == today,
+        }
 
 class Follow(models.Model):
     follower = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='following_set', on_delete=models.CASCADE)

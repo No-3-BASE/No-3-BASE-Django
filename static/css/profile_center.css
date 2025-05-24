@@ -19,7 +19,7 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    padding-left: 20px;
+    padding-inline: 20px;
     padding-block: 20px;
 }
 
@@ -44,9 +44,9 @@
 #playerName span {
     font-size: 0.75rem;
     font-weight: 300;
-    color: var(--Level-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Bubblegum Sans", sans-serif;
-    background: var(--Level-Background);
+    background: var(--Contrast-Color);
     margin-inline: 5px;
     padding-inline: 5px;
     border-radius: 10px;
@@ -120,6 +120,11 @@ div.contentTitle {
     margin-block: 16px;
 }
 
+div.buttonGroup {
+    display: flex;
+    align-items: center;
+}
+
 p.detailTitle {
     font-size: 1rem;
     margin: 0;
@@ -129,7 +134,7 @@ button.editBtn {
     font-size: 0.75rem;
     padding-inline: 16px;
     border-radius: 3px;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     cursor: pointer;
 }
@@ -160,7 +165,8 @@ p.contentDetail {
 #shareBoard {
     display: none;
     position: absolute;
-    margin-left: -150px;
+    margin-left: -160px;
+    margin-top: 106px;
     padding: 10px;
     width: 200px;
     height: 60px;
@@ -191,11 +197,11 @@ img.communityImg {
     border-radius: 5px;
 }
 
-a.copyLink {
+button.copyLink {
     height: 24px;
     line-height: 24px;
     padding-inline: 3px;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     border-radius: 5px;
     font-family: "Bubblegum Sans", sans-serif;
@@ -407,7 +413,7 @@ span.reward {
 
 a.taskLink {
     font-size: 0.65rem;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     padding-inline: 10px;
     padding-block: 3px;
@@ -417,7 +423,7 @@ a.taskLink {
 a.finishTaskLink {
     pointer-events: none;
     font-size: 0.65rem;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     padding-inline: 10px;
     padding-block: 3px;
@@ -517,9 +523,10 @@ a.editA {
     font-size: 0.75rem;
     padding-inline: 16px;
     border-radius: 3px;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     cursor: pointer;
+    margin-left: 10px;
 }
 
 div.follow {
@@ -557,9 +564,9 @@ a.f:hover p {
 span.level {
     font-size: 0.7rem;
     font-weight: 300;
-    color: var(--Level-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Bubblegum Sans", sans-serif;
-    background: var(--Level-Background);
+    background: var(--Contrast-Color);
     margin-inline: 5px;
     padding-inline: 5px;
     border-radius: 10px;
@@ -579,7 +586,7 @@ button.unfollow {
     height: 18px;
     width: 60px;
     font-size: 0.65rem;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     border-radius: 3px;
 }
@@ -588,7 +595,7 @@ button.isfollow {
     height: 18px;
     width: 60px;
     font-size: 0.65rem;
-    color: var(--Contrast-Color);
+    color: var(--Secondary-Text-Color);
     border: 1px solid var(--Contrast-Color);
     border-radius: 3px;
 }

@@ -126,7 +126,7 @@ a.sectionA:hover {
     border-bottom-left-radius: 6px;
     color: var(--Contrast-Color);
     font-family: "Tinos", "Noto Serif TC", serif;
-    background: var(--Input-Background);
+    background: var(--Text-Secondary-Color);
 }
 
 #searchSections button {
@@ -134,7 +134,7 @@ a.sectionA:hover {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Noto Serif TC", serif;
 }
 

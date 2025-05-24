@@ -45,7 +45,7 @@
     letter-spacing: 1px;
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
-    background: var(--Input-Background);
+    background: var(--Text-Secondary-Color);
     color: var(--Contrast-Color);
     font-family: "Tinos", "Noto Serif TC", serif;
 }
@@ -54,7 +54,7 @@
     width: 64px;
     text-align: center;
     font-size: 1.03rem;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Noto Serif TC", serif;
     background: none;
     border: none;
@@ -242,7 +242,7 @@ div.perNoticeDetail p:nth-of-type(2) {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
 }
 

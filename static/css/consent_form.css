@@ -47,7 +47,7 @@
     padding-inline: 40px;
     border-radius: 5px;
     font-size: 1rem;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     opacity: 0.7;
     cursor: default;
