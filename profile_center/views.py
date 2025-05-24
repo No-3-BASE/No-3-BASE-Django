@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from player.models import Profile
+from player.models import Profile, Follow
 from django.contrib.auth.decorators import login_required
 
 #用戶資料
@@ -66,9 +66,19 @@ def my_bookmark_view(request):
 #我的粉絲
 @login_required
 def my_fans_view(request):
-    return render(request, 'profile_center/my_fans.html')
+    user = request.user
+
+    followers = Follow.objects.filter(following=user).select_related('follower')
+    return render(request, 'profile_center/my_fans.html', {
+        'followers': followers
+    })
 
 #我的關注
 @login_required
 def my_follows_view(request):
-    return render(request, 'profile_center/my_follows.html')
+    user = request.user
+
+    followings = Follow.objects.filter(follower=user).select_related('following')
+    return render(request, 'profile_center/my_follows.html', {
+        'followings': followings
+    })
