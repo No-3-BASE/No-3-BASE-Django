@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 import uuid
 #用戶
 class CustomUser(AbstractUser):
@@ -24,6 +25,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.player.username
 
+    #經驗計算
     def recalculate_level(self):
         a = 70
         exp = self.exp or 0
@@ -57,3 +59,16 @@ class Profile(models.Model):
         self.expInLevel = expInLevel
         self.expToNext = expToNext
         self.progressPercent = progress
+    
+    def is_following(self, other_user):
+        return Follow.objects.filter(follower=self, following=other_user).exists()
+
+class Follow(models.Model):
+    follower = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='following_set', on_delete=models.CASCADE)
+    following = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='followers_set', on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('follower', 'following')
+
+    def __str__(self):
+        return f"{self.follower.username} follows {self.following.username}"

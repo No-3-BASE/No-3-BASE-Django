@@ -116,12 +116,12 @@
                 </div>
             </div>
             <div id="playerExp">
-                <p>Lv {{ toolBar.level }}</p>
+                <p>Lv {{ toolBar.profile.level }}</p>
                 <div id="playerExpDetail">
-                    <p>{{ toolBar.expInLevel }}/{{ toolBar.expToNext }}</p>
+                    <p>{{ toolBar.profile.expInLevel }}/{{ toolBar.profile.expToNext }}</p>
                     <div id="playerExpBar">
                         <div></div>
-                        <div style="width: {{ toolBar.progressPercent }}%;"></div>
+                        <div style="width: {{ toolBar.profile.progressPercent }}%;"></div>
                     </div>
                 </div>
             </div>
