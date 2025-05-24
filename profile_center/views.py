@@ -15,6 +15,9 @@ def daily_mission_view(request):
 def my_article_view(request):
     return render(request, 'profile_center/my_article.html')
 
+def my_draft_view(request):
+    return render(request, 'profile_center/my_draft.html')
+
 def my_bookmark_view(request):
     return render(request, 'profile_center/my_bookmark.html')
 

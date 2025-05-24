@@ -116,12 +116,12 @@
                 </div>
             </div>
             <div id="playerExp">
-                <p>Lv 5</p>
+                <p>Lv {{ toolBar.level }}</p>
                 <div id="playerExpDetail">
-                    <p>1523/84569</p>
+                    <p>{{ toolBar.expInLevel }}/{{ toolBar.expToNext }}</p>
                     <div id="playerExpBar">
                         <div></div>
-                        <div style="width: 75%;"></div>
+                        <div style="width: {{ toolBar.progressPercent }}%;"></div>
                     </div>
                 </div>
             </div>
@@ -130,20 +130,20 @@
                     <p class="number">45</p>
                     <p class="title">粉絲</p>
                 </a>
-                <a href="">
+                <a href="{% url 'profileCenter:myFollows' %}">
                     <p class="number">45</p>
                     <p class="title">關注</p>
                 </a>
-                <a href="">
+                <a href="{% url 'profileCenter:myArticle' %}">
                     <p class="number">45</p>
                     <p class="title">文章</p>
                 </a>
             </div>
             <div id="profileButton">
-                <a href="{% url 'profileCenter:editGame' %}">用戶中心</a>
+                <a href="{% url 'profileCenter:playerProfile' %}">用戶中心</a>
                 <a href="">個人主頁</a>
-                <a href="">我的草稿</a>
-                <a href="">我的收藏</a>
+                <a href="{% url 'profileCenter:myDraft' %}">我的草稿</a>
+                <a href="{% url 'profileCenter:myBookmark' %}">我的收藏</a>
 
                 <form method="post" action="{% url 'player:logout' %}?next={{ request.path }}">
                     {% csrf_token %}

@@ -9,6 +9,7 @@ urlpatterns = [
     path('edit_game/', views.edit_game_view, name='editGame'),
     path('daily_mission/', views.daily_mission_view, name='dailyMission'),
     path('my_article/', views.my_article_view, name='myArticle'),
+    path('my_draft/', views.my_draft_view, name='myDraft'),
     path('my_bookmark/', views.my_bookmark_view, name='myBookmark'),
     path('my_fans/', views.my_fans_view, name='myFans'),
     path('my_follows/', views.my_follows_view, name='myFollows'),

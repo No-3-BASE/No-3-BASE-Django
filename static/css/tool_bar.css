@@ -325,7 +325,7 @@ div.perNoticeDetail p:nth-of-type(2) {
 
 #playerExp {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     margin: 0;
     margin-inline: 20px;
@@ -352,7 +352,7 @@ div.perNoticeDetail p:nth-of-type(2) {
 }
 
 #playerExpBar {
-    width: 130px;
+    width: 110px;
     height: 1.8px;
     position: relative;
     margin: 0;
@@ -360,7 +360,7 @@ div.perNoticeDetail p:nth-of-type(2) {
 }
 
 #playerExpBar div {
-    width: 130px;
+    width: 110px;
     position: absolute;
 }
 
