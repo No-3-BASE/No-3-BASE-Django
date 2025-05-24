@@ -10,7 +10,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
-from .models import Profile
+from urllib.parse import urlparse
 from datetime import datetime, timezone
 import uuid
 
@@ -204,4 +204,11 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     nextUrl = request.GET.get('next') or '/'
+
+    parsed = urlparse(nextUrl)
+    path = parsed.path
+
+    if path.startswith('/profile_center'):
+        return redirect('/')
+
     return redirect(nextUrl)

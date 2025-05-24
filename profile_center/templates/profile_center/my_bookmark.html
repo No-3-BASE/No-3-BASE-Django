@@ -18,17 +18,17 @@
             </p>
             <div id="playerTool">
                 <div class="line"></div>
-                <a href="">基本資料</a>
+                <a href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
                 <div class="line"></div>
-                <a href="">每日任務</a>
+                <a href="{% url 'profileCenter:dailyMission' %}">每日任務</a>
                 <div class="line"></div>
-                <a href="">我的文章</a>
+                <a href="{% url 'profileCenter:myArticle' %}">我的文章</a>
                 <div class="line"></div>
-                <a href="">我的草稿</a>
+                <a href="{% url 'profileCenter:myDraft' %}">我的草稿</a>
                 <div class="line"></div>
-                <a class="active" href="">我的收藏</a>
+                <a class="active" href="{% url 'profileCenter:myBookmark' %}">我的收藏</a>
                 <div class="line"></div>
-                <a href="">粉絲關注</a>
+                <a href="{% url 'profileCenter:myFans' %}">粉絲關注</a>
                 <div class="line"></div>
             </div>
         </div>

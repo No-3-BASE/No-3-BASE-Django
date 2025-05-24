@@ -88,11 +88,11 @@
 }
 
 #playerTool a.active {
-    color: var(--Section-Text-Color);
+    color: var(--A-Active-Color);
 }
 
 #playerTool a:hover {
-    color: var(--Section-Text-Color);
+    color: var(--A-Hover-Color);
 }
 
 div.line {
@@ -588,7 +588,7 @@ button.isfollow {
     height: 18px;
     width: 60px;
     font-size: 0.65rem;
-    color: var(--Button-Text-Color);
+    color: var(--Contrast-Color);
     border: 1px solid var(--Contrast-Color);
     border-radius: 3px;
 }

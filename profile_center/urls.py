@@ -4,7 +4,7 @@ from . import views
 app_name = 'profileCenter'
 
 urlpatterns = [
-    path('player_profile/', views.player_profile_view, name='playerProfile'),
+    path('', views.player_profile_view, name='playerProfile'),
     path('edit_profile/', views.edit_profile_view, name='editProfile'),
     path('edit_game/', views.edit_game_view, name='editGame'),
     path('daily_mission/', views.daily_mission_view, name='dailyMission'),

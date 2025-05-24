@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractUser
+from datetime import datetime, timezone
 from django.db import models
 from django.conf import settings
 import uuid
@@ -21,6 +22,13 @@ class Profile(models.Model):
     expInLevel = models.IntegerField(default=0)
     expToNext = models.IntegerField(default=70)
     progressPercent = models.FloatField(default=0.0)
+
+    @property
+    def signupDays(self):
+        if self.player and self.player.date_joined:
+            now = datetime.now(timezone.utc)
+            return (now - self.player.date_joined).days + 1
+        return 0
 
     def __str__(self):
         return self.player.username
@@ -60,6 +68,7 @@ class Profile(models.Model):
         self.expToNext = expToNext
         self.progressPercent = progress
     
+    #關注篩選
     def is_following(self, other_user):
         return Follow.objects.filter(follower=self, following=other_user).exists()
 

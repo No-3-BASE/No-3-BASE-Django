@@ -9,14 +9,6 @@ def toolbar_context(request):
         now = datetime.now(timezone.utc)
         signupDays = (now - user.date_joined).days + 1
 
-        level = 0
-        totalExpNeeded = 0
-        nextLevelExp = 70
-        progress = 0.0
-        expInLevel = 0
-        expToNext = 0
-        progress = 0
-
         profile = None
 
         try:
@@ -28,7 +20,6 @@ def toolbar_context(request):
             'toolBar': {
                 'isLogin': True,
                 'name': user.first_name,
-                'signupDays': signupDays,
                 'profile': profile
             }
         }
@@ -37,7 +28,6 @@ def toolbar_context(request):
         'toolBar': {
             'isLogin': False,
             'name': "訪客",
-            'signupDays': 0,
             'profile': None
         }
     }
