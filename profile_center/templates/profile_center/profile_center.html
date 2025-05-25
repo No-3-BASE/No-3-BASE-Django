@@ -10,12 +10,7 @@
     <link rel="stylesheet" href="{% static 'css/profile_center.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
-    <script src="{% static 'js/share_board.js' %}"></script>
-    <script src="{% static 'js/upload_player_photo.js' %}"></script>
-    <script src="{% static 'js/section_btnmenu.js' %}"></script>
-    <script src="{% static 'js/game_detail.js' %}"></script>
-    <script src="{% static 'js/upload_game_detail.js' %}"></script>
+    {% block scripts %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
 

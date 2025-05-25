@@ -1,6 +1,12 @@
 {% extends 'profile_center/profile_center.html' %}
 {% load static %}
 
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+<script src="{% static 'js/game_detail.js' %}"></script>
+<script src="{% static 'js/upload_game_detail.js' %}"></script>
+{% endblock %}
+
 {% block title %}資料節點—編輯遊戲{% endblock %}
 
 {% block content %}
