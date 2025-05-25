@@ -8,7 +8,7 @@ def home_view(request):
 
     #熱度最高板塊
     hotSections = Section.objects.order_by(
-        '-yesterday_hot', '-total_hot', '-created_at'
+        '-yesterdayHot', '-totalHot', '-createdAt'
     )[:12]
 
     if request.user.is_authenticated:
