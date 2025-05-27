@@ -1,9 +1,17 @@
 from django.contrib.auth.models import AbstractUser
-from datetime import datetime, timezone
+from datetime import datetime, timezone, date
 from django.db import models
 from django.conf import settings
 from datetime import date
 import uuid
+import os
+
+#照片上傳
+def user_photo_path(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = f'{instance.player.id}.{ext}'
+    return os.path.join('player_photo', filename)
+
 #用戶
 class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -14,8 +22,9 @@ class CustomUser(AbstractUser):
 #用戶資料
 class Profile(models.Model):
     player = models.OneToOneField('player.CustomUser', on_delete=models.CASCADE)
-    photo = models.ImageField(upload_to='player_photo', blank=True, null=True)
+    photo = models.ImageField(upload_to=user_photo_path, blank=True, null=True)
     slogan = models.CharField(max_length=200, blank=True, default='在基地深處，訊號永不熄滅，識別者並未在此留下痕跡')
+    birthday = models.DateField(default=date(2000, 1, 1), blank=True, null=True)
 
     loginExpGainDate = models.DateField(blank=True, null=True)
     draftExpGainDate = models.DateField(blank=True, null=True)

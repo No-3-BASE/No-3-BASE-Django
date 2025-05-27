@@ -41,7 +41,10 @@
         <div class="innerContent">
             <div class="contentTitle">
                 <p class="detailTitle">基本資料</p>
-                <a class="editA" href="{% url 'profileCenter:editProfile' %}">編輯</a>
+                <div class="buttonGroup">
+                    <a class="editA" href="{% url 'profileCenter:editPrivacy' %}">隱私</a>
+                    <a class="editA" href="{% url 'profileCenter:editProfile' %}">編輯</a>
+                </div>
             </div>
             {% if profile.photo %}
             <img id="profilePhoto" src="{{ profile.photo.url }}" alt="User Photo">
@@ -50,8 +53,8 @@
             {% endif %}
             <p class="contentDetail">暱稱　{{ name }}</p>
             <p class="contentDetail">帳號　{{ account }}</p>
-            <p class="contentDetail">信箱　{{ email }}（隱藏）</p>
-            <p class="contentDetail">生日　2025-05-31</p>
+            <p class="contentDetail">信箱　{{ email }}</p>
+            <p class="contentDetail">生日　{{ profile.birthday|date:'Y-m-d' }}</p>
             <p class="contentDetail">註冊日期　{{ join }}</p>
             <p class="contentDetail">個性簽名</p>
             <p class="contentDetail">{{ profile.slogan }}</p>

@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from player.models import Profile, Follow
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import default_storage
 
 #用戶資料
 @login_required
@@ -20,10 +21,49 @@ def player_profile_view(request):
         'profile': profile
     })
 
+#編輯隱私
+@login_required
+def edit_privacy_view(request):
+    return render(request, 'profile_center/edit_privacy.html')
+
 #編輯資料
 @login_required
 def edit_profile_view(request):
-    return render(request, 'profile_center/edit_profile.html')
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        birthday = request.POST.get('birthday')
+        slogan = request.POST.get('slogan')
+
+        user.first_name = name
+        user.save()
+
+        profile.birthday = birthday
+        profile.slogan = slogan
+
+        photo = request.FILES.get('photo')
+        if photo:
+            if profile.photo and default_storage.exists(profile.photo.name):
+                default_storage.delete(profile.photo.name)
+            profile.photo = photo
+
+        profile.save()
+
+        return redirect('profileCenter:playerProfile')
+
+    return render(request, 'profile_center/edit_profile.html', {
+        'name': user.first_name,
+        'account': user.username,
+        'email': user.email,
+        'join': user.date_joined.strftime('%Y-%m-%d'),
+        'profile': profile
+    })
 
 #編輯遊戲
 @login_required

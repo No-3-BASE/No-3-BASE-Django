@@ -132,7 +132,9 @@ p.detailTitle {
 
 button.editBtn {
     font-size: 0.75rem;
-    padding-inline: 16px;
+    height: 18px;
+    line-height: 18px;
+    padding-inline: 17px;
     border-radius: 3px;
     color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
@@ -156,6 +158,12 @@ p.contentDetail {
     font-size: 0.9rem;
     margin: 0;
     margin-block: 3px;
+}
+
+p.contentSelect {
+    font-size: 0.9rem;
+    margin: 0;
+    margin-block: 7px;
 }
 
 #shareBtn {
@@ -292,7 +300,7 @@ select.privateProfile:focus {
 textarea {
     height: 60px;
     width: 600px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     background: none;
     color: var(--Text-Color);
     border: none;

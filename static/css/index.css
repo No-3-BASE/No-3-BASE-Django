@@ -88,7 +88,7 @@ a.sectionA {
 
 a.sectionA:hover {
     font-weight: 600;
-    color: var(--Section-Hover-Color);
+    color: var(--Text-Color);
 }
 
 #allSections {

@@ -146,3 +146,6 @@ AUTH_USER_MODEL = 'player.CustomUser'
 #上傳圖片相關
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+#未登入跳轉
+LOGIN_URL = '/player/login/'

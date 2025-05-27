@@ -7,9 +7,7 @@ html[data-theme="dark"] {
     --Contrast-Color: #B56387;
     --Text-Color: #FDF7E7;
     --Text-Secondary-Color: #FDF7E7;
-    --Button-Border-Color: #3D5272;
     --Section-Text-Color: #B56387;
-    --Section-Hover-Color: #FDF7E7;
     --A-Active-Color: #03213D;
     --A-Hover-Color: #B56387;
     --Shadow-Color: rgba(48, 69, 117, 0.6);
@@ -24,9 +22,7 @@ html[data-theme="light"] {
     --Contrast-Color: #3D5272;
     --Text-Color: #4C4B6A;
     --Text-Secondary-Color: #FDF7E7;
-    --Button-Border-Color: #3D5272;
     --Section-Text-Color: #8D3136;
-    --Section-Hover-Color: #4C4B6A;
     --A-Active-Color: #8D3136;
     --A-Hover-Color: #FDF7E7;
     --Shadow-Color: rgb(241, 201, 218);

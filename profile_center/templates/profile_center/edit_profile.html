@@ -3,6 +3,7 @@
 
 {% block scripts %}
 <script src="{% static 'js/upload_player_photo.js' %}"></script>
+<script src="{% static 'js/letter_control.js' %}"></script>
 {% endblock %}
 
 {% block title %}資料節點—編輯遊戲{% endblock %}
@@ -11,15 +12,15 @@
 <div id="playerCenter">
     <div id="playerProfile">
         <div id="playerDetail">
-            <img src="assets/images/photo_r.jpg" alt="">
-            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
-            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
+            <p id="playerName">{{ name }}<span>Lv. {{ profile.level }}</span></p>
+            <p id="playerDays">進入基地　<span>{{ profile.signupDays }}</span>　天</p>
             <p id="playerSign">個性簽名</p>
-            <p>
-                山高路遠ABCDE
-                <br>
-                山高路遠ABCDE
-            </p>
+            <p>{{ profile.slogan }}</p>
             <div id="playerTool">
                 <div class="line"></div>
                 <a class="active" href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
@@ -39,48 +40,45 @@
     </div>
     <div id="playerContent">
         <div class="innerContent">
-            <div class="contentTitle">
-                <p class="detailTitle">編輯資料</p>
-                <button class="editBtn">儲存</button>
-            </div>
-            <div id="uploadPhoto">
-                <img id="profilePhoto" src="assets/images/photo_r2.png" alt="">
-                <div class="overlay">
-                    <label id="uploadBtn" for="fileInput">上傳圖片</label>
-                    <input type="file" id="fileInput" accept="image/*" hidden>
+            <form method="post" action="{% url 'profileCenter:editProfile' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="contentTitle">
+                    <p class="detailTitle">編輯資料</p>
+                    <button class="editBtn" type="submit">儲存</button>
                 </div>
-            </div>
-            <p class="contentDetail">
-                暱稱
-                <label for="name">
-                    <input name="name" class="editProfile" type="text">
-                </label>
-            </p>
-            <p class="contentDetail">帳號　cdsvdsfvg</p>
-            <p class="contentDetail">
-                信箱
-                <select class="privateProfile" name="" id="emailSelect">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-                abv@gmail.com
-            </p>
-            <p class="contentDetail">
-                生日
-                <select class="privateProfile" name="" id="emailSelect">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-                <label for="birthday">
-                    <input name="birthday" class="editProfile" type="date" style="margin-left: 1px;">
-                </label>
-            </p>
-            <p class="contentDetail">註冊日期　2025-06-11</p>
-            <p class="contentDetail">個性簽名（15 / 80）</p>
-            <textarea name="sign" id="sign"></textarea>
+                <div id="uploadPhoto">
+                    {% if profile.photo %}
+                    <img id="profilePhoto" src="{{ profile.photo.url }}" alt="User Photo">
+                    {% else %}
+                    <img id="profilePhoto" src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                    {% endif %}
+                    <div class="overlay">
+                        <label id="uploadBtn" for="fileInput">上傳圖片</label>
+                        <input name="photo" type="file" id="fileInput" accept="image/*" hidden>
+                    </div>
+                </div>
+                <p class="contentDetail">
+                    暱稱
+                    <label for="name">
+                        <input name="name" class="editProfile" type="text" value="{{ name }}">
+                    </label>
+                </p>
+                <p class="contentDetail">帳號　{{ account }}</p>
+                <p class="contentDetail">
+                    信箱　{{ email }}
+                </p>
+                <p class="contentDetail">
+                    生日
+                    <label for="birthday">
+                        <input name="birthday" class="editProfile" type="date"
+                            value="{{ profile.birthday|date:'Y-m-d' }}">
+                    </label>
+                </p>
+                <p class="contentDetail">註冊日期　{{ join }}</p>
+                <p class="contentDetail">個性簽名（<span id="charCount">0</span> / 80）</p>
+                <textarea name="slogan" id="sign">{{ profile.slogan }}</textarea>
         </div>
+        </form>
     </div>
 </div>
 {% endblock %}

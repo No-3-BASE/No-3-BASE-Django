@@ -6,6 +6,7 @@ app_name = 'profileCenter'
 urlpatterns = [
     path('', views.player_profile_view, name='playerProfile'),
     path('edit_profile/', views.edit_profile_view, name='editProfile'),
+    path('edit_privacy/', views.edit_privacy_view, name='editPrivacy'),
     path('edit_game/', views.edit_game_view, name='editGame'),
     path('daily_mission/', views.daily_mission_view, name='dailyMission'),
     path('my_article/', views.my_article_view, name='myArticle'),

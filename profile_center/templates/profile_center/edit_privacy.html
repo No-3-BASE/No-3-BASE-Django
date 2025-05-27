@@ -1,0 +1,89 @@
+{% extends 'profile_center/profile_center.html' %}
+{% load static %}
+
+{% block scripts %}
+<script src="{% static 'js/upload_player_photo.js' %}"></script>
+{% endblock %}
+
+{% block title %}資料節點—編輯遊戲{% endblock %}
+
+{% block content %}
+<div id="playerCenter">
+    <div id="playerProfile">
+        <div id="playerDetail">
+            <img src="assets/images/photo_r.jpg" alt="">
+            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
+            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            <p id="playerSign">個性簽名</p>
+            <p>
+                山高路遠ABCDE
+                <br>
+                山高路遠ABCDE
+            </p>
+            <div id="playerTool">
+                <div class="line"></div>
+                <a class="active" href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
+                <div class="line"></div>
+                <a href="{% url 'profileCenter:dailyMission' %}">每日任務</a>
+                <div class="line"></div>
+                <a href="{% url 'profileCenter:myArticle' %}">我的文章</a>
+                <div class="line"></div>
+                <a href="{% url 'profileCenter:myDraft' %}">我的草稿</a>
+                <div class="line"></div>
+                <a href="{% url 'profileCenter:myBookmark' %}">我的收藏</a>
+                <div class="line"></div>
+                <a href="{% url 'profileCenter:myFans' %}">粉絲關注</a>
+                <div class="line"></div>
+            </div>
+        </div>
+    </div>
+    <div id="playerContent">
+        <div class="innerContent">
+            <div class="contentTitle">
+                <p class="detailTitle">隱私設定</p>
+                <button class="editBtn">儲存</button>
+            </div>
+            <p class="contentSelect">
+                文章
+                <select class="privateProfile" name="">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+            </p>
+            <p class="contentSelect">
+                留言
+                <select class="privateProfile" name="">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+            </p>
+            <p class="contentSelect">
+                按讚
+                <select class="privateProfile" name="">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+            </p>
+            <p class="contentSelect">
+                粉絲列表
+                <select class="privateProfile" name="">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+            </p>
+            <p class="contentSelect">
+                關注列表
+                <select class="privateProfile" name="">
+                    <option value="">公開</option>
+                    <option value="">僅限粉絲</option>
+                    <option value="">私人</option>
+                </select>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
