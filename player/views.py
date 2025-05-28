@@ -27,11 +27,11 @@ def signup_view(request):
         account = request.POST.get('account', '').strip()
         email = request.POST.get('email', '').strip()
         password = request.POST.get('password', '')
-        confirm_password = request.POST.get('confirmPassword', '')
+        confirmPassword = request.POST.get('confirmPassword', '')
         print(f'account {account}')
 
         #密碼一致性確認
-        if confirm_password != password:
+        if confirmPassword != password:
             errorMessage = "密鑰配對錯誤：請輸入密鑰確保同步性"
             return render(request, 'player/signup.html', {'errorMessage': errorMessage})
         print("完成密碼確認")
