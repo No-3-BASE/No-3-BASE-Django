@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         html.setAttribute("data-theme", savedTheme)
     }
     else {
-        const prefersLight = window.matchMedia("(prefers-color-scheme: ligth)").matches
+        const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches
         html.setAttribute("data-theme", prefersLight ? "light" : "dark")
     }
 
@@ -63,5 +63,17 @@ function toggleTheme() {
     messageImg.src = themeSet.message
     noticeImg.src = themeSet.notice
 
+    forceRepaint('.articleTitle')
+    forceRepaint('.articleContent')
+
     console.log("主題已切換為:", newTheme)
+}
+
+function forceRepaint(selector) {
+    const el = document.querySelector(selector)
+    if (el) {
+        el.style.display = 'none'
+        el.offsetHeight
+        el.style.display = ''
+    }
 }

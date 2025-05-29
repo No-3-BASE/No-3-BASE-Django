@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from player.models import Profile, Follow
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
-
+from article.models import Article
 #用戶資料
 @login_required
 def player_profile_view(request):
@@ -91,7 +91,20 @@ def daily_mission_view(request):
 #我的文章
 @login_required
 def my_article_view(request):
-    return render(request, 'profile_center/my_article.html')
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    publishedArticles = Article.objects.filter(author=request.user, status='published')
+
+    return render(request, 'profile_center/my_article.html', {
+        'name': user.first_name,
+        'profile': profile,
+        'articles': publishedArticles
+    })
 
 #我的草稿
 @login_required

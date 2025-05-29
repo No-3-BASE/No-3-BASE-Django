@@ -1,31 +1,39 @@
 from django.db import models
 from django.conf import settings
+from django.utils.html import strip_tags
 from board.models import Section
 from section.models import Category
 import uuid
-#草稿
-class Draft(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='drafts', on_delete=models.CASCADE)
-    section = models.ForeignKey(Section, null=True, blank=True, on_delete=models.SET_NULL, related_name='drafts')
-    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='drafts')
-    title = models.CharField(null=True)
-    content = models.CharField(null=True)
-    createAt = models.DateField(auto_now_add=True)
-    lastEdit = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f"[草稿] {self.section.name} - {self.category.name} - {self.title or '暫無標題'}"
-
 #文章
 class Article(models.Model):
+    STATUS_CHOICES = [
+        ('draft', '草稿'),
+        ('deleted', '已刪除草稿'),
+        ('pending', '待審核'),
+        ('rejected', '已退回'),
+        ('published', '已發布'),
+        ('removed', '已刪除文章'),
+    ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='articles', on_delete=models.CASCADE)
-    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name='articles')
+    section = models.ForeignKey(Section, null=True, blank=True, on_delete=models.CASCADE, related_name='articles')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='articles')
-    title = models.CharField(null=False)
-    content = models.CharField(null=True)
-    createAt = models.DateField(auto_now_add=True)
+    title = models.TextField(null=True)
+    content = models.TextField(null=True)
+    createAt = models.DateTimeField(auto_now_add=True)
+    lastEdit = models.DateTimeField(auto_now=True)
+
+    like = models.IntegerField(default=0)
+    comment = models.IntegerField(default=0)
+    popularity = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.section.name} - {self.category.name} - {self.title}"
+        return f"{self.get_status_display()} - {self.section.name} - {self.category.name} - {self.title}"
+    
+    #純文字提取
+    def get_preview(self, length=200):
+        text = strip_tags(self.content or '')
+        if len(text) > length:
+            return text[:length]
+        return text

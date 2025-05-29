@@ -7,6 +7,9 @@ def section_view(request, section_id):
 
     return render(request, 'section/section.html', {'detail': detail})
 
+def article_view(request, article_id):
+    return render
+
 #文章編輯
 @login_required
 def article_edit_view(request, article_id):

@@ -6,7 +6,7 @@ from django.utils.crypto import get_random_string
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from board.models import Section
-from .models import Article, Draft
+from .models import Article
 from section.models import Category
 from board.models import Section
 import os
@@ -28,7 +28,8 @@ def article_create_view(request, section_id=None):
             section = get_object_or_404(Section, id=section_id)
             category = get_object_or_404(Category, id=category_id)
 
-            Draft.objects.create(
+            Article.objects.create(
+                status='draft',
                 author=request.user,
                 section=section,
                 category=category,
@@ -37,6 +38,25 @@ def article_create_view(request, section_id=None):
             )
 
             return redirect('profileCenter:myDraft')
+        
+        if action == 'article':
+            section_id = request.POST.get('section')
+            category_id = request.POST.get('category')
+            title = request.POST.get('title')
+            content = request.POST.get('content')
+
+            section = get_object_or_404(Section, id=section_id)
+            category = get_object_or_404(Category, id=category_id)
+
+            Article.objects.create(
+                status='published',
+                author=request.user,
+                section=section,
+                category=category,
+                title=title,
+                content=content
+            )
+            return redirect('profileCenter:myArticle')
 
     return render(request, 'article/edit_article.html', {
         'sections': sections,
