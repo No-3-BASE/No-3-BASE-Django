@@ -102,7 +102,7 @@ button.submitArticle {
     padding-inline: 16px;
     padding-block: 3px;
     border-radius: 3px;
-    color: var(--Button-Text-Color);
+    color: var(--Text-Secondary-Color);
     background: var(--Contrast-Color);
     cursor: pointer;
     margin-left: 10px;

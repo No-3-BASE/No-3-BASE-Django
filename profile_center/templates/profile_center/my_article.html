@@ -41,19 +41,23 @@
         <div class="innerContent">
             <div class="contentTitle">
                 <p class="detailTitle">我的文章</p>
-                <button id="sortArticle" type="button">≡按時間</button>
+                {% if sortBy == "hot" %}
+                <a href="?sort=time"><button id="sortArticle" type="button">≡按時間</button></a>
+                {% else %}
+                <a href="?sort=hot"><button id="sortArticle" type="button">≡按熱度</button></a>
+                {% endif %}
             </div>
             {% for article in articles %}
             <div class="perArticle">
                 <p class="basicInfo">
-                    發布者 {{ article.author.first_name }}
+                    {{ article.author.first_name }}
                     <span>
-                        <span class="sectionInfo">發布板塊</span>
+                        <span class="sectionInfo">{{ article.section.name }}</span>
                         <span class="infoSeparate">·</span>
-                        <span class="classInfo">發布類別</span>
-                        <span class="timeInfo">發布時間：2025-05-19 21:32</span>
-                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
-                        <div id="menu1" class="menu">
+                        <span class="classInfo">{{ article.category.name }}</span>
+                        <span class="timeInfo">發布時間：{{ article.publishAt|date:"Y-m-d H:i" }}</span>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('{{ article.id }}')">⋮</button>
+                        <div id="{{ article.id }}" class="menu">
                             <a>編輯</a>
                             <a>刪除</a>
                         </div>
@@ -61,13 +65,9 @@
                 </p>
                 <a href="index.html">
                     <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
-                    <p class="articleContent">這是內容<br>這是內容<br>這是內容<br>Lorem ipsum, dolor sit amet consectetur
-                        adipisicing
-                        elit. Illo, corrupti quae cumque et unde quod ratione quas amet reiciendis doloremque
-                        laudantium
-                        a incidunt, eveniet eum voluptatem, natus culpa dignissimos pariatur.</p>
+                    <p class="articleContent">{{ article.get_preview|linebreaksbr|default:"　" }}<br><br></p>
                 </a>
-                <p class="articleInfo">獲讚　63　｜　留言　758　｜　熱度　263</p>
+                <p class="articleInfo">獲讚　{{ article.like }}　｜　留言　{{ article.comment }}　｜　熱度　{{ article.hot }}</p>
             </div>
             {% endfor %}
         </div>

@@ -24,6 +24,11 @@ const quill = new Quill('#editor-container', {
     }
 })
 
+const hiddenContent = document.querySelector('#hidden-content').value
+if (hiddenContent) {
+    quill.root.innerHTML = hiddenContent
+}
+
 function imageHandler() {
     const input = document.createElement('input')
     input.setAttribute('type', 'file')

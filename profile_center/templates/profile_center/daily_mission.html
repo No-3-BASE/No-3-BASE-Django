@@ -88,9 +88,9 @@
                 <p class="taskcontentDetail">記錄上傳<span class="reward">15 point</span><span
                         class="describe">建立一篇草稿</span></p>
                 {% if tasks.draftDone %}
-                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                <a class="finishTaskLink" href="{% url 'article:create' %}">已完成任務</a>
                 {% else %}
-                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                <a class="taskLink" href="{% url 'article:create' %}">前往任務點</a>
                 {% endif %}
             </div>
             <div class="line"></div>
@@ -98,9 +98,9 @@
                 <p class="taskcontentDetail">資料同步<span class="reward">25 point</span><span
                         class="describe">發布一篇文章</span></p>
                 {% if tasks.articleDone %}
-                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                <a class="finishTaskLink" href="{% url 'profileCenter:myDraft' %}">已完成任務</a>
                 {% else %}
-                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                <a class="taskLink" href="{% url 'profileCenter:myDraft' %}">前往任務點</a>
                 {% endif %}
             </div>
             <div class="line"></div>

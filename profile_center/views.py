@@ -98,18 +98,37 @@ def my_article_view(request):
     except Profile.DoesNotExist:
         profile = None
 
-    publishedArticles = Article.objects.filter(author=request.user, status='published')
+    sortBy = request.GET.get("sort", "time")
+
+    if sortBy == "hot":
+        publishedArticles = Article.objects.filter(author=user, status='published').order_by('-hot', '-publishAt')
+    else:
+        publishedArticles = Article.objects.filter(author=user, status='published').order_by('-publishAt')
 
     return render(request, 'profile_center/my_article.html', {
         'name': user.first_name,
         'profile': profile,
+        'sortBy': sortBy,
         'articles': publishedArticles
     })
 
 #我的草稿
 @login_required
 def my_draft_view(request):
-    return render(request, 'profile_center/my_draft.html')
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    draftArticles = Article.objects.filter(author=user, status='draft').order_by('-lastEdit')
+
+    return render(request, 'profile_center/my_draft.html', {
+        'name': user.first_name,
+        'profile': profile,
+        'articles': draftArticles
+    })
 
 #我的收藏
 @login_required

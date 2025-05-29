@@ -23,10 +23,11 @@ class Article(models.Model):
     content = models.TextField(null=True)
     createAt = models.DateTimeField(auto_now_add=True)
     lastEdit = models.DateTimeField(auto_now=True)
+    publishAt = models.DateTimeField(null=True, blank=True)
 
     like = models.IntegerField(default=0)
     comment = models.IntegerField(default=0)
-    popularity = models.IntegerField(default=0)
+    hot = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.get_status_display()} - {self.section.name} - {self.category.name} - {self.title}"

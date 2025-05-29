@@ -4,15 +4,22 @@ from django.http import JsonResponse, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.utils.crypto import get_random_string
 from django.views.decorators.http import require_POST
+from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.utils import timezone as dj_timezone
+from datetime import datetime, timezone
 from board.models import Section
-from .models import Article
 from section.models import Category
 from board.models import Section
+from .models import Article
 import os
+
+User = get_user_model()
+
 #建立文章
 @login_required
 def article_create_view(request, section_id=None):
+    user = request.user
     sections = Section.objects.all()
 
     if request.method == 'POST':
@@ -37,6 +44,20 @@ def article_create_view(request, section_id=None):
                 content=content
             )
 
+            #每日草稿經驗
+            try:
+                profile = user.profile
+                now = datetime.now(timezone.utc).date()
+
+                if profile.draftExpGainDate != now:
+                    profile.exp += 15
+                    profile.draftExpGainDate = now
+
+                profile.recalculate_level()
+                profile.save()
+            except User.DoesNotExist:
+                pass
+
             return redirect('profileCenter:myDraft')
         
         if action == 'article':
@@ -54,19 +75,83 @@ def article_create_view(request, section_id=None):
                 section=section,
                 category=category,
                 title=title,
-                content=content
+                content=content,
+                publishAt= dj_timezone.now()
             )
+            
+            #每日文章經驗
+            try:
+                profile = user.profile
+                now = datetime.now(timezone.utc).date()
+
+                if profile.articleExpGainDate != now:
+                    profile.exp += 25
+                    profile.articleExpGainDate = now
+
+                profile.recalculate_level()
+                profile.save()
+            except User.DoesNotExist:
+                pass
+
             return redirect('profileCenter:myArticle')
 
     return render(request, 'article/edit_article.html', {
         'sections': sections,
-        'section': None
+        'article': None
     })
 
 #草稿編輯
 @login_required
 def draft_edit_view(request, draft_id):
-    return render(request, 'article/edit_article.html')
+    user = request.user
+    sections = Section.objects.all()
+
+    article = get_object_or_404(Article, id=draft_id, author=user)
+
+    if request.method == 'POST':
+        print("收到POST")
+        action = request.POST.get('action')
+
+        if action == 'draft':
+            print("儲存草稿")
+            section_id = request.POST.get('section')
+            category_id = request.POST.get('category')
+
+            section = get_object_or_404(Section, id=section_id)
+            category = get_object_or_404(Category, id=category_id)
+
+            article.section = section
+            article.category = category
+            article.title = request.POST.get('title')
+            article.content = request.POST.get('content')
+
+            article.save()
+
+            return redirect('profileCenter:myDraft')
+        
+        if action == 'article':
+            print("發布文章")
+            section_id = request.POST.get('section')
+            category_id = request.POST.get('category')
+
+            section = get_object_or_404(Section, id=section_id)
+            category = get_object_or_404(Category, id=category_id)
+
+            article.section = section
+            article.category = category
+            article.title = request.POST.get('title')
+            article.content = request.POST.get('content')
+            article.status = 'published'
+            article.publishAt = dj_timezone.now()
+
+            article.save()
+
+            return redirect('profileCenter:myArticle')
+
+    return render(request, 'article/edit_article.html', {
+        'sections': sections,
+        'article': article
+    })
 
 #請求分類
 def load_categories(request):

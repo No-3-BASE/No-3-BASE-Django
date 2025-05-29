@@ -25,7 +25,7 @@
     <div id="content">
         <p class="subTitle">編輯文章</p>
         <div id="editArticle">
-            <form id="article" method="post" action="{% url 'article:create' %}">
+            <form id="article" method="post" action="">
                 {% csrf_token %}
                 <p class="itemTitle">板塊類別</p>
                 <div class="inputFields">
@@ -33,24 +33,27 @@
                         <select id="selectSection" class="select-input selectSection" name="section">
                             <option value="" selected disabled hidden>選擇板塊</option>
                             {% for sec in sections %}
-                            <option value="{{ sec.id }}" {% if section and section.id == sec.id %}selected{% endif %}>
+                            <option value="{{ sec.id }}"
+                                {% if article.section and article.section.id == sec.id %}selected{% endif %}>
                                 {{ sec.name }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="field-container">
-                        <select id="selectClass" class="select-input selectClass" name="category"></select>
+                        <select id="selectClass" class="select-input selectClass" name="category">
+                            <input type="hidden" id="initialCategoryId" value="{{ article.category.id }}">
+                        </select>
                     </div>
                 </div>
                 <p class="itemTitle">文章標題</p>
                 <div class="inputFields inputCenter">
-                    <textarea id="articleTitle" name="title"></textarea>
+                    <textarea id="articleTitle" name="title">{{ article.title }}</textarea>
                 </div>
                 <p class="itemTitle">文章內容</p>
                 <div class="inputFields inputCenter">
                     <div class="textArea">
                         <div id="editor-container"></div>
-                        <input type="hidden" name="content" id="hidden-content">
+                        <input type="hidden" name="content" id="hidden-content" value="{{ article.content }}">
                         <div id="editBtn">
                             <button id="saveBtn" class="submitArticle" type="button">儲存草稿</button>
                             <button id="publishBtn" class="submitArticle" type="submit">發布文章</button>

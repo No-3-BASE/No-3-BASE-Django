@@ -1,5 +1,6 @@
-from player.models import Profile
 from datetime import datetime, timezone
+from player.models import Profile
+from article.models import Article
 import math
 
 def toolbar_context(request):
@@ -16,11 +17,14 @@ def toolbar_context(request):
         except Profile.DoesNotExist:
             profile = None
 
+        article_count = Article.objects.filter(author=user, status='published').count()
+
         return {
             'toolBar': {
                 'isLogin': True,
                 'name': user.first_name,
-                'profile': profile
+                'profile': profile,
+                'article': article_count
             }
         }
     
@@ -28,6 +32,7 @@ def toolbar_context(request):
         'toolBar': {
             'isLogin': False,
             'name': "訪客",
-            'profile': None
+            'profile': None,
+            'article': None
         }
     }

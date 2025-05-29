@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
         placeholder: '選擇類別'
     })
 
+    const initialCategoryId = document.getElementById('initialCategoryId')?.value;
+
     sectionTomSelect.on('change', function (value) {
         classTomSelect.clearOptions()
         classTomSelect.clear(true)
@@ -30,7 +32,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 data.forEach(category => {
                     classTomSelect.addOption({ value: category.id, text: category.name })
                 })
+
+                if (initialCategoryId) {
+                    classTomSelect.setValue(initialCategoryId)
+                }
+
                 classTomSelect.refreshOptions(false)
             })
     })
+
+    const selectedSectionValue = selectSection.value
+    if (selectedSectionValue) {
+        sectionTomSelect.setValue(selectedSectionValue)
+    }
+
 })
