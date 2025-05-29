@@ -1,0 +1,113 @@
+#content {
+    margin-top: 10px;
+}
+
+p.subTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+#editArticle {
+    padding: 10px;
+    margin-block: 10px;
+    border-radius: 5px;
+    background: var(--Secondary-Color);
+    padding-bottom: 100px;
+}
+
+p.itemTitle {
+    font-size: 1rem;
+    margin: 0;
+}
+
+div.inputFields {
+    display: flex;
+    margin-block: 10px;
+}
+
+div.inputCenter {
+    justify-content: center;
+}
+
+div.field-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 20px;
+}
+
+select.select-input {
+    width: 240px;
+}
+
+div.ts-control {
+    padding-block: 4px;
+    width: 240px;
+}
+
+#articleTitle {
+    font-size: 0.93rem;
+    width: 876px;
+    border: none;
+    background: none;
+    border-bottom: 1px solid var(--Text-Color);
+    color: var(--Text-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+    padding-inline: 1px;
+    letter-spacing: 1px;
+    resize: none;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#editor-container {
+    min-height: 240px;
+    background: var(--Primary-Color);
+}
+
+div.ql-editor {
+    width: 876px;
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+div.ql-toolbar {
+    background: var(--Contrast-Color);
+}
+
+#editor-container {
+    border: 1px solid var(--Contrast-Color);
+}
+
+div.textArea .ql-toolbar.ql-snow {
+    border-bottom: none;
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 7px 7px 0 0;
+}
+
+div.textArea .ql-container.ql-snow {
+    border-bottom: none;
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 0 0 7px 7px;
+}
+
+#editBtn {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+}
+
+button.submitArticle {
+    font-size: 0.85rem;
+    padding-inline: 16px;
+    padding-block: 3px;
+    border-radius: 3px;
+    color: var(--Button-Text-Color);
+    background: var(--Contrast-Color);
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+#publishBtn {
+    opacity: 0.7;
+}

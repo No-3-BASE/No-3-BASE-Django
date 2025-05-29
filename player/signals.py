@@ -3,7 +3,7 @@ from django.dispatch import receiver
 from player.models import CustomUser
 from .models import Profile
 
-@receiver(post_save, sender = CustomUser)
+@receiver(post_save, sender=CustomUser)
 def create_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(player = instance)
+        Profile.objects.create(player=instance)

@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/edit_article.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
+    <link rel="stylesheet" href="https://cdn.quilljs.com/2.0.0-dev.3/quill.snow.css">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+    <script src="https://cdn.quilljs.com/2.0.0-dev.3/quill.js"></script>
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/quill_textarea.js' %}" defer></script>
+    <script src="{% static 'js/select_section.js' %}"></script>
+    <script src="{% static 'js/textarea_space.js' %}"></script>
+    <script src="{% static 'js/upload_article.js' %}"></script>
+    <title>No 3 BASE—編輯文章</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        <p class="subTitle">編輯文章</p>
+        <div id="editArticle">
+            <form id="article" method="post" action="{% url 'article:create' %}">
+                {% csrf_token %}
+                <p class="itemTitle">板塊類別</p>
+                <div class="inputFields">
+                    <div class="field-container">
+                        <select id="selectSection" class="select-input selectSection" name="section">
+                            <option value="" selected disabled hidden>選擇板塊</option>
+                            {% for sec in sections %}
+                            <option value="{{ sec.id }}" {% if section and section.id == sec.id %}selected{% endif %}>
+                                {{ sec.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="field-container">
+                        <select id="selectClass" class="select-input selectClass" name="category"></select>
+                    </div>
+                </div>
+                <p class="itemTitle">文章標題</p>
+                <div class="inputFields inputCenter">
+                    <textarea id="articleTitle" name="title"></textarea>
+                </div>
+                <p class="itemTitle">文章內容</p>
+                <div class="inputFields inputCenter">
+                    <div class="textArea">
+                        <div id="editor-container"></div>
+                        <input type="hidden" name="content" id="hidden-content">
+                        <div id="editBtn">
+                            <button id="saveBtn" class="submitArticle" type="button">儲存草稿</button>
+                            <button id="publishBtn" id="publishBtn" class="submitArticle" type="submit">發布文章</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

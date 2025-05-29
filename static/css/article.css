@@ -1,0 +1,321 @@
+#content {
+    margin-top: 10px;
+}
+
+#articleSection {
+    display: flex;
+    align-items: center;
+}
+
+a.type {
+    margin-right: 7px;
+    background: var(--Secondary-Color);
+    padding-inline: 20px;
+    padding-block: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+a.type:hover p.typeName {
+    color: var(--Section-Text-Color);
+}
+
+a.type img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+p.typeName {
+    height: 30px;
+    line-height: 30px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin: 0;
+    color: var(--Text-Color);
+}
+
+div.article {
+    width: 900px;
+    min-height: 400px;
+    border: 1.6px solid var(--Contrast-Color);
+    border-radius: 7px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+div.player {
+    width: 200px;
+    border-right: 1.6px solid var(--Contrast-Color);
+    padding-inline: 10px;
+}
+
+div.playerDetail {
+    display: flex;
+    margin-top: 10px;
+}
+
+div.playerDetail img {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+div.playerDetail div {
+    margin-left: 5px;
+}
+
+div.playerDetail p {
+    margin: 0;
+}
+
+a.playerLink:hover p.playerName {
+    color: var(--Section-Text-Color);
+}
+
+p.playerName {
+    font-size: 0.85rem;
+    color: var(--Text-Color);
+}
+
+p.playerDays {
+    font-size: 0.7rem;
+    font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
+    display: flex;
+    align-items: center;
+    color: var(--Text-Color);
+}
+
+span.level {
+    font-size: 0.6rem;
+    font-weight: 300;
+    color: var(--Level-Text-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Contrast-Color);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+    letter-spacing: 0;
+}
+
+p.floor {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--Level-Text-Color);
+    font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
+    background: var(--Contrast-Color);
+    padding-inline: 5px;
+    border-radius: 3px;
+    letter-spacing: 2px;
+    margin-block: 7px;
+}
+
+p.signTitle {
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+p.sign {
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+div.articleField {
+    width: 690px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div.addBtn {
+    justify-content: space-between;
+    display: flex;
+    position: relative;
+    align-items: start;
+}
+
+p.articleTitle {
+    font-size: 0.95rem;
+    margin: 0;
+    font-weight: 700;
+    display: flex;
+}
+
+button.menuBtn {
+    color: var(--Text-Color);
+}
+
+div.menu {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 600px;
+    background: var(--Secondary-Color);
+    display: none;
+    flex-direction: column;
+}
+
+div.menu a {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu a:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleContent {
+    font-size: 0.85rem;
+    margin-block: 10px;
+}
+
+div.articleDetail {
+    display: flex;
+    justify-content: right;
+}
+
+div.articleDetail p {
+    margin: 0;
+    font-size: 0.85rem;
+    margin-inline: 10px;
+}
+
+button.articleBtn {
+    font-size: 0.7rem;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    margin-left: 5px;
+    padding-inline: 10px;
+    border-radius: 5px;
+}
+
+div.messageGroup {
+    margin-bottom: 100px;
+}
+
+div.articleMessage {
+    width: 900px;
+    min-height: 200px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+div.messageField {
+    width: 698px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+p.messageContent {
+    font-size: 0.85rem;
+    margin: 0;
+    color: var(--Text-Color);
+}
+
+a.floorLink {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--Level-Text-Color);
+    font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
+    background: var(--Contrast-Color);
+    padding-inline: 5px;
+    padding-block: 3px;
+    border-radius: 3px;
+    letter-spacing: 2px;
+    margin-block: 7px;
+}
+
+div.line {
+    margin-block: 7px;
+    background: var(--Contrast-Color);
+}
+
+p.touchButton {
+    text-align: center;
+    font-weight: 700;
+}
+
+#inputMessage {
+    position: fixed;
+    bottom: 5px;
+    background: var(--Secondary-Color);
+    width: 900px;
+    border-radius: 5px;
+    margin-left: 1px;
+}
+
+div.inputTool {
+    margin-block: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#smallTextarea {
+    width: 720px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--Contrast-Color);
+    color: var(--Text-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+button.inputBtn {
+    height: 24px;
+    line-height: 24px;
+    font-size: 0.9rem;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    margin-left: 5px;
+    padding-inline: 20px;
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+#largeMessage {
+    margin: auto;
+    height: 74vh;
+    position: fixed;
+    margin-left: 1px;
+    top: 190px;
+    background: var(--Secondary-Color);
+    width: 900px;
+    min-height: 80px;
+    border-radius: 5px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#largeTextarea {
+    height: 68vh;
+    width: 860px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid var(--Contrast-Color);
+    color: var(--Text-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+div.inputToolRight {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin-inline: 10px;
+    margin-bottom: 10px;
+}

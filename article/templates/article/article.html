@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="themeStyleSheet" rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/article.css">
+    <script src="js/load_tool_bar.js" defer></script>
+    <script src="js/theme_toggle.js" defer></script>
+    <script src="js/section_btnmenu.js"></script>
+    <script src="js/input_control.js"></script>
+    <title>No 3 BASE</title>
+</head>
+
+<body>
+    <div id="toolBar"></div>
+    <div id="content">
+        <div id="articleSection">
+            <a class="type" href="">
+                <img src="assets/images/photo_r2.png" alt="">
+                <p class="typeName">板塊名稱</p>
+            </a>
+            <a class="type" href="">
+                <p class="typeName">類別名稱</p>
+            </a>
+        </div>
+        <div class="article">
+            <div class="player">
+                <div class="playerDetail">
+                    <img src="assets/images/photo_r.jpg" alt="">
+                    <div>
+                        <a class="playerLink" href="">
+                            <p class="playerName">玩家名稱八個字符</p>
+                        </a>
+                        <p class="playerDays">進入基地 180 天<span class="level">Lv. 999</span></p>
+                    </div>
+                </div>
+                <p class="floor">樓主</p>
+                <p class="signTitle">個性簽名</p>
+                <p class="sign">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae ullam voluptatem
+                    illum delectus
+                    odit, non aliquid. Quidem qui nam fugit. Quo ex eaque in itaque similique earum, incidunt odio.
+                    Optio!</p>
+            </div>
+            <div class="articleField">
+                <div>
+                    <div class="addBtn">
+                        <p class="articleTitle">
+                            這是文章標題
+                            <br>
+                            很長的標題
+                        </p>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
+                        <div id="menu1" class="menu">
+                            <a>編輯</a>
+                            <a>檢舉</a>
+                        </div>
+                    </div>
+                    <p class="articleContent">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ullam rem hic magni
+                        molestias
+                        dolore quod, iusto illum illo? Et dolores earum consectetur aliquid ipsum fuga nam, eligendi
+                        dolorum
+                        a.
+                    </p>
+                </div>
+                <div class="articleDetail">
+                    <p>收藏　7</p>
+                    <button class="articleBtn" id="mark">收藏</button>
+                    <p>獲讚　19</p>
+                    <button class="articleBtn" id="like">按讚</button>
+                </div>
+            </div>
+        </div>
+        <!-- 這是留言 -->
+        <div class="messageGroup">
+            <div class="articleMessage">
+                <div class="player">
+                    <div class="playerDetail">
+                        <img src="assets/images/photo_r.jpg" alt="">
+                        <div>
+                            <a class="playerLink" href="">
+                                <p class="playerName">玩家名稱八個字符</p>
+                            </a>
+                            <p class="playerDays">進入基地 180 天<span class="level">Lv. 999</span></p>
+                        </div>
+                    </div>
+                    <p class="floor" id="16">16樓</p>
+                    <p class="signTitle">個性簽名</p>
+                    <p class="sign">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae ullam voluptatem
+                        illum delectus
+                        odit, non aliquid. Quidem qui nam fugit. Quo ex eaque in itaque similique earum, incidunt odio.
+                        Optio!</p>
+                </div>
+                <div class="messageField">
+                    <div class="addBtn">
+                        <p class="messageContent">
+                            <a class="floorLink" href="#16">@16樓</a>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ullam rem hic magni
+                            molestias
+                            dolore quod, iusto illum illo? Et dolores earum consectetur aliquid ipsum fuga nam, eligendi
+                            dolorum
+                            a.
+                        </p>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('menu2')">⋮</button>
+                        <div id="menu2" class="menu">
+                            <a>編輯</a>
+                            <a>檢舉</a>
+                        </div>
+                    </div>
+                    <div class="articleDetail">
+                        <button class="articleBtn">回覆</button>
+                        <p>獲讚　19</p>
+                        <button class="articleBtn">按讚</button>
+                    </div>
+                </div>
+            </div>
+            <div class="line"></div>
+            <p class="touchButton">通訊記錄已抵達終端</p>
+        </div>
+        <!--輸入框-->
+        <div id="inputMessage">
+            <div class="inputTool">
+                <textarea id="smallTextarea" class="hide-scrollbar" name="" id=""></textarea>
+                <button class="inputBtn" id="open">展開</button>
+                <button class="inputBtn">送出</button>
+            </div>
+        </div>
+        <!--展開框-->
+        <div id="largeMessage">
+            <div class="inputTool">
+                <textarea id="largeTextarea" class="hide-scrollbar" name="" id=""></textarea>
+            </div>
+            <div class="inputToolRight">
+                <button class="inputBtn" id="close">收合</button>
+                <button class="inputBtn">送出</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

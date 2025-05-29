@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'board',
     'section',
+    'article',
     'player',
     'profile_center',
 ]

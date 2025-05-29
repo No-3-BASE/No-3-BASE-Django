@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Draft, Article
 
-# Register your models here.
+admin.site.register(Draft)
+admin.site.register(Article)
