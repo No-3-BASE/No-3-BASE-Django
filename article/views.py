@@ -32,8 +32,15 @@ def article_create_view(request, section_id=None):
             title = request.POST.get('title')
             content = request.POST.get('content')
 
-            section = get_object_or_404(Section, id=section_id)
-            category = get_object_or_404(Category, id=category_id)
+            if section_id:
+                section = get_object_or_404(Section, id=section_id)
+            else:
+                section = None
+            
+            if category_id:
+                category = get_object_or_404(Category, id=category_id)
+            else:
+                category = None
 
             Article.objects.create(
                 status='draft',
@@ -117,8 +124,15 @@ def draft_edit_view(request, draft_id):
             section_id = request.POST.get('section')
             category_id = request.POST.get('category')
 
-            section = get_object_or_404(Section, id=section_id)
-            category = get_object_or_404(Category, id=category_id)
+            if section_id:
+                section = get_object_or_404(Section, id=section_id)
+            else:
+                section = None
+            
+            if category_id:
+                category = get_object_or_404(Category, id=category_id)
+            else:
+                category = None
 
             article.section = section
             article.category = category

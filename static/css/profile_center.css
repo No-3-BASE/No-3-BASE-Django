@@ -518,6 +518,7 @@ p.articleTitle:hover {
 }
 
 p.articleContent {
+    height: 32px;
     font-size: 0.7rem;
     font-weight: 400;
     display: -webkit-box;

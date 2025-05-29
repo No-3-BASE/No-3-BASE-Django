@@ -4,6 +4,7 @@ from django.utils.html import strip_tags
 from board.models import Section
 from section.models import Category
 import uuid
+import re
 #文章
 class Article(models.Model):
     STATUS_CHOICES = [
@@ -34,7 +35,11 @@ class Article(models.Model):
     
     #純文字提取
     def get_preview(self, length=200):
-        text = strip_tags(self.content or '')
+        content = self.content or ''
+        content = re.sub(r'</p\s*>', '\n', content, flags=re.IGNORECASE)
+        text = strip_tags(content)
+        text = text.strip()
+        
         if len(text) > length:
             return text[:length]
         return text
