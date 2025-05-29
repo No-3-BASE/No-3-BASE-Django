@@ -65,7 +65,7 @@
                 </p>
                 <a href="index.html">
                     <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
-                    <p class="articleContent">{{ article.get_preview|linebreaksbr|default:"　" }}<br><br></p>
+                    <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
                 </a>
                 <p class="articleInfo">獲讚　{{ article.like }}　｜　留言　{{ article.comment }}　｜　熱度　{{ article.hot }}</p>
             </div>

@@ -60,14 +60,8 @@
                     </span>
                 </p>
                 <a href="index.html">
-                    <p class="articleTitle">
-                        {% if article.title %}
-                        {{ article.title|linebreaksbr }}
-                        {% else %}
-                        　
-                        {% endif %}
-                    </p>
-                    <p class="articleContent">{{ article.get_preview|linebreaksbr }}<br><br></p>
+                    <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
+                    <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
                 </a>
                 <p class="articleInfo">獲讚　-　｜　留言　-　｜　熱度　-</p>
             </div>

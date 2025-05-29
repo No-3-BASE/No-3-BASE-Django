@@ -503,6 +503,7 @@ div.menu a:hover {
 }
 
 p.articleTitle {
+    height: 19px;
     font-size: 0.8rem;
     font-weight: 400;
     display: -webkit-box;
