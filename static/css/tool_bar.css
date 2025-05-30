@@ -111,7 +111,7 @@ div.message:hover div.messageExpand {
 }
 
 div.messageExpand div.messageExpandButton {
-    height: 30px;
+    height: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -119,6 +119,7 @@ div.messageExpand div.messageExpandButton {
 }
 
 div.messageExpandButton p {
+    margin: 0;
     width: 120px;
     font-size: 0.8rem;
 }

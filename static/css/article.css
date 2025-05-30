@@ -97,7 +97,7 @@ p.playerDays {
 span.level {
     font-size: 0.6rem;
     font-weight: 300;
-    color: var(--Level-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Bubblegum Sans", sans-serif;
     background: var(--Contrast-Color);
     margin-inline: 5px;
@@ -109,7 +109,7 @@ span.level {
 p.floor {
     font-size: 0.8rem;
     font-weight: 300;
-    color: var(--Level-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
     background: var(--Contrast-Color);
     padding-inline: 5px;
@@ -175,9 +175,18 @@ div.menu a:hover {
     color: var(--Section-Text-Color);
 }
 
-p.articleContent {
+div.articleContent {
     font-size: 0.85rem;
     margin-block: 10px;
+}
+
+div.articleContent p {
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+div.articleContent img {
+    max-width: 100%;
 }
 
 div.articleDetail {
@@ -187,8 +196,24 @@ div.articleDetail {
 
 div.articleDetail p {
     margin: 0;
-    font-size: 0.85rem;
-    margin-inline: 10px;
+    font-size: 0.75rem;
+    padding-inline: 10px;
+}
+
+div.downDetail {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+div.downDetail p {
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+div.downDetail p.time {
+    font-size: 0.7rem;
+    margin: 0;
 }
 
 button.articleBtn {
@@ -197,11 +222,16 @@ button.articleBtn {
     background: var(--Contrast-Color);
     margin-left: 5px;
     padding-inline: 10px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 div.messageGroup {
-    margin-bottom: 100px;
+    border: 1.6px solid transparent;
+}
+
+p.touchButton {
+    margin-top: 80px;
+    margin-bottom: 70px;
 }
 
 div.articleMessage {
@@ -213,7 +243,7 @@ div.articleMessage {
 }
 
 div.messageField {
-    width: 698px;
+    width: 690px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -230,7 +260,7 @@ p.messageContent {
 a.floorLink {
     font-size: 0.8rem;
     font-weight: 300;
-    color: var(--Level-Text-Color);
+    color: var(--Text-Secondary-Color);
     font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
     background: var(--Contrast-Color);
     padding-inline: 5px;
@@ -252,11 +282,22 @@ p.touchButton {
 
 #inputMessage {
     position: fixed;
-    bottom: 5px;
+    bottom: 0.5px;
     background: var(--Secondary-Color);
     width: 900px;
     border-radius: 5px;
     margin-left: 1px;
+}
+
+p.reply {
+    margin: 0;
+    margin-top: 7px;
+    margin-left: 10px;
+    font-size: 0.8rem;
+}
+
+p.reply button {
+    color: var(--Text-Color);
 }
 
 div.inputTool {

@@ -272,6 +272,12 @@ p.articleTitle {
     height: 21px;
     font-size: 0.9rem;
     font-weight: 600;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--Text-Color);
 }
 
 p.articleTitle:hover {

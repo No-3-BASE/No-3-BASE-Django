@@ -1,76 +1,70 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="themeStyleSheet" rel="stylesheet" href="">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/article.css">
-    <script src="js/load_tool_bar.js" defer></script>
-    <script src="js/theme_toggle.js" defer></script>
-    <script src="js/section_btnmenu.js"></script>
-    <script src="js/input_control.js"></script>
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <script src="{% static 'js/input_control.js' %}"></script>
     <title>No 3 BASE</title>
 </head>
 
 <body>
-    <div id="toolBar"></div>
+    {% include 'tool_bar.html' %}
     <div id="content">
         <div id="articleSection">
-            <a class="type" href="">
-                <img src="assets/images/photo_r2.png" alt="">
-                <p class="typeName">板塊名稱</p>
+            <a class="type" href="{% url 'section:section' article.section.id %}">
+                <img src="{{ article.section.icon.url }}" alt="">
+                <p class="typeName">{{ article.section.name }}</p>
             </a>
             <a class="type" href="">
-                <p class="typeName">類別名稱</p>
+                <p class="typeName">{{ article.category.name }}</p>
             </a>
         </div>
         <div class="article">
             <div class="player">
                 <div class="playerDetail">
-                    <img src="assets/images/photo_r.jpg" alt="">
+                    <img src="{{ article.author.profile.photo.url }}" alt="">
                     <div>
                         <a class="playerLink" href="">
-                            <p class="playerName">玩家名稱八個字符</p>
+                            <p class="playerName">{{ article.author.first_name }}</p>
                         </a>
-                        <p class="playerDays">進入基地 180 天<span class="level">Lv. 999</span></p>
+                        <p class="playerDays">進入基地 {{ article.author.profile.signupDays }} 天<span class="level">Lv.
+                                {{ article.author.profile.level }}</span></p>
                     </div>
                 </div>
                 <p class="floor">樓主</p>
                 <p class="signTitle">個性簽名</p>
-                <p class="sign">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae ullam voluptatem
-                    illum delectus
-                    odit, non aliquid. Quidem qui nam fugit. Quo ex eaque in itaque similique earum, incidunt odio.
-                    Optio!</p>
+                <p class="sign">{{ article.author.profile.slogan }}</p>
             </div>
             <div class="articleField">
                 <div>
                     <div class="addBtn">
-                        <p class="articleTitle">
-                            這是文章標題
-                            <br>
-                            很長的標題
-                        </p>
+                        <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
                         <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
                         <div id="menu1" class="menu">
                             <a>編輯</a>
                             <a>檢舉</a>
                         </div>
                     </div>
-                    <p class="articleContent">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ullam rem hic magni
-                        molestias
-                        dolore quod, iusto illum illo? Et dolores earum consectetur aliquid ipsum fuga nam, eligendi
-                        dolorum
-                        a.
-                    </p>
+                    <div class="articleContent">{{ article.content|safe }}</div>
                 </div>
-                <div class="articleDetail">
-                    <p>收藏　7</p>
-                    <button class="articleBtn" id="mark">收藏</button>
-                    <p>獲讚　19</p>
-                    <button class="articleBtn" id="like">按讚</button>
+                <div class="downDetail">
+                    <div>
+                        <p class="time">Activated：{{ article.publishAt|date:"Y-m-d H:i" }} Last
+                            Modified：{{ article.lastEdit|date:"Y-m-d H:i" }}</p>
+                    </div>
+                    <div class="articleDetail">
+                        <p>收藏　7</p>
+                        <button class="articleBtn" id="mark">收藏</button>
+                        <p>獲讚　19</p>
+                        <button class="articleBtn" id="like">按讚</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -122,6 +116,7 @@
         </div>
         <!--輸入框-->
         <div id="inputMessage">
+            <p id="reply" class="reply">回覆 <a class="floorLink" href="">@16樓</a> <button>✕</button></p>
             <div class="inputTool">
                 <textarea id="smallTextarea" class="hide-scrollbar" name="" id=""></textarea>
                 <button class="inputBtn" id="open">展開</button>

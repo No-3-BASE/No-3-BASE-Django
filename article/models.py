@@ -17,7 +17,7 @@ class Article(models.Model):
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='articles')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='articles', on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='articles', on_delete=models.CASCADE, related_query_name='articles')
     section = models.ForeignKey(Section, null=True, blank=True, on_delete=models.CASCADE, related_name='articles')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='articles')
     title = models.TextField(null=True)
@@ -31,7 +31,7 @@ class Article(models.Model):
     hot = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.get_status_display()} - {self.section.name} - {self.category.name} - {self.title}"
+        return f"{self.get_status_display()} - {self.section.name if self.section else 'No Section'} - {self.category.name if self.category else 'No Category'} - {self.title}"
     
     #純文字提取
     def get_preview(self, length=200):
@@ -43,3 +43,18 @@ class Article(models.Model):
         if len(text) > length:
             return text[:length]
         return text
+    
+#留言
+class Comment(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='comments', on_delete=models.SET_NULL)
+    content= models.TextField()
+    createAt = models.DateTimeField(auto_now_add=True)
+    like = models.PositiveIntegerField(default=0)
+
+    parentComment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
+
+    def __str__(self):
+        return f"{self.article.title} - {self.content}"
+    

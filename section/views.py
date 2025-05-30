@@ -19,8 +19,12 @@ def section_view(request, section_id):
         'articles': articles
     })
 
-def article_view(request, article_id):
-    return render
+def article_view(request, section_id, article_id):
+    article = get_object_or_404(Article, id=article_id)
+
+    return render(request, 'section/article.html', {
+        'article': article
+    })
 
 #文章編輯
 @login_required
