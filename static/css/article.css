@@ -237,9 +237,10 @@ p.touchButton {
 div.articleMessage {
     width: 900px;
     min-height: 200px;
-    margin-top: 10px;
+    margin-top: 5px;
     display: flex;
     flex-direction: row;
+    scroll-margin-top: 80px;
 }
 
 div.messageField {
@@ -271,7 +272,7 @@ a.floorLink {
 }
 
 div.line {
-    margin-block: 7px;
+    margin-top: 5px;
     background: var(--Contrast-Color);
 }
 
@@ -294,6 +295,7 @@ p.reply {
     margin-top: 7px;
     margin-left: 10px;
     font-size: 0.8rem;
+    display: none;
 }
 
 p.reply button {

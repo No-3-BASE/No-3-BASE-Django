@@ -11,6 +11,8 @@
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
     <script src="{% static 'js/section_btnmenu.js' %}"></script>
     <script src="{% static 'js/input_control.js' %}"></script>
+    <script src="{% static 'js/upload_comment.js' %}"></script>
+    <script src="{% static 'js/reply_comment.js' %}"></script>
     <title>No 3 BASE</title>
 </head>
 
@@ -69,60 +71,73 @@
             </div>
         </div>
         <!-- 這是留言 -->
-        <div class="messageGroup">
-            <div class="articleMessage">
+        <div class="messageGroup" id="commentsList">
+            {% for comment in comments %}
+            <div class="articleMessage" id="{{ comment.id }}">
                 <div class="player">
                     <div class="playerDetail">
-                        <img src="assets/images/photo_r.jpg" alt="">
+                        {% if comment.author.profile.photo %}
+                        <img src="{{ comment.author.profile.photo.url }}" alt="User Photo">
+                        {% else %}
+                        <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                        {% endif %}
                         <div>
                             <a class="playerLink" href="">
-                                <p class="playerName">玩家名稱八個字符</p>
+                                <p class="playerName">{{ comment.author.first_name }}</p>
                             </a>
-                            <p class="playerDays">進入基地 180 天<span class="level">Lv. 999</span></p>
+                            <p class="playerDays">進入基地 {{ comment.author.profile.signupDays }} 天<span class="level">Lv.
+                                    {{ comment.author.profile.level }}</span></p>
                         </div>
                     </div>
-                    <p class="floor" id="16">16樓</p>
+                    <p class="floor">{{ forloop.counter }}樓</p>
                     <p class="signTitle">個性簽名</p>
-                    <p class="sign">Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae ullam voluptatem
-                        illum delectus
-                        odit, non aliquid. Quidem qui nam fugit. Quo ex eaque in itaque similique earum, incidunt odio.
-                        Optio!</p>
+                    <p class="sign">{{ comment.author.profile.slogan }}</p>
                 </div>
                 <div class="messageField">
                     <div class="addBtn">
                         <p class="messageContent">
-                            <a class="floorLink" href="#16">@16樓</a>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio ullam rem hic magni
-                            molestias
-                            dolore quod, iusto illum illo? Et dolores earum consectetur aliquid ipsum fuga nam, eligendi
-                            dolorum
-                            a.
+                            {% if comment.parentComment %}
+                            <a class="floorLink"
+                                href="#{{ comment.parentComment.id }}">@{{ comment.parentComment.floor }}樓</a>
+                            {% endif %}
+                            {{ comment.content }}
                         </p>
-                        <button class="menuBtn" type="button" onclick="toggleMenu('menu2')">⋮</button>
-                        <div id="menu2" class="menu">
-                            <a>編輯</a>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('{{ comment.id }}')">⋮</button>
+                        <div id="{{ comment.id }}" class="menu">
                             <a>檢舉</a>
                         </div>
                     </div>
-                    <div class="articleDetail">
-                        <button class="articleBtn">回覆</button>
-                        <p>獲讚　19</p>
-                        <button class="articleBtn">按讚</button>
+                    <div class="downDetail">
+                        <div>
+                            <p class="time">Activated：{{ comment.createAt|date:"Y-m-d H:i" }}</p>
+                        </div>
+                        <div class="articleDetail">
+                            <button class="articleBtn replyBtn" data-id="{{ comment.id }}"
+                                data-floor="{{ comment.floor }}">回覆</button>
+                            <p>獲讚　{{ comment.like }}</p>
+                            <button class="articleBtn">按讚</button>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="line"></div>
-            <p class="touchButton">通訊記錄已抵達終端</p>
+            {% endfor %}
         </div>
+        <p class="touchButton">通訊記錄已抵達終端</p>
         <!--輸入框-->
-        <div id="inputMessage">
-            <p id="reply" class="reply">回覆 <a class="floorLink" href="">@16樓</a> <button>✕</button></p>
-            <div class="inputTool">
-                <textarea id="smallTextarea" class="hide-scrollbar" name="" id=""></textarea>
-                <button class="inputBtn" id="open">展開</button>
-                <button class="inputBtn">送出</button>
+        <form method="post" action="" id="commentForm">
+            {% csrf_token %}
+            <div id="inputMessage">
+                <p id="reply" class="reply">回覆 <a class="floorLink" href=""></a> <button id="removeReply"
+                        type="button">✕</button></p>
+                <input type="hidden" name="parent_id" id="parent_id">
+                <div class="inputTool">
+                    <textarea id="smallTextarea" class="hide-scrollbar" name="comment"></textarea>
+                    <button class="inputBtn" id="open" type="button">展開</button>
+                    <button class="inputBtn" type="submit">送出</button>
+                </div>
             </div>
-        </div>
+        </form>
         <!--展開框-->
         <div id="largeMessage">
             <div class="inputTool">
@@ -130,7 +145,7 @@
             </div>
             <div class="inputToolRight">
                 <button class="inputBtn" id="close">收合</button>
-                <button class="inputBtn">送出</button>
+                <button class="inputBtn" type="submit">送出</button>
             </div>
         </div>
     </div>

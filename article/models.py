@@ -49,12 +49,22 @@ class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='comments', on_delete=models.SET_NULL)
-    content= models.TextField()
+    content = models.TextField()
+    floor = models.PositiveIntegerField(default=0)
     createAt = models.DateTimeField(auto_now_add=True)
     like = models.PositiveIntegerField(default=0)
 
     parentComment = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
 
+    approved = models.BooleanField(default=False)
+
     def __str__(self):
         return f"{self.article.title} - {self.content}"
     
+    def save(self, *args, **kwargs):
+        if not self.floor:
+            last_floor = Comment.objects.filter(article=self.article).aggregate(
+                max_floor=models.Max('floor')
+            )['max_floor'] or 0
+            self.floor = last_floor + 1
+        super().save(*args, **kwargs)
