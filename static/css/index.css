@@ -1,3 +1,7 @@
+#content {
+    margin-bottom: 40px;
+}
+
 #advertise {
     height: 240px;
     margin-top: 20px;
@@ -65,6 +69,11 @@ p.announcementContent {
     padding-block: 10px;
     border-radius: 5px;
     margin-block: 10px;
+}
+
+div.sectionHot {
+    display: flex;
+    align-items: center;
 }
 
 div.section {
@@ -144,7 +153,12 @@ div.class {
     margin-bottom: 20px;
 }
 
+div.class div {
+    flex-wrap: wrap;
+}
+
 div.class p {
+    width: 120px;
     font-size: 0.9rem;
     margin: 0;
 }
@@ -152,6 +166,12 @@ div.class p {
 div.class button {
     padding-inline: 10px;
     color: var(--Text-Color);
+}
+
+div.class button.selected {
+    padding-inline: 10px;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
 }
 
 #allSections div.allSections {

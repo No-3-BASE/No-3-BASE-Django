@@ -16,7 +16,7 @@ class Article(models.Model):
         ('removed', '已刪除文章'),
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='articles')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='articles', on_delete=models.CASCADE)
     section = models.ForeignKey(Section, null=True, blank=True, on_delete=models.CASCADE, related_name='articles')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='articles')

@@ -33,8 +33,8 @@
                         <select id="selectSection" class="select-input selectSection" name="section">
                             <option value="" selected disabled hidden>選擇板塊</option>
                             {% for sec in sections %}
-                            <option value="{{ sec.id }}"
-                                {% if article.section and article.section.id == sec.id %}selected{% endif %}>
+                            <option value="{{ sec.id }}" {% if article.section and article.section.id == sec.id %}
+                                selected {% elif section_id and section_id == sec.id %} selected {% endif %}>
                                 {{ sec.name }}</option>
                             {% endfor %}
                         </select>

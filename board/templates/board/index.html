@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    <script src="{% static 'js/scroll_control.js' %}"></script>
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/scroll_control.js' %}"></script>
+    <script src="{% static 'js/sort_section.js' %}"></script>
     <title>No 3 BASE</title>
 </head>
 
@@ -70,7 +71,7 @@
             <p class="subTitle">熱門板塊</p>
             <div id="popular" class="allSections">
                 {% for section in hot_sections %}
-                <div class="section">
+                <div class="sectionHot">
                     <img class="sectionImg" src="{{ section.icon.url }}" alt="">
                     <a class="sectionA" href="{% url 'section:section' section.id %}">{{ section.name }}</a>
                 </div>
@@ -87,36 +88,25 @@
             </div>
             <div class="class">
                 <p>遊戲平台</p>
-                <button type="button">電腦遊戲</button>
+                <div>
+                    <button type="button" class="filterBtn" data-value="PC">電腦遊戲 / PC Games</button>
+                    <button type="button" class="filterBtn" data-value="Mobile">手機遊戲 / Mobile Games</button>
+                    <button type="button" class="filterBtn" data-value="Browser">網頁遊戲 / Browser Games</button>
+                    <button type="button" class="filterBtn" data-value="Cloud">雲端遊戲 / Cloud Games</button>
+                    <button type="button" class="filterBtn" data-value="Arcade">街機遊戲 / Arcade Games</button>
+                    <button type="button" class="filterBtn" data-value="Handheld">掌機遊戲 / Handheld Games</button>
+                    <button type="button" class="filterBtn" data-value="VR">虛擬實境遊戲 / VR Games</button>
+                    <button type="button" class="filterBtn" data-value="Console">家用主機遊戲 / Console Games</button>
+                </div>
             </div>
             <div id="all" class="allSections">
                 {% for section in all_sections %}
-                <div class="section">
+                <div class="section" data-platform="{{ section.platform }}">
                     <img class="sectionImg" src="{{ section.icon.url }}" alt="">
                     <a class="sectionA" href="{% url 'section:section' section.id %}">{{ section.name }}</a>
                 </div>
                 {% endfor %}
             </div>
-            <script>
-                const allSections = document.getElementById("all")
-
-                for (let i = 1; i <= 13; i++) {
-                    const section = document.createElement("div")
-                    section.className = "section"
-
-                    const img = document.createElement("img")
-                    img.className = "sectionImg"
-
-                    const a = document.createElement("a")
-                    a.innerText = "遊戲名稱"
-                    a.className = "sectionA"
-                    a.href = ""
-
-                    section.appendChild(img)
-                    section.append(a)
-                    allSections.appendChild(section)
-                }
-            </script>
         </div>
     </div>
 </body>

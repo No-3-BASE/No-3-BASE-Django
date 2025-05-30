@@ -1,3 +1,7 @@
+#content {
+    margin-bottom: 40px;
+}
+
 #sectionImg {
     position: relative;
     width: 100%;
@@ -265,6 +269,7 @@ div.menu a:hover {
 }
 
 p.articleTitle {
+    height: 21px;
     font-size: 0.9rem;
     font-weight: 600;
 }
@@ -274,6 +279,7 @@ p.articleTitle:hover {
 }
 
 p.articleContent {
+    height: 51px;
     font-size: 0.75rem;
     font-weight: 400;
     display: -webkit-box;

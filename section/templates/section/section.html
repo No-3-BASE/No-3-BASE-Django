@@ -11,25 +11,25 @@
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
     <script src="{% static 'js/scroll_control.js' %}"></script>
     <script src="{% static 'js/section_btnmenu.js' %}"></script>
-    <title>No 3 BASE—{{ detail.name }}</title>
+    <title>No 3 BASE—{{ section.name }}</title>
 </head>
 
 <body>
     {% include 'tool_bar.html' %}
     <div id="sectionImg">
-        <img src="{{ detail.background.url }}" alt="sectionBackground">
+        <img src="{{ section.background.url }}" alt="sectionBackground">
     </div>
     <div id="content">
         <div id="sectionTitle">
-            <img src="{{ detail.icon.url }}" alt="sectionIcon">
+            <img src="{{ section.icon.url }}" alt="sectionIcon">
             <div id="sectionTitleDetail">
-                <p>{{ detail.name }}</p>
-                <p>{{ detail.slogan }}</p>
+                <p>{{ section.name }}</p>
+                <p>{{ section.slogan }}</p>
                 <div>
                     <p id="sectionStats">
-                        累積熱度　{{ detail.totalHot }}　｜　累積文章　{{ detail.totalPosts }}　｜　昨日熱度　{{ detail.yesterdayHot }}　｜　昨日文章　{{ detail.yesterdayPosts }}
+                        累積熱度　{{ section.totalHot }}　｜　累積文章　{{ section.totalPosts }}　｜　昨日熱度　{{ section.yesterdayHot }}　｜　昨日文章　{{ section.yesterdayPosts }}
                     </p>
-                    <button type="button">發表文章</button>
+                    <a href="{% url 'article:sectionCreate' section.id %}"><button type="button">發表文章</button></a>
                     <button type="button">收藏板塊</button>
                 </div>
             </div>
@@ -93,59 +93,36 @@
             <button type="button">遊戲攻略</button>
         </div>
         <div id="sortArticle">
-            <button type="button">≡按時間</button>
+            {% if sortBy == "hot" %}
+            <a href="?sort=time"><button type="button">≡按時間</button></a>
+            {% else %}
+            <a href="?sort=hot"><button type="button">≡按熱度</button></a>
+            {% endif %}
         </div>
         <div id="articles">
+            {% for article in articles %}
             <div class="perArticle">
                 <p class="basicInfo">
-                    發布者
+                    {{ article.author.first_name }}
                     <span>
-                        <span class="sectionInfo">發布板塊</span>
+                        <span class="sectionInfo">{{ article.section.name }}</span>
                         <span class="infoSeparate">·</span>
-                        <span class="classInfo">發布類別</span>
-                        <span class="timeInfo">發布時間：2025-05-19 21:32</span>
-                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
-                        <div id="menu1" class="menu">
+                        <span class="classInfo">{{ article.category.name }}</span>
+                        <span class="timeInfo">發布時間：{{ article.publishAt|date:"Y-m-d H:i" }}</span>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('{{ article.id }}')">⋮</button>
+                        <div id="{{ article.id }}" class="menu">
                             <a>編輯</a>
                             <a>檢舉</a>
                         </div>
                     </span>
                 </p>
                 <a href="index.html">
-                    <p class="articleTitle">這是文章標題</p>
-                    <p class="articleContent">這是內容<br>這是內容<br>這是內容<br>Lorem ipsum, dolor sit amet consectetur
-                        adipisicing
-                        elit. Illo, corrupti quae cumque et unde quod ratione quas amet reiciendis doloremque laudantium
-                        a incidunt, eveniet eum voluptatem, natus culpa dignissimos pariatur.</p>
+                    <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
+                    <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
                 </a>
-                <p class="articleInfo">獲讚　63　｜　留言　758　｜　熱度　263</p>
+                <p class="articleInfo">獲讚　{{ article.like }}　｜　留言　{{ article.comment }}　｜　熱度　{{ article.hot }}</p>
             </div>
-            <!--
-            <div class="perArticle">
-                <p class="basicInfo">
-                    發布者
-                    <span>
-                        <span class="sectionInfo">發布板塊</span>
-                        <span class="infoSeparate">·</span>
-                        <span class="classInfo">發布類別</span>
-                        <span class="timeInfo">發布時間：2025-05-19 21:32</span>
-                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
-                        <div id="menu1" class="menu">
-                            <a>編輯</a>
-                            <a>檢舉</a>
-                        </div>
-                    </span>
-                </p>
-                <a href="index.html">
-                    <p class="articleTitle">這是文章標題</p>
-                    <p class="articleContent">這是內容<br>這是內容<br>這是內容<br>Lorem ipsum, dolor sit amet consectetur
-                        adipisicing
-                        elit. Illo, corrupti quae cumque et unde quod ratione quas amet reiciendis doloremque laudantium
-                        a incidunt, eveniet eum voluptatem, natus culpa dignissimos pariatur.</p>
-                </a>
-                <p class="articleInfo">獲讚　63　｜　留言　758　｜　熱度　263</p>
-            </div>
-            -->
+            {% endfor %}
         </div>
     </div>
 </body>

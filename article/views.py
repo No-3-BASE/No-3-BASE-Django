@@ -104,6 +104,7 @@ def article_create_view(request, section_id=None):
 
     return render(request, 'article/edit_article.html', {
         'sections': sections,
+        'section_id': section_id,
         'article': None
     })
 
