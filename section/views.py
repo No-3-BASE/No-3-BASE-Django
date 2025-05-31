@@ -7,7 +7,7 @@ from django.http import JsonResponse
 from django.templatetags.static import static
 from django.contrib.contenttypes.models import ContentType
 from board.models import Section
-from article.models import Article, Comment, Like
+from article.models import Article, Comment, Like, Favorite
 
 User = get_user_model()
 
@@ -41,9 +41,11 @@ def article_view(request, section_id, article_id):
     
     if request.user.is_authenticated:
         isLike = Like.objects.filter(player=request.user, contentType=content_type, objectId=article.id).exists()
+        isMark = Favorite.objects.filter(player=request.user, article=article).exists()
 
     return render(request, 'section/article.html', {
         'article': article,
+        'isMark': isMark,
         'isLike': isLike,
         'comments': comments,
         'commentFloor': commentFloor
@@ -92,8 +94,9 @@ def upload_comment(request, section_id, article_id):
     comment_count = Comment.objects.filter(article=article, approved=True).count()
     comment_score = comment_count * 5
     like_score = article.like * 3
+    bookmark_score = article.bookmark
     article.comment = comment_count
-    article.hot = comment_score + like_score
+    article.hot = comment_score + like_score + bookmark_score
     article.save()
 
     authorPhoto = static('assets/images/No3BASE.png')
@@ -123,16 +126,16 @@ def article_like_toggle(request, section_id, article_id):
     
     content_type = ContentType.objects.get_for_model(article)
     
-    # 檢查是否已按讚
+    #檢查是否按讚
     existing_like = Like.objects.filter(player=user, contentType=content_type, objectId=article.id).first()
     
     if existing_like:
-        # 取消按讚
+        #取消按讚
         existing_like.delete()
         article.like = max(article.like - 1, 0)
         liked = False
     else:
-        # 新增按讚
+        #新增按讚
         Like.objects.create(player=user, contentType=content_type, objectId=article.id,)
         article.like += 1
         liked = True
@@ -150,7 +153,46 @@ def article_like_toggle(request, section_id, article_id):
             profile.save()
         except User.DoesNotExist:
             pass
-    
+
+    comment_count = Comment.objects.filter(article=article, approved=True).count()
+    comment_score = comment_count * 5
+    like_score = article.like * 3
+    bookmark_score = article.bookmark
+    article.comment = comment_count
+    article.hot = comment_score + like_score + bookmark_score
     article.save()
     
     return JsonResponse({'success': True, 'liked': liked})
+
+#收藏處理
+@login_required
+@require_POST
+def article_mark_toggle(request, section_id, article_id):
+    user = request.user
+    article = get_object_or_404(Article, id=article_id)
+    
+    content_type = ContentType.objects.get_for_model(article)
+    
+    #檢查是否收藏
+    existing_mark = Favorite.objects.filter(player=user, article=article).first()
+    
+    if existing_mark:
+        #取消收藏
+        existing_mark.delete()
+        article.bookmark = max(article.bookmark - 1, 0)
+        marked = False
+    else:
+        #新增收藏
+        Favorite.objects.create(player=user, article=article)
+        article.bookmark += 1
+        marked = True
+    
+    comment_count = Comment.objects.filter(article=article, approved=True).count()
+    comment_score = comment_count * 5
+    like_score = article.like * 3
+    bookmark_score = article.bookmark
+    article.comment = comment_count
+    article.hot = comment_score + like_score + bookmark_score
+    article.save()
+    
+    return JsonResponse({'success': True, 'marked': marked})

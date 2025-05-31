@@ -14,6 +14,7 @@
     <script src="{% static 'js/upload_comment.js' %}"></script>
     <script src="{% static 'js/reply_comment.js' %}"></script>
     <script src="{% static 'js/article_toggle_like.js' %}"></script>
+    <script src="{% static 'js/article_toggle_bookmark.js' %}"></script>
     <title>No 3 BASE</title>
 </head>
 
@@ -63,8 +64,9 @@
                             Modified：{{ article.lastEdit|date:"Y-m-d H:i" }}</p>
                     </div>
                     <div class="articleDetail">
-                        <p>收藏　7</p>
-                        <button class="articleBtn" id="mark">收藏</button>
+                        <p>收藏　<span id="articleMark">{{ article.bookmark }}</p>
+                        <button class="articleBtn markBtn" id="mark" data-section-id="{{ article.section.id }}"
+                            data-article-id="{{ article.id }}">{% if isMark %}已收藏{% else %}收藏{% endif %}</button>
                         <p>獲讚　<span id="articleLike">{{ article.like }}</span></p>
                         <button class="articleBtn likeBtn" id="like" data-section-id="{{ article.section.id }}"
                             data-article-id="{{ article.id }}">{% if isLike %}已讚{% else %}按讚{% endif %}</button>

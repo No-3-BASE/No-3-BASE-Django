@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from datetime import timedelta
-from article.models import Article, Comment, Like
+from article.models import Article, Comment, Like, Favorite
 from board.models import Section
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -44,7 +44,13 @@ class Command(BaseCommand):
                 (models.Q(contentType=comment_type) & models.Q(objectId__in=Comment.objects.filter(article__in=section_articles).values_list('id', flat=True)))
             ).count()
 
-            hot = article_count * 10 + comment_count * 5 + like_count * 3
+            favorite_count = Favorite.objects.filter(
+                createAt__gte=yesterday_start,
+                createAt__lt=yesterday_end,
+                article__in=section_articles
+            ).count()
+
+            hot = article_count * 10 + comment_count * 5 + like_count * 3 + favorite_count
             section.yesterdayHot = hot
             section.save()
 

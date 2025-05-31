@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from player.models import Profile, Follow
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
-from article.models import Article
+from article.models import Article, Favorite
 #用戶資料
 @login_required
 def player_profile_view(request):
@@ -133,7 +133,26 @@ def my_draft_view(request):
 #我的收藏
 @login_required
 def my_bookmark_view(request):
-    return render(request, 'profile_center/my_bookmark.html')
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    sortBy = request.GET.get("sort", "time")
+
+    if sortBy == "hot":
+        bookmarkArticles = Article.objects.filter(favorited_by__player=user, status='published').distinct().order_by('-hot', '-publishAt')
+    else:
+        bookmarkArticles = Article.objects.filter(favorited_by__player=user, status='published').distinct().order_by('-publishAt')
+
+    return render(request, 'profile_center/my_bookmark.html', {
+        'name': user.first_name,
+        'profile': profile,
+        'sortBy': sortBy,
+        'articles': bookmarkArticles
+    })
 
 #我的粉絲
 @login_required

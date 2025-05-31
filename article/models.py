@@ -28,6 +28,7 @@ class Article(models.Model):
     lastEdit = models.DateTimeField(auto_now=True)
     publishAt = models.DateTimeField(null=True, blank=True)
 
+    bookmark = models.IntegerField(default=0)
     like = models.IntegerField(default=0)
     comment = models.IntegerField(default=0)
     hot = models.IntegerField(default=0)
@@ -73,6 +74,7 @@ class Comment(models.Model):
 
 #按讚
 class Like(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     contentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     objectId = models.UUIDField()
@@ -84,4 +86,16 @@ class Like(models.Model):
 
     def __str__(self):
         return f"{self.player.first_name} - {self.contentObject}"
-    
+
+#收藏
+class Favorite(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorites')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='favorited_by')
+    createAt = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('player', 'article')
+
+    def __str__(self):
+        return f"{self.player.first_name} - {self.article.title}"
