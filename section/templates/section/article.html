@@ -13,6 +13,7 @@
     <script src="{% static 'js/input_control.js' %}"></script>
     <script src="{% static 'js/upload_comment.js' %}"></script>
     <script src="{% static 'js/reply_comment.js' %}"></script>
+    <script src="{% static 'js/article_toggle_like.js' %}"></script>
     <title>No 3 BASE</title>
 </head>
 
@@ -33,7 +34,7 @@
                 <div class="playerDetail">
                     <img src="{{ article.author.profile.photo.url }}" alt="">
                     <div>
-                        <a class="playerLink" href="">
+                        <a class="playerLink" href="{% url 'player:profile' article.author.id %}">
                             <p class="playerName">{{ article.author.first_name }}</p>
                         </a>
                         <p class="playerDays">進入基地 {{ article.author.profile.signupDays }} 天<span class="level">Lv.
@@ -64,13 +65,13 @@
                     <div class="articleDetail">
                         <p>收藏　7</p>
                         <button class="articleBtn" id="mark">收藏</button>
-                        <p>獲讚　19</p>
-                        <button class="articleBtn" id="like">按讚</button>
+                        <p>獲讚　<span id="articleLike">{{ article.like }}</span></p>
+                        <button class="articleBtn likeBtn" id="like" data-section-id="{{ article.section.id }}"
+                            data-article-id="{{ article.id }}">{% if isLike %}已讚{% else %}按讚{% endif %}</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- 這是留言 -->
         <div class="messageGroup" id="commentsList">
             {% for comment in comments %}
             <div class="articleMessage" id="{{ comment.id }}">
@@ -82,7 +83,7 @@
                         <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
                         {% endif %}
                         <div>
-                            <a class="playerLink" href="">
+                            <a class="playerLink" href="{% url 'player:profile' comment.author.id %}">
                                 <p class="playerName">{{ comment.author.first_name }}</p>
                             </a>
                             <p class="playerDays">進入基地 {{ comment.author.profile.signupDays }} 天<span class="level">Lv.
@@ -124,9 +125,9 @@
             {% endfor %}
         </div>
         <p class="touchButton">通訊記錄已抵達終端</p>
-        <!--輸入框-->
         <form method="post" action="" id="commentForm">
             {% csrf_token %}
+            <!--輸入框-->
             <div id="inputMessage">
                 <p id="reply" class="reply">回覆 <a class="floorLink" href=""></a> <button id="removeReply"
                         type="button">✕</button></p>
@@ -137,17 +138,17 @@
                     <button class="inputBtn" type="submit">送出</button>
                 </div>
             </div>
+            <!--展開框-->
+            <div id="largeMessage">
+                <div class="inputTool">
+                    <textarea id="largeTextarea" class="hide-scrollbar" name="comment"></textarea>
+                </div>
+                <div class="inputToolRight">
+                    <button class="inputBtn" id="close" type="button">收合</button>
+                    <button class="inputBtn" type="submit">送出</button>
+                </div>
+            </div>
         </form>
-        <!--展開框-->
-        <div id="largeMessage">
-            <div class="inputTool">
-                <textarea id="largeTextarea" class="hide-scrollbar" name="" id=""></textarea>
-            </div>
-            <div class="inputToolRight">
-                <button class="inputBtn" id="close">收合</button>
-                <button class="inputBtn" type="submit">送出</button>
-            </div>
-        </div>
     </div>
 </body>
 

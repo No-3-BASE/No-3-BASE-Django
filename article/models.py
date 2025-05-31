@@ -1,6 +1,8 @@
 from django.db import models
 from django.conf import settings
 from django.utils.html import strip_tags
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 from board.models import Section
 from section.models import Category
 import uuid
@@ -68,3 +70,18 @@ class Comment(models.Model):
             )['max_floor'] or 0
             self.floor = last_floor + 1
         super().save(*args, **kwargs)
+
+#按讚
+class Like(models.Model):
+    player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    contentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    objectId = models.UUIDField()
+    contentObject = GenericForeignKey('contentType', 'objectId')
+    createAt = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('player', 'contentType', 'objectId')
+
+    def __str__(self):
+        return f"{self.player.first_name} - {self.contentObject}"
+    

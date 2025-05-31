@@ -23,6 +23,7 @@ class CustomUser(AbstractUser):
 class Profile(models.Model):
     player = models.OneToOneField('player.CustomUser', on_delete=models.CASCADE)
     photo = models.ImageField(upload_to=user_photo_path, blank=True, null=True)
+    backgroundPhoto = models.ImageField(upload_to=user_photo_path, blank=True, null=True)
     slogan = models.CharField(max_length=200, blank=True, default='在基地深處，訊號永不熄滅，識別者並未在此留下痕跡')
     birthday = models.DateField(default=date(2000, 1, 1), blank=True, null=True)
 
@@ -48,7 +49,7 @@ class Profile(models.Model):
     
     #粉絲數
     @property
-    def followersCount(self):
+    def followerCount(self):
         return Follow.objects.filter(following=self.player).count()
     
     #關注數
@@ -118,6 +119,7 @@ class Profile(models.Model):
         }
 
 class Follow(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     follower = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='following_set', on_delete=models.CASCADE)
     following = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='followers_set', on_delete=models.CASCADE)
 

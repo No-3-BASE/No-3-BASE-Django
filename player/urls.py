@@ -9,4 +9,6 @@ urlpatterns = [
     path('welcome/', views.consent_form_view, name='welcome'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('profile/<uuid:player_id>/', views.profile_view, name='profile'),
+    path('follow_toggle/', views.follow_toggle, name='followToggle'),
 ]

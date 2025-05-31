@@ -22,6 +22,7 @@ def toolbar_context(request):
         return {
             'toolBar': {
                 'isLogin': True,
+                'id': user.id,
                 'name': user.first_name,
                 'profile': profile,
                 'article': article_count
@@ -31,6 +32,7 @@ def toolbar_context(request):
     return {
         'toolBar': {
             'isLogin': False,
+            'id': None,
             'name': "訪客",
             'profile': None,
             'article': None

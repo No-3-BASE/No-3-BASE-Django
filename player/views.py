@@ -11,8 +11,14 @@ from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
 from urllib.parse import urlparse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from datetime import datetime, timezone
+from article.models import Article, Comment
+from .models import Follow
 import uuid
+import json
 
 User = get_user_model()
 
@@ -212,3 +218,83 @@ def logout_view(request):
         return redirect('/')
 
     return redirect(nextUrl)
+
+#個人主頁
+def profile_view(request, player_id):
+    player = get_object_or_404(User, pk=player_id)
+
+    articles = Article.objects.filter(author=player, status='published')
+    article_count = articles.count()
+    comment_count = Comment.objects.filter(author=player).count()
+
+    follows = None
+
+    sort = request.GET.get('sort', 'articles')
+    order = request.GET.get('order', 'time')
+
+    isArticle = True
+    isFollower = True
+
+    if sort == "articles":
+        if order == "time":
+            articles = Article.objects.filter(author=player, status='published').order_by('-publishAt')
+        if order == "hot":
+            articles = Article.objects.filter(author=player, status='published').order_by('-hot')
+    elif sort == "bookmarks":
+        if order == "time":
+            articles = Article.objects.filter(author=player, status='published').order_by('-publishAt')
+        if order == "hot":
+            articles = Article.objects.filter(author=player, status='published').order_by('-hot')
+    elif sort == "comments":
+        if order == "time":
+            articles = Article.objects.filter(author=player, status='published', comments__author=player).distinct().order_by('-publishAt')
+        if order == "hot":
+            articles = Article.objects.filter(author=player, status='published', comments__author=player).distinct().order_by('-hot')
+    elif sort == "following":
+        isArticle = False
+        follows = Follow.objects.filter(follower=player)
+    elif sort == "follower":
+        isArticle = False
+        isFollower = False
+        follows = Follow.objects.filter(following=player)
+
+    return render(request, 'player/player_profile.html', {
+        'isLogin': request.user.is_authenticated,
+        'user': request.user if request.user.is_authenticated else None,
+        'player': player,
+        'article': article_count,
+        'isArticle': isArticle,
+        'isFollower': isFollower,
+        'articles': articles,
+        'follows': follows,
+        'comment': comment_count
+    })
+
+@require_POST
+@login_required
+def follow_toggle(request):
+    if request.method == 'POST':
+        print("收到POST")
+        try:
+            data = json.loads(request.body)
+            target_id = data.get('target_id')
+            action = data.get('action')
+            target_user = User.objects.get(id=target_id)
+
+            if request.user == target_user:
+                return JsonResponse({'success': False, 'message': '目標信號與當前端口重疊'})
+
+            if action == 'follow':
+                print("follow" , request.user, target_user)
+                Follow.objects.create(follower=request.user, following=target_user)
+                return JsonResponse({'success': True, 'message': '已關注'})
+            elif action == 'unfollow':
+                print("unfollow" , request.user, target_user)
+                Follow.objects.filter(follower=request.user, following=target_user).delete()
+                return JsonResponse({'success': True, 'message': '已取消關注'})
+            else:
+                return JsonResponse({'success': False, 'message': '未知的操作'})
+            
+        except Exception as e:
+            return JsonResponse({'success': False, 'message': str(e)})
+    return JsonResponse({'success': False, 'message': '只接受 POST'})

@@ -1,0 +1,395 @@
+#content {
+    margin-bottom: 40px;
+}
+
+#sectionImg {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+}
+
+#sectionImg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+}
+
+#sectionImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+}
+
+#sectionTitle {
+    position: relative;
+    margin-top: -64px;
+    display: flex;
+}
+
+#sectionTitle img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+#sectionTitleDetail {
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+}
+
+#sectionTitleDetail p {
+    margin: 0;
+    margin-left: 10px;
+}
+
+#sectionTitleDetail p:nth-last-of-type(2) {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--Text-Color);
+}
+
+span.level {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--Text-Secondary-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Contrast-Color);
+    margin-inline: 10px;
+    padding-inline: 10px;
+    border-radius: 10px;
+    letter-spacing: 0;
+}
+
+#sectionTitleDetail p:nth-last-of-type(1) {
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--Text-Color);
+    margin-top: 6px;
+}
+
+#sectionTitleDetail div {
+    height: 60px;
+    width: 780px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#sectionTitleDetail div>#playerWord {
+    width: 580px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+button.playerUnfollow {
+    font-size: 0.8rem;
+    width: 80px;
+    height: 24px;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    border-radius: 5px;
+}
+
+button.playerFollow {
+    font-size: 0.8rem;
+    width: 80px;
+    height: 24px;
+    color: var(--Text-Color);
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 5px;
+}
+
+#sectionTitleDetail div a {
+    display: inline-block;
+    font-size: 0.8rem;
+    line-height: 24px;
+    width: 80px;
+    height: 24px;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+p.subTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    margin-top: 20px;
+}
+
+#subTitleBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+div.switch {
+    display: flex;
+}
+
+div.switch a {
+    display: inline-block;
+    font-size: 0.8rem;
+    line-height: 24px;
+    width: 80px;
+    height: 24px;
+    color: var(--Text-Color);
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+div.switch a.active {
+    display: inline-block;
+    font-size: 0.8rem;
+    line-height: 24px;
+    width: 80px;
+    height: 24px;
+    color: var(--Primary-Color);
+    background: var(--Contrast-Color);
+    border-radius: 5px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+#subTitleBar p.subTitle {
+    margin: 0;
+    line-height: 57px;
+    padding: 0;
+}
+
+#searchSections {
+    width: 200px;
+    height: 26px;
+    background: var(--Contrast-Color);
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+}
+
+#searchSections input {
+    width: 136px;
+    height: 20px;
+    border: none;
+    margin-left: 1px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    color: var(--Contrast-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+    background: var(--Input-Background);
+}
+
+#searchSections button {
+    width: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--Text-Secondary-Color);
+    font-family: "Noto Serif TC", serif;
+}
+
+div.class {
+    display: flex;
+    align-items: center;
+}
+
+div.class p {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+div.class button {
+    padding-inline: 10px;
+    color: var(--Text-Color);
+}
+
+#sortArticle {
+    display: flex;
+    justify-content: right;
+}
+
+#sortArticle button {
+    color: var(--Text-Color);
+}
+
+#articles {
+    margin-top: 5px;
+}
+
+div.perArticle {
+    height: 116px;
+    margin-bottom: 16px;
+    padding-inline: 10px;
+    padding-block: 3px;
+    border-radius: 5px;
+    background: var(--Secondary-Color);
+}
+
+div.perArticle p {
+    margin: 0;
+    color: var(--Text-Color);
+}
+
+p.basicInfo {
+    font-size: 0.7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+p.basicInfo span {
+    font-size: 0.7rem;
+}
+
+span.infoSeparate {
+    margin-inline: 2px;
+}
+
+span.timeInfo {
+    margin-inline: 5px;
+}
+
+p.basicInfo button {
+    color: var(--Text-Color);
+}
+
+div.menu {
+    position: absolute;
+    margin-left: 810px;
+    background: var(--Primary-Color);
+    display: none;
+    flex-direction: column;
+}
+
+div.menu a {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu a:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleTitle {
+    height: 21px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.articleTitle:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.articleContent {
+    height: 51px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.articleInfo {
+    text-align: right;
+    padding-top: 5px;
+    font-size: 0.7rem;
+}
+
+div.follow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 10px;
+}
+
+a.f {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+img.fPhoto {
+    width: 36px;
+    height: 36px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+p.fName {
+    margin-left: 10px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--Text-Color);
+}
+
+a.f:hover p {
+    color: var(--Section-Text-Color);
+}
+
+span.level {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--Text-Secondary-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Contrast-Color);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+    letter-spacing: 0;
+}
+
+p span.enterDays {
+    font-weight: 300;
+    font-size: 0.7rem;
+    font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
+}
+
+a.f:hover span.enterDays {
+    color: var(--Text-Color);
+}
+
+button.unfollow {
+    height: 18px;
+    width: 60px;
+    font-size: 0.65rem;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    border-radius: 3px;
+}
+
+button.isfollow {
+    height: 18px;
+    width: 60px;
+    font-size: 0.65rem;
+    color: var(--Text-Color);
+    border: 1px solid var(--Contrast-Color);
+    border-radius: 3px;
+}

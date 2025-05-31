@@ -1,0 +1,155 @@
+{% load static %}
+{% load follow_extras %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/player_profile.css' %}">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <script src="{% static 'js/profile_toggle_follow.js' %}"></script>
+    <title>No 3 BASE—玩家名稱八個字符</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="sectionImg">
+        {% if player.profile.backgroundPhoto %}
+        <img src="{{ player.profile.backgroundPhoto.url }}" alt="User Photo">
+        {% else %}
+        <img src="{% static 'assets/images/No3BASE_R.png' %}" alt="Default Photo">
+        {% endif %}
+    </div>
+    <div id="content">
+        <div id="sectionTitle">
+            {% if player.profile.photo %}
+            <img src="{{ player.profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
+            <div id="sectionTitleDetail">
+                <p>{{ player.first_name }}<span class="level">Lv. {{ player.profile.level }}</span><span
+                        class="enterDays">進入基地 {{ player.profile.signupDays }}
+                        天</span></p>
+                <p>粉絲　{{ player.profile.followerCount }}　｜　關注　{{ player.profile.followingCount }}　｜　文章　{{ article }}　｜　留言　{{ comment }}　｜　獲讚　63
+                </p>
+                <div>
+                    <p id="playerWord">{{ player.profile.slogan }}</p>
+                    {% if isLogin %}
+                    <a>訊息</a>
+                    {% if user|is_following:player %}
+                    <button class="playerFollow followToggleBtn" id="followToggleBtn"
+                        data-url="{% url 'player:followToggle' %}" data-id="{{ player.id }}">已關注
+                    </button>
+                    {% else %}
+                    <button class="playerUnfollow followToggleBtn" id="followToggleBtn"
+                        data-url="{% url 'player:followToggle' %}" data-id="{{ player.id }}">關注
+                    </button>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div id="subTitleBar">
+            <div class="switch">
+                <a href="?sort=articles"
+                    class="{% if request.GET.sort == 'articles' or not request.GET.sort %}active{% endif %}">文章</a>
+                <a href="?sort=bookmarks" class="{% if request.GET.sort == 'bookmarks' %}active{% endif %}">收藏</a>
+                <a href="?sort=comments" class="{% if request.GET.sort == 'comments' %}active{% endif %}">留言</a>
+                <a href="?sort=likes" class="{% if request.GET.sort == 'likes' %}active{% endif %}">按讚</a>
+                <a href="?sort=following" class="{% if request.GET.sort == 'following' %}active{% endif %}">關注列表</a>
+                <a href="?sort=follower" class="{% if request.GET.sort == 'follower' %}active{% endif %}">粉絲列表</a>
+            </div>
+            {% if request.GET.sort == 'articles' or request.GET.sort == 'bookmarks' or request.GET.sort == 'comments' or not request.GET.sort %}
+            <div id="sortArticle">
+                {% if request.GET.order == 'hot' %}
+                <a href="?sort={{ request.GET.sort|default:'articles' }}&order=time" class="sortToggleBtn"><button
+                        type="button">≡按時間</button></a>
+                {% else %}
+                <a href="?sort={{ request.GET.sort|default:'articles' }}&order=hot" class="sortToggleBtn"><button
+                        type="button">≡按熱度</button></a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        {% if isArticle %}
+        <div id="articles">
+            {% for article in articles %}
+            <div class="perArticle">
+                <p class="basicInfo">
+                    {{ article.author.first_name }}
+                    <span>
+                        <span class="sectionInfo">{{ article.section.name }}</span>
+                        <span class="infoSeparate">·</span>
+                        <span class="classInfo">{{ article.category.name }}</span>
+                        <span class="timeInfo">發布時間：{{ article.publishAt|date:"Y-m-d H:i" }}</span>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('{{ article.id }}')">⋮</button>
+                        <div id="{{ article.id }}" class="menu">
+                            <a>編輯</a>
+                            <a>檢舉</a>
+                        </div>
+                    </span>
+                </p>
+                <a href="{% url 'section:article' article.section.id article.id %}">
+                    <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
+                    <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
+                </a>
+                <p class="articleInfo">獲讚　{{ article.like }}　｜　留言　{{ article.comment }}　｜　熱度　{{ article.hot }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% elif isFollower %}
+        {% for follow in follows %}
+        <div class="follow">
+            <a class="f" href="{% url 'player:profile' follow.following.id %}">
+                {% if follow.following.profile.photo %}
+                <img src="{{ follow.following.profile.photo.url }}" class="fPhoto" alt="User Photo">
+                {% else %}
+                <img src="{% static 'assets/images/No3BASE.png' %}" class="fPhoto" alt="Default Photo">
+                {% endif %}
+                <p class="fName">
+                    {{ follow.following.first_name }}<span class="level">Lv. {{ follow.following.profile.level }}</span>
+                    <br>
+                    <span class="enterDays">進入基地 {{ follow.following.profile.signupDays }} 天</span>
+                </p>
+            </a>
+            <button
+                class="{% if user|is_following:follow.following %}isfollow{% else %}unfollow{% endif %} followToggleBtn"
+                data-url="{% url 'player:followToggle' %}" data-id="{{ follow.following.id }}">
+                {% if user|is_following:follow.following %}已關注{% else %}關注{% endif %}
+            </button>
+        </div>
+        <div class="line"></div>
+        {% endfor %}
+        {% else %}
+        {% for follow in follows %}
+        <div class="follow">
+            <a class="f" href="{% url 'player:profile' follow.follower.id %}">
+                {% if follow.follower.profile.photo %}
+                <img src="{{ follow.follower.profile.photo.url }}" class="fPhoto" alt="User Photo">
+                {% else %}
+                <img src="{% static 'assets/images/No3BASE.png' %}" class="fPhoto" alt="Default Photo">
+                {% endif %}
+                <p class="fName">
+                    {{ follow.follower.first_name }}<span class="level">Lv. {{ follow.follower.profile.level }}</span>
+                    <br>
+                    <span class="enterDays">進入基地 {{ follow.follower.profile.signupDays }} 天</span>
+                </p>
+            </a>
+            <button
+                class="{% if user|is_following:follow.follower %}isfollow{% else %}unfollow{% endif %} followToggleBtn"
+                data-url="{% url 'player:followToggle' %}" data-id="{{ follow.follower.id }}">
+                {% if user|is_following:follow.follower %}已關注{% else %}關注{% endif %}
+            </button>
+        </div>
+        <div class="line"></div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</body>
+
+</html>

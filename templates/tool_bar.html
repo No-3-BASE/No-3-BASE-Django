@@ -96,9 +96,9 @@
         <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
         {% endif %}
         {% if toolBar.name %}
-        <a href="{% url 'profileCenter:playerProfile' %}" id="name">{{ toolBar.name }}</a>
+        <a href="{% url 'player:profile' toolBar.id %}" id="name">{{ toolBar.name }}</a>
         {% else %}
-        <a href="{% url 'profileCenter:playerProfile' %}" id="name">神秘的論壇用戶</a>
+        <a href="{% url 'player:profile' toolBar.id %}" id="name">神秘的論壇用戶</a>
         {% endif %}
         <div id="profileExpand">
             <div id="playerAccount">
@@ -134,7 +134,7 @@
             </div>
             <div id="playerData">
                 <a href="{% url 'profileCenter:myFans' %}">
-                    <p class="number">{{ toolBar.profile.followersCount }}</p>
+                    <p class="number">{{ toolBar.profile.followerCount }}</p>
                     <p class="title">粉絲</p>
                 </a>
                 <a href="{% url 'profileCenter:myFollows' %}">

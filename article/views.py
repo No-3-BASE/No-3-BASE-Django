@@ -161,6 +161,20 @@ def draft_edit_view(request, draft_id):
 
             article.save()
 
+            #每日文章經驗
+            try:
+                profile = user.profile
+                now = datetime.now(timezone.utc).date()
+
+                if profile.articleExpGainDate != now:
+                    profile.exp += 25
+                    profile.articleExpGainDate = now
+
+                profile.recalculate_level()
+                profile.save()
+            except User.DoesNotExist:
+                pass
+
             return redirect('profileCenter:myArticle')
 
     return render(request, 'article/edit_article.html', {

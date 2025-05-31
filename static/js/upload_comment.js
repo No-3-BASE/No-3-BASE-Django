@@ -3,6 +3,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('commentForm')
     const commentInput = form.querySelector('textarea[name="comment"]')
     const commentsList = document.getElementById('commentsList')
+    const inputMessage = document.getElementById('inputMessage')
+    const largeMessage = document.getElementById('largeMessage')
 
     function getCookie(name) {
         let cookieValue = null
@@ -23,7 +25,11 @@ window.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', function (e) {
         e.preventDefault()
 
-        const comment = commentInput.value.trim()
+        const largeTextarea = document.getElementById('largeTextarea')
+        const smallTextarea = document.getElementById('smallTextarea')
+
+        const comment = largeTextarea.value.trim() || smallTextarea.value.trim()
+
         if (!comment) {
             alert('訊號無效：請輸入有效內容以啟動傳輸')
             return
@@ -92,6 +98,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 commentsList.insertAdjacentHTML('beforeend', newCommentHTML)
 
                 commentInput.value = ''
+                largeMessage.style.display = 'none'
+                inputMessage.style.display = 'block'
 
                 commentsList.scrollTop = commentsList.scrollHeight
                 window.scrollTo(0, document.body.scrollHeight)

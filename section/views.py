@@ -1,10 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.contrib.auth import get_user_model
+from datetime import datetime, timezone
 from django.http import JsonResponse
 from django.templatetags.static import static
+from django.contrib.contenttypes.models import ContentType
 from board.models import Section
-from article.models import Article, Comment
+from article.models import Article, Comment, Like
+
+User = get_user_model()
+
 #板塊顯示
 def section_view(request, section_id):
     section = get_object_or_404(Section, id=section_id)
@@ -24,14 +30,21 @@ def section_view(request, section_id):
 
 def article_view(request, section_id, article_id):
     article = get_object_or_404(Article, id=article_id)
-    comments = article.comments.filter(approved=True).order_by('createAt')[:10]
+    comments = article.comments.filter(approved=True).order_by('createAt')#[:10]動態載入擴充
     commentFloor = {
         str(comment.id): idx + 1
         for idx, comment in enumerate(comments)
     }
+    
+    isLike = False
+    content_type = ContentType.objects.get_for_model(article)
+    
+    if request.user.is_authenticated:
+        isLike = Like.objects.filter(player=request.user, contentType=content_type, objectId=article.id).exists()
 
     return render(request, 'section/article.html', {
         'article': article,
+        'isLike': isLike,
         'comments': comments,
         'commentFloor': commentFloor
     })
@@ -56,11 +69,32 @@ def upload_comment(request, section_id, article_id):
     parent = None
     parentFloor = None
 
+    #每日文章經驗
+    try:
+        profile = user.profile
+        now = datetime.now(timezone.utc).date()
+
+        if profile.messageExpGainDate != now:
+            profile.exp += 15
+            profile.messageExpGainDate = now
+
+        profile.recalculate_level()
+        profile.save()
+    except User.DoesNotExist:
+        pass
+
     if parent_id:
         parent = Comment.objects.filter(id=parent_id).first()
         parentFloor = article.comments.filter(approved=True, createAt__lte=parent.createAt).count()
 
     comment = Comment.objects.create(article=article, author=user, content=content, parentComment=parent, approved=request.user.is_authenticated)
+
+    comment_count = Comment.objects.filter(article=article, approved=True).count()
+    comment_score = comment_count * 5
+    like_score = article.like * 3
+    article.comment = comment_count
+    article.hot = comment_score + like_score
+    article.save()
 
     authorPhoto = static('assets/images/No3BASE.png')
     if comment.author and hasattr(comment.author, 'profile') and comment.author.profile.photo:
@@ -79,3 +113,44 @@ def upload_comment(request, section_id, article_id):
         'parentId': parent_id,
         'parentFloor': parentFloor
     })
+
+#按讚處理
+@login_required
+@require_POST
+def article_like_toggle(request, section_id, article_id):
+    user = request.user
+    article = get_object_or_404(Article, id=article_id)
+    
+    content_type = ContentType.objects.get_for_model(article)
+    
+    # 檢查是否已按讚
+    existing_like = Like.objects.filter(player=user, contentType=content_type, objectId=article.id).first()
+    
+    if existing_like:
+        # 取消按讚
+        existing_like.delete()
+        article.like = max(article.like - 1, 0)
+        liked = False
+    else:
+        # 新增按讚
+        Like.objects.create(player=user, contentType=content_type, objectId=article.id,)
+        article.like += 1
+        liked = True
+
+        #每日按讚經驗
+        try:
+            profile = user.profile
+            now = datetime.now(timezone.utc).date()
+
+            if profile.likeExpGainDate != now:
+                profile.exp += 10
+                profile.likeExpGainDate = now
+
+            profile.recalculate_level()
+            profile.save()
+        except User.DoesNotExist:
+            pass
+    
+    article.save()
+    
+    return JsonResponse({'success': True, 'liked': liked})
