@@ -1,8 +1,14 @@
 from django.shortcuts import render, redirect
-from player.models import Profile, Follow
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.core.files.storage import default_storage
+from django.views.decorators.http import require_POST
+from player.models import Profile, Follow
 from article.models import Article, Favorite
+from board.models import Section
+from .models import GameCard
+import json
+import uuid
 #用戶資料
 @login_required
 def player_profile_view(request):
@@ -68,7 +74,27 @@ def edit_profile_view(request):
 #編輯遊戲
 @login_required
 def edit_game_view(request):
-    return render(request, 'profile_center/edit_game.html')
+    user = request.user
+    cards = GameCard.objects.filter(player=user)
+
+    card_data = []
+    for card in cards:
+        card_data.append({
+            "uid": card.uid,
+            "section": card.section.name if card.section else "",
+            "customName": card.customName if not card.section else "",
+        })
+    
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    return render(request, 'profile_center/edit_game.html', {
+        'name': user.first_name,
+        'profile': profile,
+        "cards": card_data
+    })
 
 #每日任務
 @login_required
@@ -187,3 +213,53 @@ def my_follows_view(request):
         'profile': profile,
         'follows': followings
     })
+
+#板塊列表
+def section_list(request):
+    sections = Section.objects.all().values('id', 'name')
+    return JsonResponse(list(sections), safe=False)
+
+#遊戲上傳
+@login_required
+@require_POST
+def upload_games(request):
+    data = json.loads(request.body)
+    cards = data.get('cards', [])
+    user = request.user
+
+    created = []
+    for item in cards:
+        section_id = item.get('board')
+        uid = item.get('uid')
+
+        if not uid or not section_id:
+            continue
+
+        section_obj = None
+        custom_name = ""
+
+        try:
+            # 先嘗試把 section_id 轉成 UUID
+            section_uuid = uuid.UUID(section_id)
+            # 轉成功代表它是 UUID 格式，嘗試從資料庫取 Section
+            section_obj = Section.objects.get(id=section_uuid)
+        except (ValueError, Section.DoesNotExist):
+            # ValueError: 不是合法 UUID，或 Section 不存在
+            # 直接把 section_id 當成自訂名稱存 customName
+            custom_name = section_id
+            section_obj = None
+
+        card, created_flag = GameCard.objects.get_or_create(
+            player=user,
+            section=section_obj,
+            customName=custom_name,
+            uid=uid
+        )
+        created.append({
+            "id": str(card.id),
+            "uid": card.uid,
+            "section": section_obj.name if section_obj else custom_name,
+            "created": created_flag
+        })
+
+    return JsonResponse({"success": True, "created": created})

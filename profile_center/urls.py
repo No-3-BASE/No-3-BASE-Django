@@ -14,4 +14,6 @@ urlpatterns = [
     path('my_bookmark/', views.my_bookmark_view, name='myBookmark'),
     path('my_fans/', views.my_fans_view, name='myFans'),
     path('my_follows/', views.my_follows_view, name='myFollows'),
+    path('api/sections/', views.section_list, name='sectionList'),
+    path('edit_game/edit/', views.upload_games, name='uploadGame')
 ]
