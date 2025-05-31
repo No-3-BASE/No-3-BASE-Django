@@ -228,6 +228,9 @@ def upload_games(request):
     user = request.user
 
     created = []
+
+    GameCard.objects.filter(player=user).delete()
+    
     for item in cards:
         section_id = item.get('board')
         uid = item.get('uid')

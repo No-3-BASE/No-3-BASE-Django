@@ -10,6 +10,7 @@
 {% block title %}資料節點—編輯遊戲{% endblock %}
 
 {% block content %}
+{{ cards|json_script:"initial-cards" }}
 <div id="playerCenter">
     <div id="playerProfile">
         <div id="playerDetail">
@@ -45,15 +46,7 @@
                 <p class="detailTitle">編輯遊戲</p>
                 <a href="{% url 'profileCenter:playerProfile' %}"><button class="editBtn">返回</button></a>
             </div>
-            <div id="selectFields">
-                <div class="field-container">
-                    <div class="editField">
-                        <select class="select-input" name="section[]"></select>
-                        <input name="uid[]" class="gameUID" type="text" placeholder="請輸入遊戲UID">
-                    </div>
-                    <button class="removeBtn">✕</button>
-                </div>
-            </div>
+            <div id="selectFields"></div>
             <button id="addBtn" class="editBtn" type="button">新增</button>
             <button id="saveBtnDown" class="editBtn" type="button">儲存</button>
         </div>

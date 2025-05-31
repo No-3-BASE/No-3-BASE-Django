@@ -1,49 +1,62 @@
-async function loadSectionOptions(selectEl) {
+async function loadSectionOptions(selectEl, selectedValue = null) {
     try {
         const res = await fetch('/profile_center/api/sections/')
         const sections = await res.json()
 
-        selectEl.innerHTML = '<option value="" disabled selected>請選擇板塊或輸入名稱</option>'
+        selectEl.innerHTML = '<option value="" selected disabled hidden>請選擇板塊或輸入名稱</option>'
 
         sections.forEach(section => {
             const opt = document.createElement('option')
             opt.value = section.id
             opt.textContent = section.name
+            if (section.id === selectedValue) {
+                opt.selected = true
+            }
             selectEl.appendChild(opt)
         })
 
-        new TomSelect(selectEl, {
+        const tom = new TomSelect(selectEl, {
             create: true,
-            placeholder: '請選擇板塊或輸入名稱'
+            placeholder: '請選擇板塊或輸入名稱',
         })
+
+        if (selectedValue && !sections.some(s => s.id === selectedValue)) {
+            tom.addOption({ value: selectedValue, text: selectedValue })
+            tom.setValue(selectedValue)
+        }
 
     } catch (err) {
         console.error("無法載入板塊資料", err)
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const initialSelects = document.querySelectorAll('.select-input')
-    initialSelects.forEach(select => loadSectionOptions(select))
+function renderCard(card) {
+    const container = document.getElementById("selectFields")
 
-    document.getElementById("addBtn").addEventListener("click", function () {
-        const container = document.getElementById("selectFields")
+    const wrapper = document.createElement("div")
+    wrapper.className = "field-container"
 
-        const wrapper = document.createElement("div")
-        wrapper.className = "field-container"
-
-        wrapper.innerHTML = `
+    wrapper.innerHTML = `
         <div class="editField">
             <select name="section[]" class="select-input"></select>
-            <input name="uid[]" class="gameUID" type="text" placeholder="請輸入遊戲UID">
+            <input name="uid[]" class="gameUID" type="text" value="${card.uid}" placeholder="請輸入遊戲UID">
         </div>
         <button type="button" class="removeBtn">✕</button>
-        `
+    `
 
-        container.appendChild(wrapper)
+    container.appendChild(wrapper)
 
-        const newSelect = wrapper.querySelector('select.select-input')
-        loadSectionOptions(newSelect)
+    const selectEl = wrapper.querySelector('select.select-input')
+    const sectionValue = card.section || card.customName || ''
+    loadSectionOptions(selectEl, sectionValue)
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const cards = JSON.parse(document.getElementById("initial-cards").textContent)
+    cards.forEach(renderCard)
+
+    document.getElementById("addBtn").addEventListener("click", function () {
+        renderCard({ uid: "", section: "" })
     })
 
     document.getElementById("selectFields").addEventListener("click", function (e) {
