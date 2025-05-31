@@ -68,9 +68,9 @@
                 <p class="taskcontentDetail">系統偵測<span class="reward">10 point</span><span
                         class="describe">按讚任一文章</span></p>
                 {% if tasks.likeDone %}
-                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                <a class="finishTaskLink" href="{% url 'board:home' %}">已完成任務</a>
                 {% else %}
-                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                <a class="taskLink" href="{% url 'board:home' %}">前往任務點</a>
                 {% endif %}
             </div>
             <div class="line"></div>
@@ -78,9 +78,9 @@
                 <p class="taskcontentDetail">訊號回傳<span class="reward">15 point</span><span
                         class="describe">回覆一則文章</span></p>
                 {% if tasks.messageDone %}
-                <a class="finishTaskLink" href="{% url 'player:login' %}">已完成任務</a>
+                <a class="finishTaskLink" href="{% url 'board:home' %}">已完成任務</a>
                 {% else %}
-                <a class="taskLink" href="{% url 'player:login' %}">前往任務點</a>
+                <a class="taskLink" href="{% url 'board:home' %}">前往任務點</a>
                 {% endif %}
             </div>
             <div class="line"></div>

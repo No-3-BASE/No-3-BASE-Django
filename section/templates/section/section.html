@@ -81,13 +81,15 @@
                 <button type="button" id="scrollRightBtn">›</button>
             </div>
         </div>
-        <div id="subTitleBar">
-            <p class="subTitle">板塊文章</p>
-            <div id="searchSections">
-                <input id="searchSectionsField" type="text" placeholder="搜尋板塊文章">
-                <button id="searchSectionButton" type="button">搜尋</button>
+        <form action="{% url 'search:sectionResult' section.id %}">
+            <div id="subTitleBar">
+                <p class="subTitle">板塊文章</p>
+                <div id="searchSections">
+                    <input id="searchSectionsField" name="q" type="text" placeholder="搜尋板塊文章">
+                    <button id="searchSectionButton" type="submit">搜尋</button>
+                </div>
             </div>
-        </div>
+        </form>
         <div class="class">
             <p>文章類別</p>
             <button type="button">遊戲攻略</button>

@@ -204,3 +204,11 @@ p.touchButton {
     font-weight: 700;
     margin-top: 80px;
 }
+
+a.section {
+    color: var(--Text-Color);
+}
+
+a.section:hover {
+    color: var(--Section-Text-Color);
+}
