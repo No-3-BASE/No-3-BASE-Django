@@ -156,6 +156,7 @@ button.menuBtn {
 }
 
 div.menu {
+    width: 25px;
     position: absolute;
     margin-top: 20px;
     margin-left: 600px;
@@ -169,6 +170,7 @@ div.menu a {
     padding-inline: 20px;
     padding-block: 2px;
     color: var(--Text-Color);
+    cursor: pointer;
 }
 
 div.menu a:hover {
@@ -229,11 +231,6 @@ div.messageGroup {
     border: 1.6px solid transparent;
 }
 
-p.touchButton {
-    margin-top: 80px;
-    margin-bottom: 70px;
-}
-
 div.articleMessage {
     width: 900px;
     min-height: 200px;
@@ -279,6 +276,8 @@ div.line {
 p.touchButton {
     text-align: center;
     font-weight: 700;
+    margin-top: 80px;
+    margin-bottom: 70px;
 }
 
 #inputMessage {

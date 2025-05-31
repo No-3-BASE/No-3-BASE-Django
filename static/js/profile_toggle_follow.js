@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        // 樣式 A：playerFollow <-> playerUnfollow
                         if (btn.classList.contains('playerFollow') || btn.classList.contains('playerUnfollow')) {
                             if (action === 'follow') {
                                 btn.classList.remove('playerUnfollow')
@@ -51,7 +50,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 btn.textContent = '關注'
                             }
                         }
-                        // 樣式 B：isFollow <-> unFollow
                         else if (btn.classList.contains('isfollow') || btn.classList.contains('unfollow')) {
                             if (action === 'follow') {
                                 btn.classList.remove('unfollow')

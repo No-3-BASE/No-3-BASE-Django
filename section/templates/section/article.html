@@ -112,12 +112,8 @@
                         <div>
                             <p class="time">Activated：{{ comment.createAt|date:"Y-m-d H:i" }}</p>
                         </div>
-                        <div class="articleDetail">
-                            <button class="articleBtn replyBtn" data-id="{{ comment.id }}"
-                                data-floor="{{ comment.floor }}">回覆</button>
-                            <p>獲讚　{{ comment.like }}</p>
-                            <button class="articleBtn">按讚</button>
-                        </div>
+                        <button class="articleBtn replyBtn" data-id="{{ comment.id }}"
+                            data-floor="{{ comment.floor }}">回覆</button>
                     </div>
                 </div>
             </div>

@@ -85,11 +85,7 @@ window.addEventListener('DOMContentLoaded', () => {
                             <div>
                                 <p class="time">Activated：${data.createAt}</p>
                             </div>
-                            <div class="articleDetail">
-                                <button class="articleBtn replyBtn" data-id="${data.id}" data-floor="${data.floor}">回覆</button>
-                                <p>獲讚　0</p>
-                                <button class="articleBtn">按讚</button>
-                            </div>
+                            <button class="articleBtn replyBtn" data-id="${data.id}" data-floor="${data.floor}">回覆</button>
                         </div>
                     </div>
                 </div>

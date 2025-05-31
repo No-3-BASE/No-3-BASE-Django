@@ -4,19 +4,19 @@
 <div id="toolBar">
     <a id="title" href="{% url 'board:home' %}">NO 3 BASE</a>
     <div id="externalLink">
-        <a href="">論壇規則</a>
-        <a href="">外部連結</a>
+        <a href="{% url 'board:rule' %}">論壇規則</a>
         <a href="https://mail.google.com/mail/?view=cm&fs=1&to=no3base.notify@gmail.com&su=【聯絡類別】簡短描述&body=【問題回報】請確認此模組狀況%0A【使用問題】觸發錯誤模組%0A【識別錯誤】基地回應異常"
             target="_blank">
             聯絡基地
         </a>
+        <a href="">外部連結</a>
     </div>
-    <div id="searchField">
-        <form action="">
-            <input type="text">
-        </form>
-        <button type="button">搜尋</button>
-    </div>
+    <form method="get" action="/search/result/">
+        <div id="searchField">
+            <input type="text" name="q">
+            <button type="submit">搜尋</button>
+        </div>
+    </form>
     <div id="tool">
         <div class="message">
             <a href=""><img id="messageImg" class="toolImg"></a>

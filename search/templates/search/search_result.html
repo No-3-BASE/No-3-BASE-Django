@@ -1,0 +1,81 @@
+{% load static %}
+{% load follow_extras %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search_result.css' %}">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/profile_toggle_follow.js' %}"></script>
+    <title>No 3 BASE——搜尋結果</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        <p class="subTitle">搜尋結果</p>
+        {% if player_count > 0 %}
+        <p class="hint">全部板塊 找到 {{ player_count }} 名 '{{ keyword }}' 相關的玩家</p>
+        <div class="followResult">
+            {% for player in players %}
+            <div class="follow">
+                <a class="f" href="{% url 'player:profile' player.id %}">
+                    {% if player.profile.photo %}
+                    <img src="{{ player.profile.photo.url }}" class="fPhoto" alt="User Photo">
+                    {% else %}
+                    <img src="{% static 'assets/images/No3BASE.png' %}" class="fPhoto" alt="Default Photo">
+                    {% endif %}
+                    <p class="fName">
+                        {{ player.first_name }}<span class="level">Lv. {{ player.profile.level }}</span>
+                        <br>
+                        <span class="enterDays">進入基地 {{ player.profile.signupDays }} 天</span>
+                    </p>
+                </a>
+                {% if isLogin %}
+                <button class="{% if user|is_following:player %}isfollow{% else %}unfollow{% endif %} followToggleBtn"
+                    data-url="{% url 'player:followToggle' %}" data-id="{{ player.id }}">
+                    {% if user|is_following:player %}已關注{% else %}關注{% endif %}
+                </button>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% if article_count > 0 %}
+        <p class="hint">全部板塊 找到 {{ article_count }} 筆 '{{ keyword }}' 相關的文章</p>
+        {% for article in articles %}
+        <div class="perArticle">
+            <p class="basicInfo">
+                {{ article.author.first_name }}
+                <span>
+                    <span class="sectionInfo">{{ article.section.name }}</span>
+                    <span class="infoSeparate">·</span>
+                    <span class="classInfo">{{ article.category.name }}</span>
+                    <span class="timeInfo">發布時間：{{ article.publishAt|date:"Y-m-d H:i" }}</span>
+                    <button class="menuBtn" type="button" onclick="toggleMenu('{{ article.id }}')">⋮</button>
+                    <div id="{{ article.id }}" class="menu">
+                        <a>編輯</a>
+                        <a>檢舉</a>
+                    </div>
+                </span>
+            </p>
+            <a href="{% url 'section:article' article.section.id article.id %}">
+                <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
+                <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
+            </a>
+            <p class="articleInfo">獲讚　{{ article.like }}　｜　留言　{{ article.comment }}　｜　熱度　{{ article.hot }}</p>
+        </div>
+        {% endfor %}
+        <p class="touchButton">資料定位已抵達終端</p>
+        {% endif %}
+        {% if player_count == 0 and article_count == 0 %}
+        <p class="hint">基地內 '{{ keyword }}' 相關的資料未能定位，建議調整關鍵詞重新定位目標</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

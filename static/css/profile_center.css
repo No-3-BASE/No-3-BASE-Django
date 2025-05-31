@@ -496,6 +496,7 @@ div.menu a {
     padding-inline: 20px;
     padding-block: 2px;
     color: var(--Text-Color);
+    cursor: pointer;
 }
 
 div.menu a:hover {

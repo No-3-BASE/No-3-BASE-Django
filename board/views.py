@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .models import Section
 from datetime import datetime, timezone
+from django.utils.timezone import now
+from .models import Section
 
 def home_view(request):
     #全部板塊
@@ -26,4 +27,17 @@ def home_view(request):
     return render(request, 'board/index.html', {
         'hot_sections': hotSections,
         'all_sections': allSection
+    })
+
+def rule_view(request):
+    current_time = now()
+    user = None
+
+    if request.user.is_authenticated:
+        user = request.user
+
+    
+    return render(request, 'board/rule.html', {
+        'user': user,
+        'time': current_time
     })

@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/consent_form.css' %}">
+    <script src="{% static 'js/agree_consent_form.js' %}"></script>
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <title>歡迎進入 No 3 BASE</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        <h1>No 3 BASE 通訊協議與基地行為準則</h1>
+        <h3>通訊協議</h3>
+        <ol>
+            <li>您已取得第三號基地臨時識別碼，授權通道即將開啟，請於 20 分鐘內完成身份驗證，逾時視同放棄，系統將關閉連線。</li>
+            <li>通訊憑證僅供本人使用，任何形式的轉交、轉發、外泄，皆視為安全風險，基地將啟動應對機制。</li>
+            <li>所有來往數據皆屬基地機密，若無授權，不得擅自轉載、公開、或擷取。</li>
+            <li>通訊過程受監控與記錄，異常行為一經偵測，系統將自動限制權限並凍結連線。</li>
+        </ol>
+        <h3>行為準則</h3>
+        <ol>
+            <li>尊重每位基地成員，禁止任何形式的歧視、侮辱及挑釁言論。</li>
+            <li>嚴禁發布與基地理念不符的內容，包括但不限於暴力、仇恨、非法交易訊息。</li>
+            <li>禁止散布虛假訊息及未經證實的謠言，以維護基地內部秩序。</li>
+            <li>請保持理性交流，禁止任何形式的廣告或垃圾訊息。</li>
+            <li>違反以上規則者，將被視為安全威脅，基地有權終止其通訊權限。</li>
+        </ol>
+
+        <p>敬請遵守上述條款，保障基地安全與和諧運作。</p>
+
+        <blockquote><i>Welcome to No.3 BASE —— The Last Safe Zone.</i></blockquote>
+
+        <hr>
+
+        <div class="signature-block" style="display: flex; justify-content: space-between;">
+            <div>
+                <strong>BASE 03 控管中心</strong>
+                <br>代號：BASE-03-CTR
+                <br>時間戳記：{{ time }}
+            </div>
+            <div>
+                簽署人：<input name="name" id="sign" type="text"
+                    value="{% if user %}{{user.first_name}}{% else %}未識別訪客{% endif %}" readonly>
+                <br>識別碼：{% if user %}{{user.username}}{% else %}UNKNOWN-03BASE{% endif %}
+                <br>授權確認：
+                <label id="agreebox">
+                    <input id="agreeCheckbox" type="checkbox" checked>我已閱讀並同意
+                </label>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
