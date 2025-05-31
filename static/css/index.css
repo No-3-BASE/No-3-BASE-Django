@@ -6,6 +6,14 @@
     height: 240px;
     margin-top: 20px;
     background: white;
+    overflow: hidden;
+    border-radius: 7px;
+}
+
+#advertise img {
+    width: 900px;
+    height: 240px;
+    object-fit: cover;
 }
 
 p.subTitle {

@@ -140,9 +140,16 @@ def my_bookmark_view(request):
 def my_fans_view(request):
     user = request.user
 
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
     followers = Follow.objects.filter(following=user).select_related('follower')
     return render(request, 'profile_center/my_fans.html', {
-        'followers': followers
+        'name': user.first_name,
+        'profile': profile,
+        'follows': followers
     })
 
 #我的關注
@@ -150,7 +157,14 @@ def my_fans_view(request):
 def my_follows_view(request):
     user = request.user
 
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
     followings = Follow.objects.filter(follower=user).select_related('following')
     return render(request, 'profile_center/my_follows.html', {
-        'followings': followings
+        'name': user.first_name,
+        'profile': profile,
+        'follows': followings
     })

@@ -1,5 +1,10 @@
 {% extends 'profile_center/profile_center.html' %}
 {% load static %}
+{% load follow_extras %}
+
+{% block scripts %}
+<script src="{% static 'js/profile_toggle_follow.js' %}"></script>
+{% endblock %}
 
 {% block title %}資料節點—我的關注{% endblock %}
 
@@ -7,15 +12,15 @@
 <div id="playerCenter">
     <div id="playerProfile">
         <div id="playerDetail">
-            <img src="assets/images/photo_r.jpg" alt="">
-            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
-            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
+            <p id="playerName">{{ name }}<span>Lv. {{ profile.level }}</span></p>
+            <p id="playerDays">進入基地　<span>{{ profile.signupDays }}</span>　天</p>
             <p id="playerSign">個性簽名</p>
-            <p>
-                山高路遠ABCDE
-                <br>
-                山高路遠ABCDE
-            </p>
+            <p>{{ profile.slogan }}</p>
             <div id="playerTool">
                 <div class="line"></div>
                 <a href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
@@ -39,30 +44,29 @@
                 <p class="detailTitle">我的關注</p>
                 <a class="editA" href="{% url 'profileCenter:myFans' %}">我的粉絲</a>
             </div>
+            {% for follow in follows %}
             <div class="follow">
-                <a class="f" href="">
-                    <img class="fPhoto" src="assets/images/photo_r2.png" alt="">
+                <a class="f" href="{% url 'player:profile' follow.following.id %}">
+                    {% if follow.following.profile.photo %}
+                    <img src="{{ follow.following.profile.photo.url }}" class="fPhoto" alt="User Photo">
+                    {% else %}
+                    <img src="{% static 'assets/images/No3BASE.png' %}" class="fPhoto" alt="Default Photo">
+                    {% endif %}
                     <p class="fName">
-                        用戶名稱<span class="level">Lv. 5</span>
+                        {{ follow.following.first_name }}<span class="level">Lv.
+                            {{ follow.following.profile.level }}</span>
                         <br>
-                        <span class="enterDays">進入基地 18 天</span>
+                        <span class="enterDays">進入基地 {{ follow.following.profile.signupDays }} 天</span>
                     </p>
                 </a>
-                <button class="unfollow">關注</button>
+                <button
+                    class="{% if user|is_following:follow.following %}isfollow{% else %}unfollow{% endif %} followToggleBtn"
+                    data-url="{% url 'player:followToggle' %}" data-id="{{ follow.following.id }}">
+                    {% if user|is_following:follow.following %}已關注{% else %}關注{% endif %}
+                </button>
             </div>
             <div class="line"></div>
-            <div class="follow">
-                <a class="f" href="">
-                    <img class="fPhoto" src="assets/images/photo_r2.png" alt="">
-                    <p class="fName">
-                        用戶名稱<span class="level">Lv. 5</span>
-                        <br>
-                        <span class="enterDays">進入基地 18 天</span>
-                    </p>
-                </a>
-                <button class="isfollow">已關注</button>
-            </div>
-            <div class="line"></div>
+            {% endfor %}
         </div>
     </div>
 </div>
