@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
-from datetime import datetime, timezone, date
+from datetime import datetime, timezone, date, timedelta
+from django.utils import timezone as tz
 from django.db import models
 from django.conf import settings
 from datetime import date
@@ -109,7 +110,9 @@ class Profile(models.Model):
     
     #任務字典
     def get_daily_tasks_status(self):
-        today = date.today()
+        #today = date.today()
+        today = tz.localtime().date() - timedelta(days=1)
+        print(today)
         return {
             'loginDone': self.loginExpGainDate == today,
             'articleDone': self.articleExpGainDate == today,

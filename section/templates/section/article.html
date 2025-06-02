@@ -33,7 +33,11 @@
         <div class="article">
             <div class="player">
                 <div class="playerDetail">
-                    <img src="{{ article.author.profile.photo.url }}" alt="">
+                    {% if article.author.profile.photo %}
+                    <img src="{{ article.author.profile.photo.url }}" alt="User Photo">
+                    {% else %}
+                    <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                    {% endif %}
                     <div>
                         <a class="playerLink" href="{% url 'player:profile' article.author.id %}">
                             <p class="playerName">{{ article.author.first_name }}</p>
