@@ -1,0 +1,90 @@
+#content {
+    margin-top: 10px;
+}
+
+#gameBoard {
+    width: 900px;
+    background: var(--Secondary-Color);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#gameBoard p {
+    margin: 0;
+}
+
+#playerDetail {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#playerDetail img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+#name {
+    padding-left: 10px;
+    font-size: 0.9rem;
+    color: var(--Text-Color);
+}
+
+a.player {
+    font-weight: 700;
+    color: var(--Text-Color);
+}
+
+a.player:hover {
+    color: var(--Section-Text-Color);
+}
+
+#name span {
+    font-size: 0.7rem;
+    font-family: "Bubblegum Sans", "Noto Serif TC", sans-serif;
+}
+
+div.line {
+    background: var(--Text-Color);
+    margin-block: 10px;
+}
+
+img.gameIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+p.gameName {
+    width: 200px;
+    font-size: 0.9rem;
+    padding-left: 20px;
+}
+
+p.gameName a {
+    color: var(--Text-Color);
+}
+
+p.gameName a.haveSection:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.gameUID {
+    width: 200px;
+    font-size: 0.9rem;
+    padding-left: 20px;
+}
+
+button.copyUID {
+    width: 60px;
+    font-size: 1rem;
+    border-radius: 3px;
+    background: var(--Contrast-Color);
+    color: var(--Text-Secondary-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+}

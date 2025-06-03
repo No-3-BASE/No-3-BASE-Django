@@ -11,11 +11,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (board && uid) {
                 payload.push({ board, uid })
+                console.log(board)
             }
         }
 
         if (payload.length === 0) {
-            alert("請至少填寫一組 Section 與 UID")
+            alert("請至少設定一組 遊戲名稱 與 UID")
             return
         }
 
@@ -30,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => res.json())
             .then(data => {
                 console.log("成功", data)
-                alert("資料已送出！")
+                alert("終端成功接收資料，識別序列已建立")
             })
             .catch(err => {
                 console.error("錯誤", err)

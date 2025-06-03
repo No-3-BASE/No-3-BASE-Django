@@ -11,4 +11,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('profile/<uuid:player_id>/', views.profile_view, name='profile'),
     path('follow_toggle/', views.follow_toggle, name='followToggle'),
+    path('game_card/<uuid:player_id>/', views.game_card_view, name='gameCard')
 ]

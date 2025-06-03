@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from datetime import datetime, timezone
 from article.models import Article, Comment
+from profile_center.models import GameCard
 from .models import Follow
 import uuid
 import json
@@ -268,6 +269,18 @@ def profile_view(request, player_id):
         'articles': articles,
         'follows': follows,
         'comment': comment_count
+    })
+
+#遊戲分享卡
+def game_card_view(request, player_id):
+    player = get_object_or_404(User, pk=player_id)
+
+    games = GameCard.objects.filter(player=player)
+
+    return render(request, 'player/game_card.html', {
+        'isLogin': request.user.is_authenticated,
+        'player': player,
+        'games': games
     })
 
 @require_POST

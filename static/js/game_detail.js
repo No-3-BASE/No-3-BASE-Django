@@ -38,7 +38,7 @@ function renderCard(card) {
 
     wrapper.innerHTML = `
         <div class="editField">
-            <select name="section[]" class="select-input"></select>
+            <select name="section[]" class="select-input" value="${card.id}"></select>
             <input name="uid[]" class="gameUID" type="text" value="${card.uid}" placeholder="請輸入遊戲UID">
         </div>
         <button type="button" class="removeBtn">✕</button>
@@ -53,6 +53,7 @@ function renderCard(card) {
 
 document.addEventListener("DOMContentLoaded", function () {
     const cards = JSON.parse(document.getElementById("initial-cards").textContent)
+    console.log(cards)
     cards.forEach(renderCard)
 
     document.getElementById("addBtn").addEventListener("click", function () {

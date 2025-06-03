@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.files.storage import default_storage
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 from player.models import Profile, Follow
 from article.models import Article, Favorite
 from board.models import Section
@@ -19,12 +20,18 @@ def player_profile_view(request):
     except Profile.DoesNotExist:
         profile = None
 
+    games = GameCard.objects.filter(player=user)
+    absolute_url = request.build_absolute_uri(reverse('player:gameCard', args=[user.id]))
+
     return render(request, 'profile_center/player_profile.html', {
+        'id': user.id,
         'name': user.first_name,
         'account': user.username,
         'email': user.email,
         'join': user.date_joined.strftime('%Y-%m-%d'),
-        'profile': profile
+        'profile': profile,
+        'url': absolute_url,
+        'games': games
     })
 
 #編輯隱私
@@ -82,6 +89,7 @@ def edit_game_view(request):
         card_data.append({
             "uid": card.uid,
             "section": card.section.name if card.section else "",
+            "id": card.section.id if card.section else "",
             "customName": card.customName if not card.section else "",
         })
     
@@ -248,9 +256,12 @@ def upload_games(request):
             section_obj = Section.objects.get(id=section_uuid)
         except (ValueError, Section.DoesNotExist):
             # ValueError: 不是合法 UUID，或 Section 不存在
-            # 直接把 section_id 當成自訂名稱存 customName
-            custom_name = section_id
-            section_obj = None
+            try:
+                section_obj = Section.objects.get(name=section_id)
+            except (ValueError, Section.DoesNotExist):
+                # 直接把 section_id 當成自訂名稱存 customName
+                custom_name = section_id
+                section_obj = None
 
         card, created_flag = GameCard.objects.get_or_create(
             player=user,

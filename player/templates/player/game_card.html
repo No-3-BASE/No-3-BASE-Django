@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/game_card.css' %}">
+    <script src="{% static 'js/copy_UID.js' %}"></script>
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <title>{{ player.first_name }}—遊戲資料</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        <div id="gameBoard">
+            <div id="playerDetail">
+                {% if player.profile.photo %}
+                <img src="{{ player.profile.photo.url }}" alt="User Photo">
+                {% else %}
+                <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                {% endif %}
+                <p id="name">
+                    <a class="player" href="{% url 'player:profile' player.id %}">{{ player.first_name }}</a>
+                    分享的遊戲資料
+                    <br>
+                    <span>進入基地 {{ player.profile.signupDays }} 天</span>
+                </p>
+            </div>
+            <div class="line"></div>
+            <div id="gameDetail">
+                <table>
+                    {% for game in games %}
+                    <tr>
+                        <td>
+                            {% if game.section %}
+                            <img class="gameIcon" src="{{ game.section.icon.url }}" alt="Game Icon">
+                            {% else %}
+                            <img class="gameIcon" src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if game.section %}
+                            <p class="gameName"><a class="haveSection"
+                                    href="{% url 'section:section' game.section.id %}">{{ game.section.name }}</a></p>
+                            {% else %}
+                            <p class="gameName"><a class="haveSection" href="">{{ game.customName }}</a></p>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <p class="gameUID">{{ game.uid }}</p>
+                        </td>
+                        <td>
+                            <button class="copyUID">copy</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

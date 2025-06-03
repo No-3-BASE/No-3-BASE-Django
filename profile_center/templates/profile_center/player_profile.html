@@ -3,6 +3,7 @@
 
 {% block scripts %}
 <script src="{% static 'js/share_board.js' %}"></script>
+<script src="{% static 'js/copy_gamecard_link.js' %}"></script>
 {% endblock %}
 
 {% block title %}資料節點—我的關注{% endblock %}
@@ -65,15 +66,14 @@
                     <div id="shareBoard">
                         <p class="shareTitle">分享遊戲資料卡</p>
                         <div id="shareLinks">
-                            <a class="community"
-                                href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+                            <a class="community" href="https://www.facebook.com/sharer/sharer.php?u={{ url }}"
                                 target="_blank">
                                 <img class="communityImg" src="{% static 'assets/images/Facebook.png' %}" alt="">
                             </a>
-                            <a class="community" href="">
+                            <a class="community" href="https://twitter.com/intent/tweet?url={{ url }}" target="_blank">
                                 <img class="communityImg" src="{% static 'assets/images/X.png' %}" alt="">
                             </a>
-                            <button class="copyLink">copy</button>
+                            <button class="copyLink" data-link="{{ url }}">copy</button>
                         </div>
                     </div>
                     <a class="editA" href="{% url 'profileCenter:editGame' %}">編輯</a>
@@ -81,30 +81,20 @@
             </div>
             <!--<p class="contentDetail">尚未建立任何遊戲記錄</p>-->
             <table>
+                {% for game in games %}
                 <tr>
                     <td>
-                        <p class="contentDetail">遊戲</p>
+                        {% if game.section %}
+                        <p class="contentDetail">{{ game.section.name }}</p>
+                        {% else %}
+                        <p class="contentDetail">{{ game.customName }}</p>
+                        {% endif %}
                     </td>
                     <td>
-                        <p class="contentDetail">UID</p>
+                        <p class="contentDetail">UID: {{ game.uid }}</p>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <p class="gameDetail">遊戲</p>
-                    </td>
-                    <td>
-                        <p class="gameDetail">UID</p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="gameDetail">遊戲</p>
-                    </td>
-                    <td>
-                        <p class="gameDetail">UID</p>
-                    </td>
-                </tr>
+                {% endfor %}
             </table>
         </div>
     </div>
