@@ -28,15 +28,17 @@ def section_view(request, section_id):
         'articles': articles
     })
 
+#文章瀏覽
 def article_view(request, section_id, article_id):
     article = get_object_or_404(Article, id=article_id)
-    comments = article.comments.filter(approved=True).order_by('createAt')#[:10]動態載入擴充
+    comments = article.comments.all().order_by('createAt')#[:10]動態載入擴充filter(approved=True)
     commentFloor = {
         str(comment.id): idx + 1
         for idx, comment in enumerate(comments)
     }
     
     isLike = False
+    isMark = False
     content_type = ContentType.objects.get_for_model(article)
     
     if request.user.is_authenticated:
@@ -44,6 +46,7 @@ def article_view(request, section_id, article_id):
         isMark = Favorite.objects.filter(player=request.user, article=article).exists()
 
     return render(request, 'section/article.html', {
+        'isLogin': True if request.user.is_authenticated else False,
         'article': article,
         'isMark': isMark,
         'isLike': isLike,
@@ -73,16 +76,17 @@ def upload_comment(request, section_id, article_id):
 
     #每日文章經驗
     try:
-        profile = user.profile
-        now = datetime.now(timezone.utc).date()
+        if user:
+            profile = user.profile
+            now = datetime.now(timezone.utc).date()
 
-        if profile.messageExpGainDate != now:
-            profile.exp += 15
-            profile.messageExpGainDate = now
-
-        profile.recalculate_level()
-        profile.save()
-    except User.DoesNotExist:
+            if profile.messageExpGainDate != now:
+                profile.exp += 15
+                profile.messageExpGainDate = now
+                profile.recalculate_level()
+                profile.save()
+                
+    except Exception:
         pass
 
     if parent_id:
@@ -112,7 +116,7 @@ def upload_comment(request, section_id, article_id):
         'authorPhoto': authorPhoto,
         'content': comment.content if comment.author else "評論審核中",
         'createAt': comment.createAt.strftime("%Y-%m-%d %H:%M"),
-        'floor': comment.floor if comment.author else 0,
+        'floor': comment.floor,
         'parentId': parent_id,
         'parentFloor': parentFloor
     })

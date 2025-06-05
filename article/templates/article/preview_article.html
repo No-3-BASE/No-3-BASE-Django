@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/article.css' %}">
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <script src="{% static 'js/input_control.js' %}"></script>
+    <script src="{% static 'js/upload_comment.js' %}"></script>
+    <script src="{% static 'js/reply_comment.js' %}"></script>
+    <script src="{% static 'js/article_toggle_like.js' %}"></script>
+    <script src="{% static 'js/article_toggle_bookmark.js' %}"></script>
+    <title>No 3 BASE</title>
+</head>
+
+<body>
+    {% include 'tool_bar.html' %}
+    <div id="content">
+        <div id="articleSection">
+            {% if article.section %}
+            <a class="type" href="{% url 'section:section' article.section.id %}">
+                <img src="{{ article.section.icon.url }}" alt="Section Icon">
+                <p class="typeName">{{ article.section.name }}</p>
+            </a>
+            <a class="type" href="">
+                <p class="typeName">{{ article.category.name }}</p>
+            </a>
+            {% else %}
+            <a class="type" href="{% url 'section:section' article.section.id %}">
+                <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Icon">
+                <p class="typeName">區段未啟用</p>
+            </a>
+            <a class="type" href="">
+                <p class="typeName">區段未啟用</p>
+            </a>
+            {% endif %}
+        </div>
+        <div class="article">
+            <div class="player">
+                <div class="playerDetail">
+                    {% if article.author.profile.photo %}
+                    <img src="{{ article.author.profile.photo.url }}" alt="User Photo">
+                    {% else %}
+                    <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                    {% endif %}
+                    <div>
+                        <a class="playerLink" href="{% url 'player:profile' article.author.id %}">
+                            <p class="playerName">{{ article.author.first_name }}</p>
+                        </a>
+                        <p class="playerDays">進入基地 {{ article.author.profile.signupDays }} 天<span class="level">Lv.
+                                {{ article.author.profile.level }}</span></p>
+                    </div>
+                </div>
+                <p class="floor">樓主</p>
+                <p class="signTitle">個性簽名</p>
+                <p class="sign">{{ article.author.profile.slogan }}</p>
+            </div>
+            <div class="articleField">
+                <div>
+                    <div class="addBtn">
+                        <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
+                        <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
+                        <div id="menu1" class="menu">
+                            <a>編輯</a>
+                            <a>檢舉</a>
+                        </div>
+                    </div>
+                    <div class="articleContent">{{ article.content|safe }}</div>
+                </div>
+                <div class="downDetail">
+                    <div>
+                        <p class="time">Activated：{{ article.publishAt|date:"Y-m-d H:i" }} Last
+                            Modified：{{ article.lastEdit|date:"Y-m-d H:i" }}</p>
+                    </div>
+                    <div class="articleDetail">
+                        <p>收藏　<span id="articleMark">{{ article.bookmark }}</p>
+                        <button class="articleBtn markBtn" id="mark" data-section-id="{{ article.section.id }}"
+                            data-article-id="{{ article.id }}">{% if isMark %}已收藏{% else %}收藏{% endif %}</button>
+                        <p>獲讚　<span id="articleLike">{{ article.like }}</span></p>
+                        <button class="articleBtn likeBtn" id="like" data-section-id="{{ article.section.id }}"
+                            data-article-id="{{ article.id }}">{% if isLike %}已讚{% else %}按讚{% endif %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

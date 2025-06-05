@@ -13,8 +13,10 @@
     <script src="{% static 'js/input_control.js' %}"></script>
     <script src="{% static 'js/upload_comment.js' %}"></script>
     <script src="{% static 'js/reply_comment.js' %}"></script>
+    {% if isLogin %}
     <script src="{% static 'js/article_toggle_like.js' %}"></script>
     <script src="{% static 'js/article_toggle_bookmark.js' %}"></script>
+    {% endif %}
     <title>No 3 BASE</title>
 </head>
 
@@ -68,12 +70,14 @@
                             Modified：{{ article.lastEdit|date:"Y-m-d H:i" }}</p>
                     </div>
                     <div class="articleDetail">
+                        {% if isLogin %}
                         <p>收藏　<span id="articleMark">{{ article.bookmark }}</p>
                         <button class="articleBtn markBtn" id="mark" data-section-id="{{ article.section.id }}"
                             data-article-id="{{ article.id }}">{% if isMark %}已收藏{% else %}收藏{% endif %}</button>
                         <p>獲讚　<span id="articleLike">{{ article.like }}</span></p>
                         <button class="articleBtn likeBtn" id="like" data-section-id="{{ article.section.id }}"
                             data-article-id="{{ article.id }}">{% if isLike %}已讚{% else %}按讚{% endif %}</button>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -89,8 +93,18 @@
                         <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
                         {% endif %}
                         <div>
+                            {% if comment.author %}
                             <a class="playerLink" href="{% url 'player:profile' comment.author.id %}">
                                 <p class="playerName">{{ comment.author.first_name }}</p>
+                            </a>
+                            {% else %}
+                            <a class="playerLink" href="javascript:void(0);">
+                                <p class="playerName">未識別訪客</p>
+                            </a>
+                            {% endif %}
+                            <p class="playerName">
+                                {% if article.author %}{{ comment.author.first_name }}{% else %}未識別訪客{% endif %}
+                            </p>
                             </a>
                             <p class="playerDays">進入基地 {{ comment.author.profile.signupDays }} 天<span class="level">Lv.
                                     {{ comment.author.profile.level }}</span></p>
@@ -98,7 +112,7 @@
                     </div>
                     <p class="floor">{{ forloop.counter }}樓</p>
                     <p class="signTitle">個性簽名</p>
-                    <p class="sign">{{ comment.author.profile.slogan }}</p>
+                    <p class="sign">{{ comment.author.profile.slogan|default:'在基地深處，訊號永不熄滅，識別者並未在此留下痕跡' }}</p>
                 </div>
                 <div class="messageField">
                     <div class="addBtn">

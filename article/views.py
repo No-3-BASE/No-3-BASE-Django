@@ -182,6 +182,16 @@ def draft_edit_view(request, draft_id):
         'article': article
     })
 
+#草稿預覽
+def draft_preview_view(request, draft_id):
+    user = request.user
+    article = get_object_or_404(Article, id=draft_id, author=user)
+
+    return render(request, 'article/preview_article.html',{
+        'article': article
+    })
+
+
 #請求分類
 def load_categories(request):
     if request.headers.get('x-requested-with') != 'XMLHttpRequest':

@@ -59,7 +59,7 @@
                         </div>
                     </span>
                 </p>
-                <a href="index.html">
+                <a href="{% url 'article:previewDraft' article.id %}">
                     <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
                     <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
                 </a>

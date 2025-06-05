@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             navigator.clipboard.writeText(path)
                 .then(() => {
-                    alert("識別連結已鎖定，可用於外部通訊")
+                    alert("識別連結已複製，可用於外部通訊")
                 })
                 .catch(err => {
                     console.error("複製失敗", err)
