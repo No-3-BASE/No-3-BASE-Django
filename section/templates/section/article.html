@@ -17,7 +17,8 @@
     <script src="{% static 'js/article_toggle_like.js' %}"></script>
     <script src="{% static 'js/article_toggle_bookmark.js' %}"></script>
     {% endif %}
-    <title>No 3 BASE</title>
+    <link rel="icon" href="{% static 'assets/images/No3BASEIcon.ico' %}" type="image/x-icon">
+    <title>文章—{{ article.title }}</title>
 </head>
 
 <body>
@@ -33,6 +34,7 @@
             </a>
         </div>
         <div class="article">
+            {% if article.author %}
             <div class="player">
                 <div class="playerDetail">
                     {% if article.author.profile.photo %}
@@ -52,6 +54,22 @@
                 <p class="signTitle">個性簽名</p>
                 <p class="sign">{{ article.author.profile.slogan }}</p>
             </div>
+            {% else %}
+            <div class="player">
+                <div class="playerDetail">
+                    <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                    <div>
+                        <a class="playerLink" href="{% url 'player:profile' article.author.id %}">
+                            <p class="playerName">失效識別碼</p>
+                        </a>
+                        <p class="playerDays">進入基地 0 天<span class="level">Lv. -</span></p>
+                    </div>
+                </div>
+                <p class="floor">樓主</p>
+                <p class="signTitle">個性簽名</p>
+                <p class="sign">行動結束，記憶留存於主機深處。</p>
+            </div>
+            {% endif %}
             <div class="articleField">
                 <div>
                     <div class="addBtn">
@@ -102,10 +120,6 @@
                                 <p class="playerName">未識別訪客</p>
                             </a>
                             {% endif %}
-                            <p class="playerName">
-                                {% if article.author %}{{ comment.author.first_name }}{% else %}未識別訪客{% endif %}
-                            </p>
-                            </a>
                             <p class="playerDays">進入基地 {{ comment.author.profile.signupDays }} 天<span class="level">Lv.
                                     {{ comment.author.profile.level }}</span></p>
                         </div>

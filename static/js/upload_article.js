@@ -12,9 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (sectionVal && classVal && titleVal.length > 0) {
             publishBtn.disabled = false
             publishBtn.style.opacity = "1"
+            publishBtn.style.cursor = "pointer"
         } else {
             publishBtn.disabled = true
             publishBtn.style.opacity = "0.7"
+            publishBtn.style.cursor = "default"
         }
     }
 

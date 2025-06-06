@@ -59,13 +59,15 @@
                     <p>通知</p>
                     <button type="button">全部已讀</button>
                 </div>
-                <div class="messageContainer hide-scrollbar">
+                <div id="noticeContainer" class="messageContainer hide-scrollbar">
                     <div class="line"></div>
-                    <a href="">
+                    {% for notify in toolBar.notifies %}
+                    <a
+                        href="{% url 'section:article' notify.comment.article.section.id notify.comment.article.id %}#{{notify.comment.id}}">
                         <div class="perNotice">
                             <div class="perNoticeDetail">
-                                <p>一名神秘論壇用戶回覆了你的文章</p>
-                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
+                                <p>{{ notify.title }}</p>
+                                <p class="messageContent">{{ notify.comment.content }}</p>
                             </div>
                         </div>
                     </a>
@@ -81,6 +83,7 @@
                     </a>
                     <div class="line"></div>
                     -->
+                    {% endfor %}
                 </div>
             </div>
         </div>

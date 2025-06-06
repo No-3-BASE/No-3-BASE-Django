@@ -16,6 +16,7 @@
     <script src="{% static 'js/quill_textarea.js' %}" defer></script>
     <script src="{% static 'js/select_section.js' %}"></script>
     <script src="{% static 'js/textarea_space.js' %}"></script>
+    <script src="{% static 'js/upload_article.js' %}"></script>
     <link rel="icon" href="{% static 'assets/images/No3BASEIcon.ico' %}" type="image/x-icon">
     <title>No 3 BASE—文章編輯</title>
 </head>
@@ -56,7 +57,7 @@
                         <input type="hidden" name="content" id="hidden-content" value="{{ article.content }}">
                         <div id="editBtn">
                             <button id="saveBtn" class="submitArticle" type="button">儲存草稿</button>
-                            <button id="publishBtn" class="submitArticle" type="submit">發布文章</button>
+                            <button id="publishBtn" class="submitArticle" type="submit" disabled>發布文章</button>
                         </div>
                     </div>
                 </div>

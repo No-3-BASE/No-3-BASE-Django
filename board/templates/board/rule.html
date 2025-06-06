@@ -11,7 +11,7 @@
     <script src="{% static 'js/agree_consent_form.js' %}"></script>
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
     <link rel="icon" href="{% static 'assets/images/No3BASEIcon.ico' %}" type="image/x-icon">
-    <title>歡迎進入 No 3 BASE</title>
+    <title>No 3 BASE—論壇規則</title>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
             <div>
                 <strong>BASE 03 控管中心</strong>
                 <br>代號：BASE-03-CTR
-                <br>時間戳記：{{ time }}
+                <br>時間戳記：{{ user.date_joined|default:time|date:"Y.m.d | H:i" }}
             </div>
             <div>
                 簽署人：<input name="name" id="sign" type="text"

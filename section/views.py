@@ -6,8 +6,10 @@ from datetime import datetime, timezone
 from django.http import JsonResponse
 from django.templatetags.static import static
 from django.contrib.contenttypes.models import ContentType
+from django.urls import reverse
 from board.models import Section
 from article.models import Article, Comment, Like, Favorite
+from player.models import Notification
 
 User = get_user_model()
 
@@ -94,12 +96,18 @@ def upload_comment(request, section_id, article_id):
         parentFloor = article.comments.filter(approved=True, createAt__lte=parent.createAt).count()
 
     comment = Comment.objects.create(article=article, author=user, content=content, parentComment=parent, approved=request.user.is_authenticated)
+    comment_url = request.build_absolute_uri(reverse("section:article", args=[section_id, article_id]) + f"#{comment.id}")
+    if article.author and user != article.author and comment.approved:    
+        Notification.objects.create(recipient=article.author, title=f"{user.first_name if user else '未識別訪客'} 回覆了你的文章《{article.title}》", comment=comment, link=comment_url)
+
+    if parent and parent.author and user != parent.author and article.author and parent.author != article.author:
+        Notification.objects.create(recipient=article.author, title=f"{user.first_name if user else '未識別訪客'} 回覆了你的留言", comment=comment, link=comment_url)
 
     comment_count = Comment.objects.filter(article=article, approved=True).count()
     comment_score = comment_count * 5
     like_score = article.like * 3
     bookmark_score = article.bookmark
-    article.comment = comment_count
+    article.comment = Comment.objects.filter(article=article).count()
     article.hot = comment_score + like_score + bookmark_score
     article.save()
 

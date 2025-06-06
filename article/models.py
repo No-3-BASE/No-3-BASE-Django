@@ -19,7 +19,7 @@ class Article(models.Model):
     ]
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='articles')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='articles', on_delete=models.CASCADE, related_query_name='articles')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name='articles', related_query_name='articles')
     section = models.ForeignKey(Section, null=True, blank=True, on_delete=models.CASCADE, related_name='articles')
     category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL, related_name='articles')
     title = models.TextField(null=True)
@@ -51,7 +51,7 @@ class Article(models.Model):
 class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, related_name='comments', on_delete=models.SET_NULL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name='comments')
     content = models.TextField()
     floor = models.PositiveIntegerField(default=0)
     createAt = models.DateTimeField(auto_now_add=True)
@@ -75,23 +75,21 @@ class Comment(models.Model):
 #按讚
 class Like(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    contentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    objectId = models.UUIDField()
-    contentObject = GenericForeignKey('contentType', 'objectId')
+    player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes')
     createAt = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('player', 'contentType', 'objectId')
+        unique_together = ('player', 'article')
 
     def __str__(self):
-        return f"{self.player.first_name} - {self.contentObject}"
+        return f"{self.player.first_name} - {self.article.title}"
 
 #收藏
 class Favorite(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorites')
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='favorited_by')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='favorites')
     createAt = models.DateTimeField(auto_now_add=True)
 
     class Meta:

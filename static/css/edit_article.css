@@ -111,4 +111,5 @@ button.submitArticle {
 
 #publishBtn {
     opacity: 0.7;
+    cursor: default;
 }

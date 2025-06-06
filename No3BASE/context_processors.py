@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from player.models import Profile
+from player.models import Profile, Notification
 from article.models import Article
 import math
 
@@ -8,7 +8,8 @@ def toolbar_context(request):
     if request.user.is_authenticated:
         user = request.user
         now = datetime.now(timezone.utc)
-        signupDays = (now - user.date_joined).days + 1
+
+        notifies = None
 
         profile = None
 
@@ -17,11 +18,17 @@ def toolbar_context(request):
         except Profile.DoesNotExist:
             profile = None
 
+        try:
+            notifies = Notification.objects.filter(recipient=user)[:20]
+        except Notification.DoesNotExist:
+            notifies = None
+
         article_count = Article.objects.filter(author=user, status='published').count()
 
         return {
             'toolBar': {
                 'isLogin': True,
+                'notifies': notifies,
                 'id': user.id,
                 'name': user.first_name,
                 'profile': profile,
@@ -32,6 +39,7 @@ def toolbar_context(request):
     return {
         'toolBar': {
             'isLogin': False,
+            'notify': None,
             'id': None,
             'name': "訪客",
             'profile': None,

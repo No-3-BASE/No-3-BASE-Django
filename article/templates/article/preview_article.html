@@ -75,16 +75,16 @@
                 </div>
                 <div class="downDetail">
                     <div>
-                        <p class="time">Activated：{{ article.publishAt|date:"Y-m-d H:i" }} Last
+                        <p class="time">Activated：{{ article.lastEdit|date:"Y-m-d H:i" }} Last
                             Modified：{{ article.lastEdit|date:"Y-m-d H:i" }}</p>
                     </div>
                     <div class="articleDetail">
-                        <p>收藏　<span id="articleMark">{{ article.bookmark }}</p>
+                        <!--<p>收藏　<span id="articleMark">{{ article.bookmark }}</p>
                         <button class="articleBtn markBtn" id="mark" data-section-id="{{ article.section.id }}"
                             data-article-id="{{ article.id }}">{% if isMark %}已收藏{% else %}收藏{% endif %}</button>
                         <p>獲讚　<span id="articleLike">{{ article.like }}</span></p>
                         <button class="articleBtn likeBtn" id="like" data-section-id="{{ article.section.id }}"
-                            data-article-id="{{ article.id }}">{% if isLike %}已讚{% else %}按讚{% endif %}</button>
+                            data-article-id="{{ article.id }}">{% if isLike %}已讚{% else %}按讚{% endif %}</button>-->
                     </div>
                 </div>
             </div>

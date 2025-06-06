@@ -10,5 +10,4 @@ urlpatterns = [
     path('<uuid:section_id>/article/<uuid:article_id>/comment/', views.upload_comment, name='comment'),
     path('<uuid:section_id>/article/<uuid:article_id>/like_toggle/', views.article_like_toggle, name='articleLike'),
     path('<uuid:section_id>/article/<uuid:article_id>/mark_toggle/', views.article_mark_toggle, name='articleMark')
-    
 ]
