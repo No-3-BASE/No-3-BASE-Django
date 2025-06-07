@@ -1,0 +1,107 @@
+#content {
+    margin-top: 10px;
+}
+
+p.subTitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+div.event {
+    display: flex;
+    justify-content: left;
+    position: relative;
+    align-items: start;
+    padding-inline: 5px;
+}
+
+div.event img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+div.eventContent {
+    width: 814px;
+    margin-left: 10px;
+}
+
+div.eventContent p {
+    margin: 0;
+}
+
+a.eventLink {
+    color: var(--Text-Color);
+}
+
+a.eventLink:hover p.eventDetail {
+    color: var(--Section-Text-Color);
+}
+
+div.event button {
+    color: var(--Text-Color);
+}
+
+div.menu {
+    position: absolute;
+    margin-left: 826px;
+    margin-top: 20px;
+    background: var(--Secondary-Color);
+    display: none;
+    flex-direction: column;
+}
+
+div.menu button {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu button:hover {
+    color: var(--Section-Text-Color);
+}
+
+div.menu a {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu a:hover {
+    color: var(--Section-Text-Color);
+}
+
+p.playerName {
+    display: flex;
+    justify-content: space-between;
+}
+
+span.level {
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: var(--Text-Secondary-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Contrast-Color);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+}
+
+span.date {
+    font-size: 0.8rem;
+    margin-right: 10px;
+}
+
+p.eventDetail {
+    font-size: 0.85rem;
+}
+
+div.line {
+    margin-block: 10px;
+}

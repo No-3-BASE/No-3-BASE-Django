@@ -1,30 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="themeStyleSheet" rel="stylesheet" href="">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/message_list.css">
-    <script src="js/load_tool_bar.js" defer></script>
-    <script src="js/theme_toggle.js" defer></script>
-    <script src="js/section_btnmenu.js"></script>
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/message_list.css' %}">
+    <script src="{% static 'js/agree_consent_form.js' %}"></script>
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
     <title>No 3 BASE—通知列表</title>
 </head>
 
 <body>
-    <div id="toolBar"></div>
+    {% include 'tool_bar.html' %}
     <div id="content">
         <p class="subTitle">通知列表</p>
+        {% for message in messages %}
         <div class="event">
-            <img src="assets/images/photo_r.jpg" alt="">
+            {% if message.comment.author.profile.photo %}
+            <img src="{{ message.comment.author.profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
             <div class="eventContent">
-                <a class="eventLink" href="">
-                    <p class="playerName"><span>用戶名稱八個字符<span class="level">Lv. 5</span></span><span
-                            class="date">2025-05-14
-                            17:09</span></p>
-                    <p class="eventDetail">回覆了</p>
+                <a class="eventLink"
+                    href="{% url 'section:article' message.comment.article.section.id message.comment.article.id %}#{{message.comment.id}}">
+                    <p class="playerName"><span>{{ message.comment.author.first_name|default:'未識別訪客' }}<span
+                                class="level">Lv.
+                                {{ message.comment.author.profile.level|default:'-' }}</span></span><span
+                            class="date">{{ message.createAt|date:'Y-m-d H:i' }}</span></p>
+                    <p class="eventDetail">{{ message.title }}—{{ message.comment.content }}</p>
                 </a>
             </div>
             <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
@@ -34,6 +42,7 @@
             </div>
         </div>
         <div class="line"></div>
+        {% endfor %}
         <!--<div class="event">
             <img src="assets/images/photo_r.jpg" alt="">
             <div class="eventContent">
