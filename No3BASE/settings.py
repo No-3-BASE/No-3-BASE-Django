@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'section',
     'article',
     'player',
+    'notification',
+    'chat',
     'profile_center',
 ]
 

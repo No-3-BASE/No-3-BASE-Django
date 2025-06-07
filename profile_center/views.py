@@ -177,9 +177,9 @@ def my_bookmark_view(request):
     sortBy = request.GET.get("sort", "time")
 
     if sortBy == "hot":
-        bookmarkArticles = Article.objects.filter(favorited_by__player=user, status='published').distinct().order_by('-hot', '-publishAt')
+        bookmarkArticles = Article.objects.filter(favorites__player=user, status='published').distinct().order_by('-hot', '-publishAt')
     else:
-        bookmarkArticles = Article.objects.filter(favorited_by__player=user, status='published').distinct().order_by('-publishAt')
+        bookmarkArticles = Article.objects.filter(favorites__player=user, status='published').distinct().order_by('-publishAt')
 
     return render(request, 'profile_center/my_bookmark.html', {
         'name': user.first_name,

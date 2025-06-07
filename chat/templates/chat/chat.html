@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="themeStyleSheet" rel="stylesheet" href="">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/chat.css">
+    <script src="js/load_tool_bar.js" defer></script>
+    <script src="js/theme_toggle.js" defer></script>
+    <script src="js/section_btnmenu.js"></script>
+    <title>No 3 BASE—聊天室</title>
+</head>
+
+<body>
+    <div id="toolBar"></div>
+    <div id="content">
+        <div class="chatRoom">
+            <div>
+                <div class="chaterDetail">
+                    <img src="assets/images/photo_r.jpg" alt="">
+                    <div class="chatTitle">
+                        <p class="playerName">用戶名稱八個字符<span class="level">Lv. 5</span></p>
+                        <p class="lastActive">最後上線時間：<span class="time">2025-05-09 17:21</span></p>
+                    </div>
+                    <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
+                    <div id="menu1" class="menu">
+                        <button>刪除</button>
+                        <a>檢舉</a>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <p class="chatDate">2025-05-13</p>
+                <div class="chatGroup hide-scrollbar">
+                    <div class="chatContentLeftBox">
+                        <p class="chatContentLeft">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
+                            nam porro ea praesentium iure. Distinctio beatae sit cumque sint officiis repellat
+                            perspiciatis itaque ipsum. Provident libero voluptatem ex quo accusamus!</p>
+                        <p class="chatTime">19:21</p>
+                    </div>
+                    <div class="chatContentRightBox">
+                        <p class="chatTime">19:21</p>
+                        <p class="chatContentRight">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id,
+                            sapiente. Recusandae excepturi dicta harum dolorem animi. Porro ipsa praesentium laudantium
+                            amet, ipsum modi quo tempora similique provident distinctio, earum laborum.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="inputTool">
+                <textarea id="smallTextarea" class="hide-scrollbar" name="" id=""></textarea>
+                <button class="inputBtn">送出</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

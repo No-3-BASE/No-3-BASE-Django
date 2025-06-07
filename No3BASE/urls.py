@@ -26,5 +26,7 @@ urlpatterns = [
     path('section/', include('section.urls')),
     path('article/', include('article.urls')),
     path('player/', include('player.urls')),
+    path('notification/', include('notification.urls')),
+    path('chat/', include('chat.urls')),
     path('profile_center/', include('profile_center.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

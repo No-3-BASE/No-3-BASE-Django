@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
-from player.models import Profile, Notification
+from player.models import Profile
+from notification.models import Notification
 from article.models import Article
 import math
 

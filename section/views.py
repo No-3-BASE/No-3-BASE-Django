@@ -9,7 +9,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from board.models import Section
 from article.models import Article, Comment, Like, Favorite
-from player.models import Notification
+from notification.models import Notification
 
 User = get_user_model()
 
