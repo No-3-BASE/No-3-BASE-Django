@@ -54,12 +54,12 @@
                         <span class="timeInfo">編輯時間：{{ article.lastEdit|date:"Y-m-d H:i" }}</span>
                         <button class="menuBtn" type="button" onclick="toggleMenu('{{ article.id }}')">⋮</button>
                         <div id="{{ article.id }}" class="menu">
-                            <a href="{% url 'article:editDraft' article.id %}">編輯</a>
+                            <a href="{% url 'article:previewDraft' article.id %}">預覽</a>
                             <a>刪除</a>
                         </div>
                     </span>
                 </p>
-                <a href="{% url 'article:previewDraft' article.id %}">
+                <a href="{% url 'article:editDraft' article.id %}">
                     <p class="articleTitle">{{ article.title|linebreaksbr }}</p>
                     <p class="articleContent">{{ article.get_preview|linebreaksbr }}</p>
                 </a>

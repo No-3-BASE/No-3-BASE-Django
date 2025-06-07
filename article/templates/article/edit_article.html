@@ -28,7 +28,10 @@
         <div id="editArticle">
             <form id="article" method="post" action="">
                 {% csrf_token %}
-                <p class="itemTitle">板塊類別</p>
+                <div class="top">
+                    <p class="itemTitle">板塊類別</p>
+                    <a href="{% url 'article:previewDraft' article.id %}" class="previewArticle">文章預覽</a>
+                </div>
                 <div class="inputFields">
                     <div class="field-container">
                         <select id="selectSection" class="select-input selectSection" name="section">

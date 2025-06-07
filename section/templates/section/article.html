@@ -120,8 +120,9 @@
                                 <p class="playerName">未識別訪客</p>
                             </a>
                             {% endif %}
-                            <p class="playerDays">進入基地 {{ comment.author.profile.signupDays }} 天<span class="level">Lv.
-                                    {{ comment.author.profile.level }}</span></p>
+                            <p class="playerDays">進入基地 {{ comment.author.profile.signupDays|default:0 }} 天<span
+                                    class="level">Lv.
+                                    {{ comment.author.profile.level|default:'-' }}</span></p>
                         </div>
                     </div>
                     <p class="floor">{{ forloop.counter }}樓</p>

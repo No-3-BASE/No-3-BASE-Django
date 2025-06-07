@@ -22,6 +22,11 @@ p.itemTitle {
     margin: 0;
 }
 
+div.top {
+    display: flex;
+    justify-content: space-between;
+}
+
 div.inputFields {
     display: flex;
     margin-block: 10px;
@@ -99,6 +104,17 @@ div.textArea .ql-container.ql-snow {
 }
 
 button.submitArticle {
+    font-size: 0.85rem;
+    padding-inline: 16px;
+    padding-block: 3px;
+    border-radius: 3px;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+a.previewArticle {
     font-size: 0.85rem;
     padding-inline: 16px;
     padding-block: 3px;

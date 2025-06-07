@@ -243,19 +243,19 @@ def profile_view(request, player_id):
             articles = Article.objects.filter(author=player, status='published').order_by('-hot')
     elif sort == "bookmarks":
         if order == "time":
-            articles = Article.objects.filter(author=player, status='published', favorites__player=player).order_by('-publishAt')
+            articles = Article.objects.filter(status='published', favorites__player=player).order_by('-publishAt')
         if order == "hot":
-            articles = Article.objects.filter(author=player, status='published', favorites__player=player).order_by('-hot')
+            articles = Article.objects.filter(status='published', favorites__player=player).order_by('-hot')
     elif sort == "comments":
         if order == "time":
-            articles = Article.objects.filter(author=player, status='published', comments__author=player).distinct().order_by('-publishAt')
+            articles = Article.objects.filter(status='published', comments__author=player).distinct().order_by('-publishAt')
         if order == "hot":
-            articles = Article.objects.filter(author=player, status='published', comments__author=player).distinct().order_by('-hot')
+            articles = Article.objects.filter(status='published', comments__author=player).distinct().order_by('-hot')
     elif sort == "likes":
         if order == "time":
-            articles = Article.objects.filter(author=player, status='published', likes__player=player).distinct().order_by('-publishAt')
+            articles = Article.objects.filter(status='published', likes__player=player).distinct().order_by('-publishAt')
         if order == "hot":
-            articles = Article.objects.filter(author=player, status='published', likes__player=player).distinct().order_by('-hot')
+            articles = Article.objects.filter(status='published', likes__player=player).distinct().order_by('-hot')
     elif sort == "following":
         isArticle = False
         follows = Follow.objects.filter(follower=player)

@@ -73,7 +73,7 @@ class Comment(models.Model):
         super().save(*args, **kwargs)
 
 #按讚
-class Like(models.Model):
+'''class Like(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     contentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
@@ -85,7 +85,22 @@ class Like(models.Model):
         unique_together = ('player', 'contentType', 'objectId')
 
     def __str__(self):
-        return f"{self.player.first_name} - {self.contentObject}"
+        return f"{self.player.first_name} - {self.contentObject}"'''
+
+class Like(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='likes')
+    createAt = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('player', 'article')
+
+    def __str__(self):
+        if self.article:
+            return f"{self.player.first_name} - {self.article.title}"
+        else:
+            return f"{self.player.first_name} - {self.contentObject}"
 
 #收藏
 class Favorite(models.Model):

@@ -44,7 +44,7 @@ def article_view(request, section_id, article_id):
     content_type = ContentType.objects.get_for_model(article)
     
     if request.user.is_authenticated:
-        isLike = Like.objects.filter(player=request.user, contentType=content_type, objectId=article.id).exists()
+        isLike = Like.objects.filter(player=request.user, article=article).exists()
         isMark = Favorite.objects.filter(player=request.user, article=article).exists()
 
     return render(request, 'section/article.html', {
@@ -136,10 +136,8 @@ def article_like_toggle(request, section_id, article_id):
     user = request.user
     article = get_object_or_404(Article, id=article_id)
     
-    content_type = ContentType.objects.get_for_model(article)
-    
     #檢查是否按讚
-    existing_like = Like.objects.filter(player=user, contentType=content_type, objectId=article.id).first()
+    existing_like = Like.objects.filter(player=user, article=article).first()
     
     if existing_like:
         #取消按讚
@@ -148,7 +146,7 @@ def article_like_toggle(request, section_id, article_id):
         liked = False
     else:
         #新增按讚
-        Like.objects.create(player=user, contentType=content_type, objectId=article.id,)
+        Like.objects.create(player=user, article=article)
         article.like += 1
         liked = True
 
