@@ -18,6 +18,7 @@ def search_view(request):
         players = User.objects.filter(first_name__icontains=keyword)
     else:
         message = '請輸入搜尋關鍵字'
+        
     return render(request, 'search/search.html',{
         'isLogin': request.user.is_authenticated,
         'user': user,

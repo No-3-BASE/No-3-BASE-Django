@@ -1,0 +1,175 @@
+#content {
+    margin-top: 10px;
+}
+
+div.chatRoom {
+    background: var(--Secondary-Color);
+    border-radius: 5px;
+    height: 86vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div.chaterDetail {
+    padding: 10px;
+    display: flex;
+    justify-content: left;
+    align-items: start;
+}
+
+div.chaterDetail img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+p.playerName {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+span.level {
+    font-size: 0.7rem;
+    font-weight: 300;
+    color: var(--Text-Secondary-Color);
+    font-family: "Bubblegum Sans", sans-serif;
+    background: var(--Contrast-Color);
+    margin-inline: 5px;
+    padding-inline: 5px;
+    border-radius: 10px;
+}
+
+p.lastActive {
+    font-size: 0.75rem;
+    margin: 0;
+    margin-top: 7px;
+}
+
+div.chatTitle {
+    width: 820px;
+    margin-left: 10px;
+}
+
+div.chaterDetail button {
+    color: var(--Text-Color);
+}
+
+div.menu {
+    position: absolute;
+    margin-left: 806px;
+    margin-top: 20px;
+    background: var(--Primary-Color);
+    display: none;
+    flex-direction: column;
+}
+
+div.menu button {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu button:hover {
+    color: var(--Section-Text-Color);
+}
+
+div.menu a {
+    font-size: 0.8rem;
+    padding-inline: 20px;
+    padding-block: 2px;
+    color: var(--Text-Color);
+}
+
+div.menu a:hover {
+    color: var(--Section-Text-Color);
+}
+
+div.line {
+    margin-inline: 5px;
+    background: var(--Primary-Color);
+}
+
+p.chatDate {
+    font-size: 0.7rem;
+    text-align: center;
+}
+
+div.chatContentLeftBox {
+    display: flex;
+    justify-content: left;
+    align-items: end;
+    margin-right: 300px;
+}
+
+p.chatContentLeft {
+    font-size: 0.9rem;
+    display: inline-block;
+    background: var(--Primary-Color);
+    padding-inline: 7px;
+    padding-block: 3px;
+    border-top-right-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    margin: 0;
+    margin-left: 10px;
+    margin-block: 5px;
+}
+
+p.chatTime {
+    font-size: 0.6rem;
+    margin: 0;
+    margin-inline: 5px;
+    margin-bottom: 7px;
+}
+
+div.chatContentRightBox {
+    display: flex;
+    justify-content: right;
+    align-items: end;
+    margin-left: 300px;
+}
+
+
+p.chatContentRight {
+    font-size: 0.9rem;
+    display: inline-block;
+    background: var(--Primary-Color);
+    padding-inline: 7px;
+    padding-block: 3px;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    margin: 0;
+    margin-right: 10px;
+    margin-block: 5px;
+}
+
+div.inputTool {
+    margin-block: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#smallTextarea {
+    width: 800px;
+    border: none;
+    color: var(--Contrast-Color);
+    font-family: "Tinos", "Noto Serif TC", serif;
+}
+
+button.inputBtn {
+    height: 24px;
+    line-height: 24px;
+    font-size: 0.9rem;
+    color: var(--Text-Secondary-Color);
+    background: var(--Contrast-Color);
+    margin-left: 5px;
+    padding-inline: 20px;
+    border-radius: 3px;
+    margin-left: 10px;
+}

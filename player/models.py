@@ -29,6 +29,8 @@ class Profile(models.Model):
     slogan = models.CharField(max_length=200, blank=True, default='在基地深處，訊號永不熄滅，識別者並未在此留下痕跡')
     birthday = models.DateField(default=date(2000, 1, 1), blank=True, null=True)
 
+    lastSeen = models.DateTimeField(default=tz.now)
+
     loginExpGainDate = models.DateField(blank=True, null=True)
     draftExpGainDate = models.DateField(blank=True, null=True)
     articleExpGainDate = models.DateField(blank=True, null=True)

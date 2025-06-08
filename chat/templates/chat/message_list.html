@@ -1,24 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="themeStyleSheet" rel="stylesheet" href="">
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/message_list.css">
-    <script src="js/load_tool_bar.js" defer></script>
-    <script src="js/theme_toggle.js" defer></script>
-    <script src="js/section_btnmenu.js"></script>
-    <title>No 3 BASE—通知列表</title>
+    <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'css/message_list.css' %}">
+    <script src="{% static 'js/agree_consent_form.js' %}"></script>
+    <script src="{% static 'js/theme_toggle.js' %}" defer></script>
+    <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <link rel="icon" href="{% static 'assets/images/No3BASEIcon.ico' %}" type="image/x-icon">
+    <title>No 3 BASE—聊天列表</title>
 </head>
 
 <body>
-    <div id="toolBar"></div>
+    {% include 'tool_bar.html' %}
     <div id="content">
         <p class="subTitle">通知列表</p>
         <div class="event">
-            <img src="assets/images/photo_r.jpg" alt="">
+            {% if player.profile.photo %}
+            <img src="{{ player.profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
             <div class="eventContent">
                 <a class="eventLink" href="">
                     <p class="playerName"><span>用戶名稱八個字符<span class="level">Lv. 5</span></span><span

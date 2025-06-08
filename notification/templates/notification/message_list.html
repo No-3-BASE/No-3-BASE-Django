@@ -11,6 +11,7 @@
     <script src="{% static 'js/agree_consent_form.js' %}"></script>
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
     <script src="{% static 'js/section_btnmenu.js' %}"></script>
+    <link rel="icon" href="{% static 'assets/images/No3BASEIcon.ico' %}" type="image/x-icon">
     <title>No 3 BASE—通知列表</title>
 </head>
 
@@ -32,7 +33,7 @@
                                 class="level">Lv.
                                 {{ message.comment.author.profile.level|default:'-' }}</span></span><span
                             class="date">{{ message.createAt|date:'Y-m-d H:i' }}</span></p>
-                    <p class="eventDetail">{{ message.title }}—{{ message.comment.content }}</p>
+                    <p class="eventDetail">{{ message.title }}「{{ message.comment.content }}」</p>
                 </a>
             </div>
             <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
@@ -43,20 +44,6 @@
         </div>
         <div class="line"></div>
         {% endfor %}
-        <!--<div class="event">
-            <img src="assets/images/photo_r.jpg" alt="">
-            <div class="eventContent">
-                <p class="playerName"><span>用戶名稱八個字符<span class="level">Lv. 5</span></span><span class="date">2025-05-14
-                        17:09</span></p>
-                <p class="eventDetail">回覆了</p>
-            </div>
-            <button class="menuBtn" type="button" onclick="toggleMenu('menu1')">⋮</button>
-            <div id="menu1" class="menu">
-                <button>刪除</button>
-                <a>檢舉</a>
-            </div>
-        </div>
-        <div class="line"></div>-->
     </div>
 </body>
 

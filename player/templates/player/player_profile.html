@@ -40,7 +40,7 @@
                 <div>
                     <p id="playerWord">{{ player.profile.slogan }}</p>
                     {% if isLogin %}
-                    <a>訊息</a>
+                    <a href="{% url 'chat:room' player.id %}">訊息</a>
                     {% if user|is_following:player %}
                     <button class="playerFollow followToggleBtn" id="followToggleBtn"
                         data-url="{% url 'player:followToggle' %}" data-id="{{ player.id }}">已關注
