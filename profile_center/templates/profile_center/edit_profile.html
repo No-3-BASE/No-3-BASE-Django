@@ -3,6 +3,7 @@
 
 {% block scripts %}
 <script src="{% static 'js/upload_player_photo.js' %}"></script>
+<script src="{% static 'js/upload_player_bg.js' %}"></script>
 <script src="{% static 'js/letter_control.js' %}"></script>
 {% endblock %}
 
@@ -77,6 +78,18 @@
                 <p class="contentDetail">註冊日期　{{ join }}</p>
                 <p class="contentDetail">個性簽名（<span id="charCount">0</span> / 80）</p>
                 <textarea name="slogan" id="sign">{{ profile.slogan }}</textarea>
+                <p class="contentDetail">主頁背景</p>
+                <div id="uploadBackground">
+                    {% if profile.backgroundPhoto %}
+                    <img id="backgroundPhoto" src="{{ profile.backgroundPhoto.url }}" alt="User Photo">
+                    {% else %}
+                    <img id="backgroundPhoto" src="{% static 'assets/images/No3BASE_R.png' %}" alt="Default Photo">
+                    {% endif %}
+                    <div class="bgoverlay">
+                        <label id="uploadbgBtn" for="bgInput">上傳圖片</label>
+                        <input name="bg" type="file" id="bgInput" accept="image/*" hidden>
+                    </div>
+                </div>
         </div>
         </form>
     </div>

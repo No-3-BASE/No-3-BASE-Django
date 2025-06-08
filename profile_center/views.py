@@ -98,6 +98,12 @@ def edit_profile_view(request):
                 default_storage.delete(profile.photo.name)
             profile.photo = photo
 
+        background = request.FILES.get('bg')
+        if background:
+            if profile.backgroundPhoto and default_storage.exists(profile.backgroundPhoto.name):
+                default_storage.delete(profile.backgroundPhoto.name)
+            profile.backgroundPhoto = background
+
         profile.save()
 
         return redirect('profileCenter:playerProfile')

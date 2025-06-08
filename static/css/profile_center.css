@@ -154,6 +154,14 @@ p.shareTitle {
     border-radius: 5px;
 }
 
+#backgroundPhoto {
+    width: 480px;
+    height: 160px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
 p.contentDetail {
     font-size: 0.9rem;
     margin: 0;
@@ -232,6 +240,14 @@ p.gameDetail {
     border-radius: 5px;
 }
 
+#uploadBackground {
+    position: relative;
+    width: 480px;
+    height: 160px;
+    /*overflow: hidden;*/
+    border-radius: 5px;
+}
+
 div.overlay {
     width: 160px;
     height: 160px;
@@ -246,7 +262,25 @@ div.overlay {
     justify-content: center;
 }
 
+div.bgoverlay {
+    width: 480px;
+    height: 160px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--Primary-Color);
+    opacity: 0.5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
 #uploadPhoto:hover div.overlay {
+    display: flex;
+}
+
+#uploadBackground:hover div.bgoverlay {
     display: flex;
 }
 

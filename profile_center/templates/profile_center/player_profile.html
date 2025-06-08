@@ -56,6 +56,12 @@
             <p class="contentDetail">註冊日期　{{ join }}</p>
             <p class="contentDetail">個性簽名</p>
             <p class="contentDetail">{{ profile.slogan }}</p>
+            <p class="contentDetail">主頁背景</p>
+            {% if profile.backgroundPhoto %}
+            <img id="backgroundPhoto" src="{{ profile.backgroundPhoto.url }}" alt="User Photo">
+            {% else %}
+            <img id="backgroundPhoto" src="{% static 'assets/images/No3BASE_R.png' %}" alt="Default Photo">
+            {% endif %}
             <div class="contentTitle">
                 <p class="detailTitle">隱私設定</p>
                 <a class="editA" href="{% url 'profileCenter:editPrivacy' %}">編輯</a>
