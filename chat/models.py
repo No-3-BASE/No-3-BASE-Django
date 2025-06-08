@@ -12,7 +12,7 @@ class ChatRoom(models.Model):
         unique_together = ('playerA', 'playerB')
 
     def __str__(self):
-        return f"Chat between {self.user1.username} and {self.user2.username}"
+        return f"Chat between {self.playerA.username} and {self.playerB.username}"
 
 
 class Message(models.Model):
@@ -25,7 +25,7 @@ class Message(models.Model):
         ordering = ['createAt']
 
     def __str__(self):
-        return f"{self.sender.username}: {self.content[:20]}"
+        return f"{self.room} - {self.sender.username}: {self.content[:20]}"
 
 class MessageDeletion(models.Model):
     room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE)
@@ -34,3 +34,6 @@ class MessageDeletion(models.Model):
     
     class Meta:
         unique_together = ('room', 'player')
+
+    def __str__(self):
+        return f"{self.room} - {self.player} deleted from {self.deleted}"

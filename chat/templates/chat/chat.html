@@ -40,7 +40,7 @@
                 </div>
                 <div class="line"></div>
                 <p class="chatDate">2025-05-13</p>
-                <div class="chatGroup hide-scrollbar">
+                <div id="chatBox" class="chatGroup hide-scrollbar">
                     <div class="chatContentLeftBox">
                         <p class="chatContentLeft">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
                             nam porro ea praesentium iure. Distinctio beatae sit cumque sint officiis repellat
@@ -61,6 +61,107 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const playerId = "{{ player.id }}";
+
+            //建立 WebSocket 連線
+            const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
+            const chatSocket = new WebSocket(`${wsScheme}://${window.location.host}/ws/chat/${playerId}/`);
+
+            const chatGroup = document.querySelector('.chatGroup');
+            const textarea = document.getElementById('smallTextarea');
+            const sendBtn = document.querySelector('.inputBtn');
+
+            //接收後端訊息，更新聊天視窗
+            chatSocket.onmessage = function (e) {
+                const data = JSON.parse(e.data);
+                const message = data.message;
+                const username = data.username;
+                const time = data.time;
+
+                //建立訊息 HTML，左右區分
+                let messageBox = document.createElement('div');
+                if (username === selfUsername) {
+                    messageBox.className = 'chatContentRightBox';
+                    messageBox.innerHTML = `
+                <p class="chatTime">${time}</p>
+                <p class="chatContentRight">${message}</p>
+            `;
+                } else {
+                    messageBox.className = 'chatContentLeftBox';
+                    messageBox.innerHTML = `
+                <p class="chatContentLeft">${message}</p>
+                <p class="chatTime">${time}</p>
+            `;
+                }
+
+                chatGroup.appendChild(messageBox);
+                // 滾動到最新訊息
+                chatGroup.scrollTop = chatGroup.scrollHeight;
+            };
+
+            // 送出訊息
+            sendBtn.addEventListener('click', () => {
+                const message = textarea.value.trim();
+                if (message === '') return;
+
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
+
+                textarea.value = '';
+                textarea.focus();
+            });
+
+            // 按下 Enter 也送出（Shift+Enter 換行）
+            textarea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendBtn.click();
+                }
+            });
+
+            chatSocket.onclose = function (e) {
+                console.error('聊天連線已關閉');
+            };
+
+            //歷史記錄
+            let currentPage = 1;
+            let hasNext = true;
+            const chatBox = document.getElementById("chatBox");
+
+            chatBox.addEventListener('scroll', () => {
+                if (chatBox.scrollTop === 0 && hasNext) {
+                    loadMessages();
+                }
+            });
+
+            function loadMessages() {
+                fetch(`/chat/history/player/${playerId}/?page=${currentPage}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        hasNext = data.has_next;
+                        currentPage += 1;
+                        const oldHeight = chatBox.scrollHeight;
+
+                        data.messages.forEach(msg => {
+                            const el = document.createElement('div');
+                            el.innerHTML = `<div class="${msg.sender === "{{ player.username }}" ? 'chatContentLeftBox' : 'chatContentRightBox'}">
+                                                <p class="chatTime">${msg.timestamp}</p>
+                                                <p class="${msg.sender === "{{ player.username }}" ? 'chatContentLeft' : 'chatContentRight'}">${msg.content}</p>
+                                            </div>`;
+                            chatBox.prepend(el);
+                        });
+
+                        chatBox.scrollTop = chatBox.scrollHeight - oldHeight;
+                    });
+            }
+
+            loadMessages();
+        });
+    </script>
 </body>
 
 </html>
