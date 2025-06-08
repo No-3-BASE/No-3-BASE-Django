@@ -78,6 +78,11 @@
         </div>
         {% if isArticle %}
         <div id="articles">
+            {% if show.privacy == 'private' and user != player %}
+            <p class="alert">{{ player.first_name }} 的 {{ show.type }} 不公開</p>
+            {% elif show.privacy == 'fans' and not user|is_following:player and user != player %}
+            <p class="alert">{{ player.first_name }} 的 {{ show.type }} 僅向粉絲公開</p>
+            {% else %}
             {% for article in articles %}
             <div class="perArticle">
                 <p class="basicInfo">
@@ -102,7 +107,13 @@
             </div>
             {% endfor %}
         </div>
+        {% endif %}
         {% elif isFollower %}
+        {% if show.privacy == 'private' and user != player %}
+        <p class="alert">{{ player.first_name }} 的 {{ show.type }} 不公開</p>
+        {% elif show.privacy == 'fans' and user|is_following:player and user != player %}
+        <p class="alert">{{ player.first_name }} 的 {{ show.type }} 僅向粉絲公開</p>
+        {% else %}
         {% for follow in follows %}
         <div class="follow">
             <a class="f" href="{% url 'player:profile' follow.following.id %}">
@@ -127,6 +138,12 @@
         </div>
         <div class="line"></div>
         {% endfor %}
+        {% endif %}
+        {% else %}
+        {% if show.privacy == 'private' and user != player %}
+        <p class="alert">{{ player.first_name }} 的 {{ show.type }} 不公開</p>
+        {% elif show.privacy == 'fans' and not user|is_following:player and user != player %}
+        <p class="alert">{{ player.first_name }} 的 {{ show.type }} 僅向粉絲公開</p>
         {% else %}
         {% for follow in follows %}
         <div class="follow">
@@ -152,6 +169,7 @@
         </div>
         <div class="line"></div>
         {% endfor %}
+        {% endif %}
         {% endif %}
     </div>
 </body>

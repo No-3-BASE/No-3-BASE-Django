@@ -43,6 +43,19 @@ class Profile(models.Model):
     expToNext = models.IntegerField(default=70)
     progressPercent = models.FloatField(default=0.0)
 
+    VISIBILITY_CHOICES = [
+        ('public', '公開'),
+        ('fans', '僅限粉絲'),
+        ('private', '私人'),
+    ]
+
+    post_visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='public')
+    bookmark_visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='public')
+    comment_visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='public')
+    like_visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='public')
+    followers_visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='public')
+    following_visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='public')
+
     #登入天數
     @property
     def signupDays(self):

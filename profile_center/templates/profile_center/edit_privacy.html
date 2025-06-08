@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block scripts %}
-<script src="{% static 'js/upload_player_photo.js' %}"></script>
 {% endblock %}
 
 {% block title %}資料節點—隱私設定{% endblock %}
@@ -11,15 +10,15 @@
 <div id="playerCenter">
     <div id="playerProfile">
         <div id="playerDetail">
-            <img src="assets/images/photo_r.jpg" alt="">
-            <p id="playerName">一名神秘論壇用戶<span>Lv. 5</span></p>
-            <p id="playerDays">進入基地　<span>180</span>　天</p>
+            {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="User Photo">
+            {% else %}
+            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+            {% endif %}
+            <p id="playerName">{{ name }}<span>Lv. {{ profile.level }}</span></p>
+            <p id="playerDays">進入基地　<span>{{ profile.signupDays }}</span>　天</p>
             <p id="playerSign">個性簽名</p>
-            <p>
-                山高路遠ABCDE
-                <br>
-                山高路遠ABCDE
-            </p>
+            <p>{{ profile.slogan }}</p>
             <div id="playerTool">
                 <div class="line"></div>
                 <a class="active" href="{% url 'profileCenter:playerProfile' %}">基本資料</a>
@@ -38,52 +37,79 @@
         </div>
     </div>
     <div id="playerContent">
-        <div class="innerContent">
-            <div class="contentTitle">
-                <p class="detailTitle">隱私設定</p>
-                <button class="editBtn">儲存</button>
+        <form method="post" action="{% url 'profileCenter:editPrivacy' %}">
+            {% csrf_token %}
+            <div class="innerContent">
+                <div class="contentTitle">
+                    <p class="detailTitle">隱私設定</p>
+                    <button class="editBtn" type="submit">儲存</button>
+                </div>
+                <p class="contentSelect">
+                    文章
+                    <select class="privateProfile" name="post_visibility">
+                        <option value="public" {% if profile.post_visibility == 'public' %}selected{% endif %}>公開
+                        </option>
+                        <option value="fans" {% if profile.post_visibility == 'fans' %}selected{% endif %}>僅限粉絲</option>
+                        <option value="private" {% if profile.post_visibility == 'private' %}selected{% endif %}>私人
+                        </option>
+                    </select>
+                </p>
+                <p class="contentSelect">
+                    收藏
+                    <select class="privateProfile" name="bookmark_visibility">
+                        <option value="public" {% if profile.bookmark_visibility == 'public' %}selected{% endif %}>公開
+                        </option>
+                        <option value="fans" {% if profile.bookmark_visibility == 'fans' %}selected{% endif %}>僅限粉絲
+                        </option>
+                        <option value="private" {% if profile.bookmark_visibility == 'private' %}selected{% endif %}>私人
+                        </option>
+                    </select>
+                </p>
+                <p class="contentSelect">
+                    留言
+                    <select class="privateProfile" name="comment_visibility">
+                        <option value="public" {% if profile.comment_visibility == 'public' %}selected{% endif %}>公開
+                        </option>
+                        <option value="fans" {% if profile.comment_visibility == 'fans' %}selected{% endif %}>僅限粉絲
+                        </option>
+                        <option value="private" {% if profile.comment_visibility == 'private' %}selected{% endif %}>私人
+                        </option>
+                    </select>
+                </p>
+                <p class="contentSelect">
+                    按讚
+                    <select class="privateProfile" name="like_visibility">
+                        <option value="public" {% if profile.like_visibility == 'public' %}selected{% endif %}>公開
+                        </option>
+                        <option value="fans" {% if profile.like_visibility == 'fans' %}selected{% endif %}>僅限粉絲</option>
+                        <option value="private" {% if profile.like_visibility == 'private' %}selected{% endif %}>私人
+                        </option>
+                    </select>
+                </p>
+                <p class="contentSelect">
+                    關注列表
+                    <select class="privateProfile" name="following_visibility">
+                        <option value="public" {% if profile.following_visibility == 'public' %}selected{% endif %}>公開
+                        </option>
+                        <option value="fans" {% if profile.following_visibility == 'fans' %}selected{% endif %}>僅限粉絲
+                        </option>
+                        <option value="private" {% if profile.following_visibility == 'private' %}selected{% endif %}>私人
+                        </option>
+                    </select>
+                </p>
+                <p class="contentSelect">
+                    粉絲列表
+                    <select class="privateProfile" name="followers_visibility">
+                        <option value="public" {% if profile.followers_visibility == 'public' %}selected{% endif %}>公開
+                        </option>
+                        <option value="fans" {% if profile.followers_visibility == 'fans' %}selected{% endif %}>僅限粉絲
+                        </option>
+                        <option value="private" {% if profile.followers_visibility == 'private' %}selected{% endif %}>私人
+                        </option>
+                    </select>
+                </p>
             </div>
-            <p class="contentSelect">
-                文章
-                <select class="privateProfile" name="">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-            </p>
-            <p class="contentSelect">
-                留言
-                <select class="privateProfile" name="">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-            </p>
-            <p class="contentSelect">
-                按讚
-                <select class="privateProfile" name="">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-            </p>
-            <p class="contentSelect">
-                粉絲列表
-                <select class="privateProfile" name="">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-            </p>
-            <p class="contentSelect">
-                關注列表
-                <select class="privateProfile" name="">
-                    <option value="">公開</option>
-                    <option value="">僅限粉絲</option>
-                    <option value="">私人</option>
-                </select>
-            </p>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock %}

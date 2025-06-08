@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
@@ -21,7 +21,9 @@ def chat_list_view(request):
     for room in rooms:
         message = Message.objects.filter(room=room).order_by('-createAt').first()
         player = room.playerA if room.playerB == user else room.playerB
-        chatRooms.append({'message': message, 'player': player, 'sender': False if message.sender == user else True})
+
+        if message:
+            chatRooms.append({'message': message, 'player': player, 'sender': False if message.sender == user else True})
 
     print(message)
     print(player)
@@ -33,6 +35,10 @@ def chat_list_view(request):
 @login_required
 def chatroom_view(request, player_id):
     player = get_object_or_404(User, pk=player_id)
+
+    if player == request.user:
+        return redirect('chat:list')
+    
     return render(request, 'chat/chat.html', {
         'player': player
     })
@@ -70,7 +76,7 @@ def chat_history(request, player_id):
 
     messages = [{
         'id': msg.id,
-        'sender': msg.sender.username if msg.sender else "System",
+        'sender': msg.sender.username if msg.sender else None,
         'content': msg.content,
         'timestamp': (msg.createAt + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')
     } for msg in current_page.object_list]
@@ -143,7 +149,7 @@ def load_latest(request, player_id):
 
     messages = [{
         'id': msg.id,
-        'sender': msg.sender.username if msg.sender else "System",
+        'sender': msg.sender.username if msg.sender else None,
         'content': msg.content,
         'timestamp': (msg.createAt + timedelta(hours=8)).strftime('%Y-%m-%d %H:%M')  # +8小時時區修正
     } for msg in messages_qs]

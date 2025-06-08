@@ -37,7 +37,39 @@ def player_profile_view(request):
 #編輯隱私
 @login_required
 def edit_privacy_view(request):
-    return render(request, 'profile_center/edit_privacy.html')
+    user = request.user
+
+    try:
+        profile = Profile.objects.get(player=user)
+    except Profile.DoesNotExist:
+        profile = None
+
+    if request.method == 'POST':
+        post_visibility = request.POST.get('post_visibility')
+        bookmark_visibility = request.POST.get('bookmark_visibility')
+        comment_visibility = request.POST.get('comment_visibility')
+        like_visibility = request.POST.get('like_visibility')
+        followers_visibility = request.POST.get('followers_visibility')
+        following_visibility = request.POST.get('following_visibility')
+
+        profile.post_visibility = post_visibility
+        profile.bookmark_visibility = bookmark_visibility
+        profile.comment_visibility = comment_visibility
+        profile.like_visibility = like_visibility
+        profile.followers_visibility = followers_visibility
+        profile.following_visibility = following_visibility
+
+        profile.save()
+
+        return redirect('profileCenter:playerProfile')
+        
+    return render(request, 'profile_center/edit_privacy.html',{
+        'name': user.first_name,
+        'account': user.username,
+        'email': user.email,
+        'join': user.date_joined.strftime('%Y-%m-%d'),
+        'profile': profile
+    })
 
 #編輯資料
 @login_required

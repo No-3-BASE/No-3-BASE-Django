@@ -394,3 +394,7 @@ button.isfollow {
     border: 1px solid var(--Contrast-Color);
     border-radius: 3px;
 }
+
+p.alert {
+    font-size: 0.9rem;
+}

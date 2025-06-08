@@ -26,17 +26,26 @@
                     <button type="button">全部已讀</button>
                 </div>
                 <div class="messageContainer hide-scrollbar">
-                    <div class="line"></div>
-                    <a href="">
+                    <div class="line toolLine"></div>
+                    {% for item in toolBar.chatRooms %}
+                    {% with message=item.message player=item.player sender=item.sender %}
+                    <a href="{% url 'chat:room' player.id %}">
                         <div class="perMessage">
-                            <img src="assets/images/photo_r.jpg" alt="">
+                            {% if player.profile.photo %}
+                            <img src="{{ player.profile.photo.url }}" alt="User Photo">
+                            {% else %}
+                            <img src="{% static 'assets/images/No3BASE.png' %}" alt="Default Photo">
+                            {% endif %}
                             <div class="perMessageDetail">
-                                <p><span>神秘論壇用戶名稱</span><span>2025-05-09 23:59</span></p>
-                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
+                                <p><span>{{ player.first_name }}</span><span>{{ message.createAt|date:"Y-m-d H:i" }}</span>
+                                </p>
+                                <p>{{ message.content }}</p>
                             </div>
                         </div>
-                        <div class="line"></div>
                     </a>
+                    <div class="line toolLine"></div>
+                    {% endwith %}
+                    {% endfor %}
                     <!--
                     <a href="">
                         <div class="perMessage">
@@ -52,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="message" href="">
+        <div class="message">
             <a href="{% url 'notification:list' %}"><img id="noticeImg" class="toolImg"></a>
             <div id="noticeExpand" class="messageExpand">
                 <div class="messageExpandButton">
@@ -60,7 +69,7 @@
                     <button type="button">全部已讀</button>
                 </div>
                 <div id="noticeContainer" class="messageContainer hide-scrollbar">
-                    <div class="line"></div>
+                    <div class="line toolLine"></div>
                     {% for notify in toolBar.notifies %}
                     <a
                         href="{% url 'section:article' notify.comment.article.section.id notify.comment.article.id %}#{{notify.comment.id}}">
@@ -71,18 +80,7 @@
                             </div>
                         </div>
                     </a>
-                    <div class="line"></div>
-                    <!--
-                    <a href="">
-                        <div class="perNotice">
-                            <div class="perNoticeDetail">
-                                <p>一名神秘論壇用戶回覆了你的文章</p>
-                                <p>一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="line"></div>
-                    -->
+                    <div class="line toolLine"></div>
                     {% endfor %}
                 </div>
             </div>

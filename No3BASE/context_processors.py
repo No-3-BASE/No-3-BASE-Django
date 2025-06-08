@@ -1,7 +1,9 @@
 from datetime import datetime, timezone
+from django.db.models import Q
 from player.models import Profile
 from notification.models import Notification
 from article.models import Article
+from chat.models import ChatRoom, Message
 import math
 
 def toolbar_context(request):
@@ -20,9 +22,19 @@ def toolbar_context(request):
             profile = None
 
         try:
-            notifies = Notification.objects.filter(recipient=user)[:20]
+            notifies = Notification.objects.filter(recipient=user).order_by('-createAt')[:20]
         except Notification.DoesNotExist:
             notifies = None
+
+        rooms = ChatRoom.objects.filter(Q(playerA=user) | Q(playerB=user)).order_by('-createAt')[:10]
+
+        chatRooms = []
+
+        for room in rooms:
+            message = Message.objects.filter(room=room).order_by('-createAt').first()
+            player = room.playerA if room.playerB == user else room.playerB
+            if message:
+                chatRooms.append({'message': message, 'player': player, 'sender': False if message.sender == user else True})
 
         article_count = Article.objects.filter(author=user, status='published').count()
 
@@ -33,7 +45,8 @@ def toolbar_context(request):
                 'id': user.id,
                 'name': user.first_name,
                 'profile': profile,
-                'article': article_count
+                'article': article_count,
+                'chatRooms': chatRooms
             }
         }
     
@@ -44,6 +57,7 @@ def toolbar_context(request):
             'id': None,
             'name': "訪客",
             'profile': None,
-            'article': None
+            'article': None,
+            'chatRooms': None
         }
     }

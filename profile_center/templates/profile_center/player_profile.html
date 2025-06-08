@@ -42,10 +42,7 @@
         <div class="innerContent">
             <div class="contentTitle">
                 <p class="detailTitle">基本資料</p>
-                <div class="buttonGroup">
-                    <a class="editA" href="{% url 'profileCenter:editPrivacy' %}">隱私</a>
-                    <a class="editA" href="{% url 'profileCenter:editProfile' %}">編輯</a>
-                </div>
+                <a class="editA" href="{% url 'profileCenter:editProfile' %}">編輯</a>
             </div>
             {% if profile.photo %}
             <img id="profilePhoto" src="{{ profile.photo.url }}" alt="User Photo">
@@ -59,6 +56,16 @@
             <p class="contentDetail">註冊日期　{{ join }}</p>
             <p class="contentDetail">個性簽名</p>
             <p class="contentDetail">{{ profile.slogan }}</p>
+            <div class="contentTitle">
+                <p class="detailTitle">隱私設定</p>
+                <a class="editA" href="{% url 'profileCenter:editPrivacy' %}">編輯</a>
+            </div>
+            <p class="contentDetail">文章　{{ profile.get_post_visibility_display }}</p>
+            <p class="contentDetail">收藏　{{ profile.get_bookmark_visibility_display }}</p>
+            <p class="contentDetail">留言　{{ profile.get_comment_visibility_display }}</p>
+            <p class="contentDetail">按讚　{{ profile.get_like_visibility_display }}</p>
+            <p class="contentDetail">關注列表　{{ profile.get_following_visibility_display }}</p>
+            <p class="contentDetail">粉絲列表　{{ profile.get_followers_visibility_display }}</p>
             <div class="contentTitle">
                 <p class="detailTitle">遊戲資料</p>
                 <div class="buttonGroup">

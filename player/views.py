@@ -241,28 +241,34 @@ def profile_view(request, player_id):
             articles = Article.objects.filter(author=player, status='published').order_by('-publishAt')
         if order == "hot":
             articles = Article.objects.filter(author=player, status='published').order_by('-hot')
+        show = {'type': '文章', 'privacy': player.profile.post_visibility}
     elif sort == "bookmarks":
         if order == "time":
             articles = Article.objects.filter(status='published', favorites__player=player).order_by('-publishAt')
         if order == "hot":
             articles = Article.objects.filter(status='published', favorites__player=player).order_by('-hot')
+        show = {'type': '收藏', 'privacy': player.profile.bookmark_visibility}
     elif sort == "comments":
         if order == "time":
             articles = Article.objects.filter(status='published', comments__author=player).distinct().order_by('-publishAt')
         if order == "hot":
             articles = Article.objects.filter(status='published', comments__author=player).distinct().order_by('-hot')
+        show = {'type': '留言', 'privacy': player.profile.comment_visibility}
     elif sort == "likes":
         if order == "time":
             articles = Article.objects.filter(status='published', likes__player=player).distinct().order_by('-publishAt')
         if order == "hot":
             articles = Article.objects.filter(status='published', likes__player=player).distinct().order_by('-hot')
+        show = {'type': '按讚', 'privacy': player.profile.like_visibility}
     elif sort == "following":
         isArticle = False
         follows = Follow.objects.filter(follower=player)
+        show = {'type': '關注列表', 'privacy': player.profile.following_visibility}
     elif sort == "follower":
         isArticle = False
         isFollower = False
         follows = Follow.objects.filter(following=player)
+        show = {'type': '粉絲列表', 'privacy': player.profile.followers_visibility}
 
     return render(request, 'player/player_profile.html', {
         'isLogin': request.user.is_authenticated,
@@ -273,7 +279,8 @@ def profile_view(request, player_id):
         'isFollower': isFollower,
         'articles': articles,
         'follows': follows,
-        'comment': comment_count
+        'comment': comment_count,
+        'show': show
     })
 
 #遊戲分享卡
