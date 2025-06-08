@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/global_color.css' %}">
     <link rel="stylesheet" href="{% static 'css/global.css' %}">
     <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-    <script src="{% static 'js/agree_consent_form.js' %}"></script>
     <script src="{% static 'js/theme_toggle.js' %}" defer></script>
     <script src="{% static 'js/section_btnmenu.js' %}"></script>
     <link rel="icon" href="{% static 'assets/images/No3BASEIcon.ico' %}" type="image/x-icon">
@@ -39,8 +38,8 @@
                     </div>
                 </div>
                 <div class="line"></div>
-                <p class="chatDate">2025-05-13</p>
                 <div id="chatBox" class="chatGroup hide-scrollbar">
+                    <!--<p class="chatDate">2025-05-13</p>
                     <div class="chatContentLeftBox">
                         <p class="chatContentLeft">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
                             nam porro ea praesentium iure. Distinctio beatae sit cumque sint officiis repellat
@@ -52,12 +51,12 @@
                         <p class="chatContentRight">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id,
                             sapiente. Recusandae excepturi dicta harum dolorem animi. Porro ipsa praesentium laudantium
                             amet, ipsum modi quo tempora similique provident distinctio, earum laborum.</p>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="inputTool">
                 <textarea id="smallTextarea" class="hide-scrollbar" name="" id=""></textarea>
-                <button class="inputBtn">送出</button>
+                <button id="sendBtn" class="inputBtn">送出</button>
             </div>
         </div>
     </div>
@@ -65,102 +64,152 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const playerId = "{{ player.id }}";
-
-            //建立 WebSocket 連線
-            const wsScheme = window.location.protocol === "https:" ? "wss" : "ws";
-            const chatSocket = new WebSocket(`${wsScheme}://${window.location.host}/ws/chat/${playerId}/`);
-
-            const chatGroup = document.querySelector('.chatGroup');
-            const textarea = document.getElementById('smallTextarea');
-            const sendBtn = document.querySelector('.inputBtn');
-
-            //接收後端訊息，更新聊天視窗
-            chatSocket.onmessage = function (e) {
-                const data = JSON.parse(e.data);
-                const message = data.message;
-                const username = data.username;
-                const time = data.time;
-
-                //建立訊息 HTML，左右區分
-                let messageBox = document.createElement('div');
-                if (username === selfUsername) {
-                    messageBox.className = 'chatContentRightBox';
-                    messageBox.innerHTML = `
-                <p class="chatTime">${time}</p>
-                <p class="chatContentRight">${message}</p>
-            `;
-                } else {
-                    messageBox.className = 'chatContentLeftBox';
-                    messageBox.innerHTML = `
-                <p class="chatContentLeft">${message}</p>
-                <p class="chatTime">${time}</p>
-            `;
-                }
-
-                chatGroup.appendChild(messageBox);
-                // 滾動到最新訊息
-                chatGroup.scrollTop = chatGroup.scrollHeight;
-            };
-
-            // 送出訊息
-            sendBtn.addEventListener('click', () => {
-                const message = textarea.value.trim();
-                if (message === '') return;
-
-                chatSocket.send(JSON.stringify({
-                    'message': message
-                }));
-
-                textarea.value = '';
-                textarea.focus();
-            });
-
-            // 按下 Enter 也送出（Shift+Enter 換行）
-            textarea.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendBtn.click();
-                }
-            });
-
-            chatSocket.onclose = function (e) {
-                console.error('聊天連線已關閉');
-            };
-
-            //歷史記錄
-            let currentPage = 1;
-            let hasNext = true;
+            const playerUsername = "{{ player.username }}";
             const chatBox = document.getElementById("chatBox");
 
-            chatBox.addEventListener('scroll', () => {
-                if (chatBox.scrollTop === 0 && hasNext) {
-                    loadMessages();
-                }
-            });
+            const textarea = document.getElementById("smallTextarea");
+            const sendBtn = document.getElementById("sendBtn");
 
+            let lastMessageId = 0;
+            let currentPage = 1;
+            let hasNext = true;
+            const shownMessageIds = new Set(); // 避免重複顯示訊息
+
+            let lastDate = ''
+            let nextDate = ''
+
+            // 取得 CSRF Token
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let cookie of cookies) {
+                        cookie = cookie.trim();
+                        if (cookie.startsWith(name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            // 加入訊息到畫面（避免重複）
+            function appendMessage(msg, toBottom = true) {
+                if (shownMessageIds.has(msg.id)) return;
+                shownMessageIds.add(msg.id);
+
+                const box = document.createElement('div');
+                const isSelf = msg.sender === playerUsername;
+
+                box.className = isSelf ? 'chatContentLeftBox' : 'chatContentRightBox';
+
+                const timeP = document.createElement('p');
+                timeP.className = 'chatTime';
+                timeP.textContent = msg.timestamp.slice(11, 16);
+
+                const contentP = document.createElement('p');
+                contentP.className = isSelf ? 'chatContentLeft' : 'chatContentRight';
+                contentP.innerText = msg.content;
+
+                if (isSelf) {
+                    box.appendChild(contentP);
+                    box.appendChild(timeP);
+                } else {
+                    box.appendChild(timeP);
+                    box.appendChild(contentP);
+                }
+
+                if (toBottom) {
+                    chatBox.appendChild(box);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                } else {
+                    chatBox.prepend(box);
+                }
+            }
+
+            // 載入最新訊息
+            function loadNewMessages() {
+                fetch(`/chat/latest/player/${playerId}/?after_id=${lastMessageId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.messages.length > 0) {
+                            data.messages.forEach(msg => {
+                                if (nextDate != msg.timestamp.slice(0, 10) && nextDate != '') {
+                                    nextDate = msg.timestamp.slice(0, 10)
+                                    const date = document.createElement('p');
+                                    date.className = 'chatDate'
+                                    date.innerText = "N" + nextDate
+                                    chatBox.appendChild(date);
+                                }
+                                appendMessage(msg, true);
+                                lastMessageId = Math.max(lastMessageId, msg.id);
+                            });
+                        }
+                    });
+            }
+
+            // 載入歷史訊息
             function loadMessages() {
                 fetch(`/chat/history/player/${playerId}/?page=${currentPage}`)
                     .then(res => res.json())
                     .then(data => {
                         hasNext = data.has_next;
                         currentPage += 1;
-                        const oldHeight = chatBox.scrollHeight;
 
-                        data.messages.forEach(msg => {
-                            const el = document.createElement('div');
-                            el.innerHTML = `<div class="${msg.sender === "{{ player.username }}" ? 'chatContentLeftBox' : 'chatContentRightBox'}">
-                                                <p class="chatTime">${msg.timestamp}</p>
-                                                <p class="${msg.sender === "{{ player.username }}" ? 'chatContentLeft' : 'chatContentRight'}">${msg.content}</p>
-                                            </div>`;
-                            chatBox.prepend(el);
+                        const oldHeight = chatBox.scrollHeight;
+                        // 注意順序要 reverse 成時間從早到晚
+                        data.messages.reverse().forEach(msg => {
+                            if (lastDate != msg.timestamp.slice(0, 10) && lastDate != '') {
+                                lastDate = msg.timestamp.slice(0, 10)
+                                const date = document.createElement('p');
+                                date.className = 'chatDate'
+                                date.innerText = "H" + lastDate
+                                chatBox.appendChild(date);
+                            }
+                            appendMessage(msg, false);
                         });
 
                         chatBox.scrollTop = chatBox.scrollHeight - oldHeight;
                     });
             }
 
+            // 送出訊息
+            sendBtn.addEventListener('click', () => {
+                const content = textarea.value.trim();
+                if (!content) return;
+
+                fetch(`/chat/send/player/${playerId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ content })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.success) {
+                            textarea.value = '';
+                            loadNewMessages();
+                        } else {
+                            alert('送出失敗');
+                        }
+                    });
+            });
+
+            // 上滑載入歷史訊息
+            chatBox.addEventListener('scroll', () => {
+                if (chatBox.scrollTop === 0 && hasNext) {
+                    loadMessages();
+                }
+            });
+
+            // 初始化載入
             loadMessages();
+            setInterval(loadNewMessages, 3000);
         });
+
     </script>
 </body>
 
