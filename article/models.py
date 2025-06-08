@@ -72,21 +72,6 @@ class Comment(models.Model):
             self.floor = last_floor + 1
         super().save(*args, **kwargs)
 
-#按讚
-'''class Like(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    contentType = models.ForeignKey(ContentType, on_delete=models.CASCADE)
-    objectId = models.UUIDField()
-    contentObject = GenericForeignKey('contentType', 'objectId')
-    createAt = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('player', 'contentType', 'objectId')
-
-    def __str__(self):
-        return f"{self.player.first_name} - {self.contentObject}"'''
-
 class Like(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     player = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='likes')

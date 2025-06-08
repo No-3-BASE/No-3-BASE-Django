@@ -30,7 +30,8 @@
                 {% csrf_token %}
                 <div class="top">
                     <p class="itemTitle">板塊類別</p>
-                    <a href="{% url 'article:previewDraft' article.id %}" class="previewArticle">文章預覽</a>
+                    {% if article %}<a href="{% url 'article:previewDraft' article.id %}"
+                        class="previewArticle">文章預覽</a>{% endif %}
                 </div>
                 <div class="inputFields">
                     <div class="field-container">
