@@ -99,8 +99,8 @@ def consent_form_view(request):
     userId = request.session.get('tempUserId')
 
     #攔截非註冊進入
-    #if not userId:
-    #    return redirect('signup')
+    if not userId:
+        return redirect('signup')
     
     user = User.objects.get(pk = userId)
 
@@ -118,6 +118,8 @@ def consent_form_view(request):
         send_mail(mailSubject, message, 'BASE 03 控管中心 <no3base.notify@gmail.com>', [user.email], html_message=message)
         print("成功寄送驗證")
 
+        request.session['signupEmail'] = True
+
     if request.method == 'POST':
         print("收到POST請求")
         
@@ -129,7 +131,6 @@ def consent_form_view(request):
 
         nextUrl = request.session.pop('postConsentRedirect', '/player/login')
         return redirect(nextUrl)
-        #return redirect('player:login')
     
     #設定協調時間
     zuluTime = user.date_joined.strftime("ZULU TIME %Y.%m.%d | %H:%M")
