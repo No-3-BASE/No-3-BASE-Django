@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'notification',
     'chat',
     'profile_center',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
